@@ -140,3 +140,6 @@ INSERT INTO ratings (user_id, restaurant_id, rating)
 VALUES (1, 1, 4);
 
 select * from ratings;
+
+ALTER TABLE public.users
+ALTER COLUMN address DROP NOT NULL;
