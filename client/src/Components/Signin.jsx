@@ -13,19 +13,19 @@ import {
   FormControlLabel,
   Stack,
 } from "@mui/material";
+import Login from "./Log";
 import img from "../assets/img1.jpg";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 // import { Checkbox } from "@mui/icons-material";
 import { Checkbox } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 // import {ForgotPassword} from "./ForgotPassword"
 
 const BoxStyle = styled(Box)`
-  margin: 20vh 12vh; /* Set your desired percentage margin here */
+  margin: 5vh 12vh; /* Set your desired percentage margin here */
   border-radius: 2px;
-  height: 60vh; /* Set your desired percentage height here */
+  height: 100vh; /* Set your desired percentage height here */
   background: #fff;
   color: #2874f0;
   box-shadow: 0 2px 4px 1px rgb(0 0 0 / 40%);
@@ -58,8 +58,7 @@ const responsiveStyles = {
 
 const imageURL = "images/img1.jpg";
 
-export default function Login() {
-  const [remember, setRemember] = useState(false);
+export default function SignIn() {
   const navigate = useNavigate();
 
   return (
@@ -72,7 +71,7 @@ export default function Login() {
               style={{
                 backgroundImage: `url(${img})`,
                 backgroundSize: "cover",
-                height: "60vh",
+                height: "100vh",
                 color: "blue",
               }}
             ></Box>
@@ -91,7 +90,7 @@ export default function Login() {
                 <Box height={20} />
                 <Box sx={center}>
                   <Typography component="h1" variant="h4">
-                    Login
+                    Register
                   </Typography>
                 </Box>
                 <Box height={35}></Box>
@@ -102,12 +101,61 @@ export default function Login() {
                       d="username"
                       name="username"
                       label="Username"
-                      autoComplete="usern ame"
+                      autoComplete="username"
                       required
                       fullWidth
                     ></TextField>
                   </Grid>
-                  <Box height={10}></Box>
+                  <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
+                    <TextField
+                      i
+                      d="name"
+                      name="name"
+                      label="Name"
+                      required
+                      fullWidth
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
+                    <TextField
+                      i
+                      d="mobile_number"
+                      name="mobile_number"
+                      label="Mobile number"
+                      required
+                      fullWidth
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
+                    <TextField
+                      i
+                      d="email"
+                      name="email"
+                      label="email"
+                      required
+                      fullWidth
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
+                    <TextField
+                      i
+                      d="dob"
+                      name="dob"
+                      label="DOB"
+                      required
+                      fullWidth
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
+                    <TextField
+                      i
+                      d="city"
+                      name="city"
+                      label="City"
+                      required
+                      fullWidth
+                    ></TextField>
+                  </Grid>
                   <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
                     <TextField
                       i
@@ -119,26 +167,6 @@ export default function Login() {
                     ></TextField>
                   </Grid>
 
-                  <Grid item xs={12} sx={{ ml: "3em", mr: "2em" }}>
-                    <Stack direction="row" spacing={2}>
-                      <FormControlLabel
-                        sx={{ width: "60%" }}
-                        onClick={() => setRemember(!remember)}
-                        control={<Checkbox checked={remember} />}
-                        label="Remember me"
-                      />
-                      <Typography
-                        variant="body1"
-                        component="span"
-                        onClick={() => {
-                          navigate("/resetpassword");
-                        }}
-                        style={{ marginTop: "10px", cursor: "pointer" }}
-                      >
-                        Forgot Password?
-                      </Typography>
-                    </Stack>
-                  </Grid>
                   <Grid item xs={12} sx={{ ml: "3em", mr: "5em" }}>
                     <Button
                       variant="contained"
@@ -153,11 +181,13 @@ export default function Login() {
                         minwidth: "170px",
                         backgroundColor: "#000",
                       }}
+                      onClick={() => {
+                        navigate("/login");
+                      }}
                     >
-                      Login
+                      Register
                     </Button>
                   </Grid>
-
                   <Grid item xs={12} sx={{ ml: "3em", mr: "2em" }}>
                     <Stack direction="row" spacing={2}>
                       <Typography
@@ -165,14 +195,14 @@ export default function Login() {
                         component="span"
                         style={{ marginTop: "10px", cursor: "pointer" }}
                       >
-                        Not yet Registered?
+                        Already Having An Account?
                       </Typography>
 
                       <Typography
                         variant="body1"
                         component="span"
                         onClick={() => {
-                          navigate("/signin");
+                          navigate("/login");
                         }}
                         style={{
                           marginTop: "10px",
@@ -180,7 +210,7 @@ export default function Login() {
                           color: "gray",
                         }}
                       >
-                        Register Now
+                        Login
                       </Typography>
                     </Stack>
                   </Grid>
