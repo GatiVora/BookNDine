@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Grid,
@@ -25,23 +25,21 @@ import { useNavigate } from "react-router-dom";
 const BoxStyle = styled(Box)`
   margin: 5vh 12vh; /* Set your desired percentage margin here */
   border-radius: 2px;
-  height: 100vh; /* Set your desired percentage height here */
+  height: 120vh; /* Set your desired percentage height here */
   background: #fff;
   color: #2874f0;
   box-shadow: 0 2px 4px 1px rgb(0 0 0 / 40%);
+
+  @media (max-width: 1000px) {
+    height: 0vh; /* Set a different height for smaller screens */
+  }
 `;
+
 const center = {
   position: "relative",
   top: "50%",
   left: "35%",
 };
-
-// const Image = styled('img')({
-//     width: 250,
-//     margin: 'auto',
-//     display: 'block',
-//     padding: '50px 0 0'
-// })
 
 const darktheme = createTheme({
   palette: {
@@ -60,6 +58,44 @@ const imageURL = "images/img1.jpg";
 
 export default function SignIn() {
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    username: "",
+    name: "",
+    mobile_number: "",
+    email: "",
+    dob: "",
+    city: "",
+    password: "",
+  });
+
+  const [formErrors, setFormErrors] = useState({
+    username: "",
+    name: "",
+    mobile_number: "",
+    email: "",
+    dob: "",
+    city: "",
+    password: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const validateForm = () => {
+    const errors = {};
+    Object.keys(formData).forEach((key) => {
+      if (!formData[key]) {
+        errors[key] = `${key} is required`;
+      }
+    });
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0; // Return true if there are no errors
+  };
 
   return (
     <>
@@ -87,13 +123,13 @@ export default function SignIn() {
             >
               {/* <ThemeProvider theme={darktheme}> */}
               <Container>
-                <Box height={20} />
+                <Box height={10} />
                 <Box sx={center}>
                   <Typography component="h1" variant="h4">
                     Register
                   </Typography>
                 </Box>
-                <Box height={35}></Box>
+                <Box height={10}></Box>
                 <Grid container spacing={1}>
                   <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
                     <TextField
@@ -104,6 +140,10 @@ export default function SignIn() {
                       autoComplete="username"
                       required
                       fullWidth
+                      value={formData.username}
+                      onChange={handleInputChange}
+                      error={!!formErrors.username}
+                      helperText={formErrors.username}
                     ></TextField>
                   </Grid>
                   <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
@@ -114,6 +154,10 @@ export default function SignIn() {
                       label="Name"
                       required
                       fullWidth
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      error={!!formErrors.name}
+                      helperText={formErrors.name}
                     ></TextField>
                   </Grid>
                   <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
@@ -124,6 +168,10 @@ export default function SignIn() {
                       label="Mobile number"
                       required
                       fullWidth
+                      value={formData.mobile_number}
+                      onChange={handleInputChange}
+                      error={!!formErrors.mobile_number}
+                      helperText={formErrors.mobile_number}
                     ></TextField>
                   </Grid>
                   <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
@@ -131,21 +179,17 @@ export default function SignIn() {
                       i
                       d="email"
                       name="email"
-                      label="email"
+                      type="email" /*Not working*/
+                      label="Email id"
                       required
                       fullWidth
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      error={!!formErrors.email}
+                      helperText={formErrors.email}
                     ></TextField>
                   </Grid>
-                  <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
-                    <TextField
-                      i
-                      d="dob"
-                      name="dob"
-                      label="DOB"
-                      required
-                      fullWidth
-                    ></TextField>
-                  </Grid>
+
                   <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
                     <TextField
                       i
@@ -154,6 +198,10 @@ export default function SignIn() {
                       label="City"
                       required
                       fullWidth
+                      value={formData.city}
+                      onChange={handleInputChange}
+                      error={!!formErrors.city}
+                      helperText={formErrors.city}
                     ></TextField>
                   </Grid>
                   <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
@@ -162,11 +210,32 @@ export default function SignIn() {
                       d="password"
                       name="password"
                       label="Password"
+                      type="password"
                       required
                       fullWidth
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      error={!!formErrors.password}
+                      helperText={formErrors.password}
                     ></TextField>
                   </Grid>
-
+                  <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
+                    <Typography>Date of birth :</Typography>
+                    <Box height={2}></Box>
+                    <TextField
+                      i
+                      d="dob"
+                      name="dob"
+                      type="date"
+                      required
+                      fullWidth
+                      value={formData.dob}
+                      onChange={handleInputChange}
+                      error={!!formErrors.dob}
+                      helperText={formErrors.dob}
+                    ></TextField>
+                  </Grid>
+                  <Box size={4} />
                   <Grid item xs={12} sx={{ ml: "3em", mr: "5em" }}>
                     <Button
                       variant="contained"
@@ -182,7 +251,10 @@ export default function SignIn() {
                         backgroundColor: "#000",
                       }}
                       onClick={() => {
-                        navigate("/login");
+                        if (validateForm()) {
+                          // Proceed with navigation or form submission
+                          navigate("/login");
+                        }
                       }}
                     >
                       Register
