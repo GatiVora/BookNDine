@@ -1,9 +1,14 @@
-import React from "react";
+import React,{useState} from "react";
 import logo from "../assets/logo.jpeg";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import {GiHamburgerMenu} from "react-icons/gi";
+import {VscChromeClose} from "react-icons/vsc";
 
 export default function Navbar() {
+
+  const[navbarState,setNavbarState]= useState(false);
+
   const navigate = useNavigate();
 
   const login_button = () => {
@@ -22,7 +27,12 @@ export default function Navbar() {
             {/* <img src={logo} alt=""/> */}
             DineDex
           </div>
-          <div className="toggle"></div>
+          <div className="toggle">
+            {
+              navbarState? <VscChromeClose onClick={()=>{setNavbarState(false)}}/>
+              :<GiHamburgerMenu onClick={()=>{setNavbarState(true)}}/>
+            }
+          </div>
         </div>
         <ul>
           <li>
@@ -41,6 +51,22 @@ export default function Navbar() {
         <button onClick={login_button}>Login</button>
         <button onClick={signin_button}>SignIn</button>
       </Nav>
+      <ResponsiveNav state={navbarState}>
+      <ul>
+          <li>
+            <a href="/home" onClick={()=>{setNavbarState(false)}}>Home</a>
+          </li>
+          <li>
+            <a href="/restaurants" onClick={()=>{setNavbarState(false)}}>Restaurants</a>
+          </li>
+          <li>
+            <a href="/about" onClick={()=>{setNavbarState(false)}}>About</a>
+          </li>
+          <li>
+            <a href="/blog" onClick={()=>{setNavbarState(false)}}>Blog</a>
+          </li>
+        </ul>
+      </ResponsiveNav>
     </>
   );
 }
@@ -99,5 +125,56 @@ const Nav = styled.nav`
     &:hover {
       background-color: #023e8a;
     }
+  }
+
+  @media screen and (min-width: 280px) and (max-width: 1080px){
+    .brand{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      .toggle{
+        display: block;
+      }
+    }
+    ul,
+    button{
+      display: none;
+
+    }
+  }
+`;
+
+const ResponsiveNav = styled.div`
+  display:flex;
+  position:absolute;
+  z-index: 5;
+  background-color: white;
+  width: 100%;
+  height:30vh;
+  align-items: center;
+  transition: 0.3s ease-in-out;
+  top:${({state}) =>( state?"60px" :"-400px")};
+  ul{
+    list-style-type: none;
+    width:100%;
+    li{
+      width:100%;
+      margin:1rem 0;
+      margin-left: 2rem;
+      a{
+        text-decoration: none;
+        color:#0077b6;
+        font-size: 1.2rem;
+        transition:0.1s ease-in-out;
+        &:hover{
+          color:#023e8a;
+        }
+      }
+      &:first-of-type{
+
+      }
+    }
+
   }
 `;

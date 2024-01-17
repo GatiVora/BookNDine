@@ -10,7 +10,6 @@ class User(Base):
     name = Column(String)
     mobile = Column(String)
     email=Column(String)
-    dob = Column(Date)
     city = Column(String)
     password = Column(String)
 

@@ -77,4 +77,11 @@ const Section = styled.section`
 
   }
 
+  @media screen and (min-width: 280px) and (max-width: 768px){
+    .destinations{
+      grid-template-columns: 1fr;
+      padding: 0;
+    }
+  }
+
 `;
