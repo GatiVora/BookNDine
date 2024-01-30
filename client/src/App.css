@@ -40,4 +40,19 @@
 /* body{
   background: red;
 }
- */ 
+ */
+
+*,
+*::after,
+*::before {
+  margin: 0;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+} */

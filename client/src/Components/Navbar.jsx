@@ -1,13 +1,14 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import logo from "../assets/logo.jpeg";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import {GiHamburgerMenu} from "react-icons/gi";
-import {VscChromeClose} from "react-icons/vsc";
+import { useNavigate, useLocation } from "react-router-dom";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { VscChromeClose } from "react-icons/vsc";
 
 export default function Navbar() {
-
-  const[navbarState,setNavbarState]= useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+  const [navbarState, setNavbarState] = useState(false);
 
   const navigate = useNavigate();
 
@@ -17,7 +18,12 @@ export default function Navbar() {
   };
   const signin_button = () => {
     // Navigate to the desired URL when the button is clicked
-    navigate("/signin");
+    navigate("/restaurant-login");
+  };
+
+  const logout_button = () => {
+    // Navigate to the desired URL when the button is clicked
+    navigate("/");
   };
   return (
     <>
@@ -28,10 +34,19 @@ export default function Navbar() {
             DineDex
           </div>
           <div className="toggle">
-            {
-              navbarState? <VscChromeClose onClick={()=>{setNavbarState(false)}}/>
-              :<GiHamburgerMenu onClick={()=>{setNavbarState(true)}}/>
-            }
+            {navbarState ? (
+              <VscChromeClose
+                onClick={() => {
+                  setNavbarState(false);
+                }}
+              />
+            ) : (
+              <GiHamburgerMenu
+                onClick={() => {
+                  setNavbarState(true);
+                }}
+              />
+            )}
           </div>
         </div>
         <ul>
@@ -48,22 +63,55 @@ export default function Navbar() {
             <a href="/blog">Blog</a>
           </li>
         </ul>
-        <button onClick={login_button}>Login</button>
-        <button onClick={signin_button}>SignIn</button>
+        {isHomePage && (
+          <>
+            <button onClick={login_button}>User</button>
+            <button onClick={signin_button}>Restaurant</button>
+          </>
+        )}
+        {!isHomePage && <button onClick={logout_button}>Logout</button>}
       </Nav>
       <ResponsiveNav state={navbarState}>
-      <ul>
+        <ul>
           <li>
-            <a href="/home" onClick={()=>{setNavbarState(false)}}>Home</a>
+            <a
+              href="/home"
+              onClick={() => {
+                setNavbarState(false);
+              }}
+            >
+              Home
+            </a>
           </li>
           <li>
-            <a href="/restaurants" onClick={()=>{setNavbarState(false)}}>Restaurants</a>
+            <a
+              href="/restaurants"
+              onClick={() => {
+                setNavbarState(false);
+              }}
+            >
+              Restaurants
+            </a>
           </li>
           <li>
-            <a href="/about" onClick={()=>{setNavbarState(false)}}>About</a>
+            <a
+              href="/about"
+              onClick={() => {
+                setNavbarState(false);
+              }}
+            >
+              About
+            </a>
           </li>
           <li>
-            <a href="/blog" onClick={()=>{setNavbarState(false)}}>Blog</a>
+            <a
+              href="/blog"
+              onClick={() => {
+                setNavbarState(false);
+              }}
+            >
+              Blog
+            </a>
           </li>
         </ul>
       </ResponsiveNav>
@@ -79,6 +127,7 @@ const Nav = styled.nav`
     .container {
       cursor: pointer;
       display: flex;
+      color: #0077b6;
       justify-content: center;
       align-items: center;
       gap: 0.4rem;
@@ -112,12 +161,12 @@ const Nav = styled.nav`
     }
   }
   button {
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 8rem;
     cursor: pointer;
     border-radius: 1rem;
     border: none;
     color: white;
-    background-color: #48cae4;
+    background-color: #0077b6;
     text-transform: uppercase;
     font-size: 1.1rem;
     letter-spacing: 0.1rem;
@@ -127,54 +176,51 @@ const Nav = styled.nav`
     }
   }
 
-  @media screen and (min-width: 280px) and (max-width: 1080px){
-    .brand{
+  @media screen and (min-width: 280px) and (max-width: 1080px) {
+    .brand {
       display: flex;
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      .toggle{
+      .toggle {
         display: block;
       }
     }
     ul,
-    button{
+    button {
       display: none;
-
     }
   }
 `;
 
 const ResponsiveNav = styled.div`
-  display:flex;
-  position:absolute;
+  display: flex;
+  position: absolute;
   z-index: 5;
   background-color: white;
   width: 100%;
-  height:30vh;
+  height: 30vh;
   align-items: center;
   transition: 0.3s ease-in-out;
-  top:${({state}) =>( state?"60px" :"-400px")};
-  ul{
+  top: ${({ state }) => (state ? "60px" : "-400px")};
+  ul {
     list-style-type: none;
-    width:100%;
-    li{
-      width:100%;
-      margin:1rem 0;
+    width: 100%;
+    li {
+      width: 100%;
+      margin: 1rem 0;
       margin-left: 2rem;
-      a{
+      a {
         text-decoration: none;
-        color:#0077b6;
+        color: #0077b6;
         font-size: 1.2rem;
-        transition:0.1s ease-in-out;
-        &:hover{
-          color:#023e8a;
+        transition: 0.1s ease-in-out;
+        &:hover {
+          color: #023e8a;
         }
       }
-      &:first-of-type{
-
+      &:first-of-type {
       }
     }
-
   }
 `;

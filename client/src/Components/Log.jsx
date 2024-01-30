@@ -25,7 +25,7 @@ import { useState } from "react";
 const BoxStyle = styled(Box)`
   margin: 5vh 12vh; /* Set your desired percentage margin here */
   border-radius: 2px;
-  height: 120vh; /* Set your desired percentage height here */
+  height: 60vh; /* Set your desired percentage height here */
   background: #fff;
   color: #2874f0;
   box-shadow: 0 2px 4px 1px rgb(0 0 0 / 40%);
@@ -185,7 +185,7 @@ export default function Login() {
                       }}
                       onClick={() => {
                         if (validateForm()) {
-                          navigate("/");
+                          navigate("/home");
                         }
                       }}
                     >
