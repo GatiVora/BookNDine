@@ -78,6 +78,10 @@ class UserBase(BaseModel):
     city:str 
     password:str 
 
+class LoginModel(BaseModel):
+    username:str
+    password:str
+
 class UserModel(UserBase):
     id:int
 
@@ -107,3 +111,14 @@ async def create_user(user:UserBase , db:db_dependency):
 async def read_users(db:db_dependency,skip:int=0,limit: int = 100):
     users = db.query(models.User).offset(skip).limit(limit).all()
     return users
+
+@app.post("/login/", response_model=UserBase)
+async def login(login_data: LoginModel, db: db_dependency):
+    db_user = db.query(models.User).filter(
+        models.User.username == login_data.username,
+        models.User.password == login_data.password
+    ).first()
+    if db_user:
+        return db_user
+    else:
+        raise HTTPException(status_code=401, detail="Invalid credentials")

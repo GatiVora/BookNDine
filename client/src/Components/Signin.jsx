@@ -801,6 +801,33 @@ const handleFormSubmit = async (event) => {
                       </Typography>
                     </Stack>
                   </Grid>
+
+                  <Grid item xs={12} sx={{ ml: "3em", mr: "2em" }}>
+                    <Stack direction="row" spacing={2}>
+                      <Typography
+                        variant="body1"
+                        component="span"
+                        style={{ marginTop: "10px", cursor: "pointer" }}
+                      >
+                        Are you restaurant owner?
+                      </Typography>
+
+                      <Typography
+                        variant="body1"
+                        component="span"
+                        onClick={() => {
+                          navigate("/restaurant-register");
+                        }}
+                        style={{
+                          marginTop: "10px",
+                          cursor: "pointer",
+                          color: "gray",
+                        }}
+                      >
+                        Register here!
+                      </Typography>
+                    </Stack>
+                  </Grid>
                 </Grid>
               </Container>
               {/* </ThemeProvider> */}
