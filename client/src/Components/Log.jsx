@@ -284,6 +284,9 @@ import { AuthContext } from "./AuthContext";
 import api from '../api'
 // import {ForgotPassword} from "./ForgotPassword"
 
+import { useAuth } from "./Auth";
+
+
 const BoxStyle = styled(Box)`
   margin: 5vh 12vh; /* Set your desired percentage margin here */
   border-radius: 2px;
@@ -320,7 +323,7 @@ const imageURL = "images/img1.jpg";
 export default function Login() {
   const [remember, setRemember] = useState(false);
 
-  const { setIsLoggedIn } = useContext(AuthContext);
+  // const { setIsLoggedIn } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -341,6 +344,10 @@ export default function Login() {
     username: "",
     password: "",
   });
+
+
+  const auth = useAuth();
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -361,23 +368,27 @@ const [errorMessage, setErrorMessage] = useState("");
 
 const handleFormSubmit = async (event) => {
   event.preventDefault();
-  try {
-    await api.post('/login/', formData);
-    setErrorMessage(""); // Clear any previous error messages
-    // fetchusers();
+  // try {
+  //   await api.post('/login/', formData);
+  //   setErrorMessage(""); // Clear any previous error messages
+  //   // fetchusers();
 
-    setFormData({
-      username: '',
-      name: '',
-      mobile: '',
-      email: '',
-      city: '',
-      password: '',
-    });
-    setIsLoggedIn(true);
-    navigate('/');
-  } catch (error) {
-    setErrorMessage("Invalid credentials");
+  //   setFormData({
+  //     username: '',
+  //     name: '',
+  //     mobile: '',
+  //     email: '',
+  //     city: '',
+  //     password: '',
+  //   });
+  //   setIsLoggedIn(true);
+  //   navigate('/');
+  // } catch (error) {
+  //   setErrorMessage("Invalid credentials");
+  // }
+  if (formData.username !== "" && formData.password !== "") {
+    auth.loginAction(formData);
+    return;
   }
 };
 

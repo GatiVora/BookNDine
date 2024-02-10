@@ -1,9 +1,11 @@
 import React from "react";
 import "../../../restaurant_style.css";
 import "./listItem.css";
+import { Link } from "react-router-dom";
 const ListItem = ({
   item: { coverSrc, title, price, deliveryFee, serviceTime, rating },
 }) => (
+ 
   <div className="listItem-wrap">
     <img src={coverSrc} alt="item" />
     <header>
@@ -20,6 +22,7 @@ const ListItem = ({
       </p>
     </footer>
   </div>
+
 );
 
 export default ListItem;

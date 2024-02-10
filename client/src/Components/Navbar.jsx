@@ -235,10 +235,21 @@ import { Link } from 'react-router-dom';
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { AuthContext } from "./AuthContext";
 
+import { useAuth } from "./Auth";
+
 
 export default function Navb() {
+
+    const auth = useAuth();
+
+    const handleLogout = () => {
+        auth.logOut(); // Call the logout function
+      };
+    
+
+
     const [toggleMenu, setToggleMenu] = useState(false);
-    const { isLoggedIn } = useContext(AuthContext);
+    // const { isLoggedIn } = useContext(AuthContext);
     return (
         <Navbar>
             <div className="logo">
@@ -258,26 +269,17 @@ export default function Navb() {
                     <a href="/blog">Blog</a>
                 </li>
             </ul>
-            { isLoggedIn ? (
-          // <li><Link to="/profile">Profile</Link></li>
-          <div className="navbar-login">
-          <a href="/profile" className="">
-          <AccountCircle sx={{ mr: 1 }} /> {/* Add margin to the right */}
-      <span>Username</span> {/* Add your username or other content here */}
-          </a>
-        </div>
 
-          ) :(
             <div className="navbar-login">
-                <a href="/login" className="">
-                    LogIn
+                <a  className="" onClick={handleLogout}>
+                    Logout
                 </a>
-                <div />
-                <a href="/signin" className="">
-                    Register
-                </a>
+ 
             </div>
-             )}
+            
+            
+
+
             <div className="smallscreen">
                 <GiHamburgerMenu
                     color="#fff"
@@ -503,3 +505,14 @@ const Navbar = styled.nav`
 }
 
 `;
+
+
+
+
+
+
+
+          
+
+
+

@@ -17,13 +17,16 @@ import Restaurants from "./Components/Restaurants";
 import Landing from "./Components/Landing";
 import Restaurant_login from "./Components/Restaurant_login";
 import Restaurant_register from "./Components/Restaurant_register";
+import PrivateRoute from "./Components/Private";
 
 function App() {
   return (
     <>
-      <BrowserRouter>
+      
         <Routes>
+        <Route element={<PrivateRoute />}>
           <Route path="/" exact element={<Home />}></Route>
+        </Route>
           <Route path="/login" exact element={<Login />}></Route>
           <Route
             path="/restaurant-login"
@@ -37,10 +40,13 @@ function App() {
           ></Route>
           {/* <Route path = "/resetpassword" exact element={<ForgotPassword/>}></Route> */}
           <Route path="/signin" exact element={<Signin />}></Route>
+          <Route element={<PrivateRoute />}>
+            
           <Route path="/home" exact element={<Home />}></Route>
+          </Route>
           <Route path="/restaurants" element={<Restaurants />}></Route>
         </Routes>
-      </BrowserRouter>
+    
 
       {/* <Scroll/>
     <Navbar/>
