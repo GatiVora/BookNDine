@@ -17,6 +17,7 @@ import Restaurants from "./Components/Restaurants";
 import Landing from "./Components/Landing";
 import Restaurant_login from "./Components/Restaurant_login";
 import Restaurant_register from "./Components/Restaurant_register";
+import Testimonials from "./Components/Testimonials";
 
 function App() {
   return (
@@ -39,6 +40,8 @@ function App() {
           <Route path="/signin" exact element={<Signin />}></Route>
           <Route path="/home" exact element={<Home />}></Route>
           <Route path="/restaurants" element={<Restaurants />}></Route>
+          {/* <Route path="/restaurant/:id" element={<Landing />}></Route> */}
+          <Route path="/restaurant/:id" element={<Testimonials />} />
         </Routes>
       </BrowserRouter>
 

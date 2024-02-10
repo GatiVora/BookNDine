@@ -1,10 +1,10 @@
 import React from "react";
-import "../../../restaurant_style.css";
+// import "../../../restaurant_style.css";
 import "./listItem.css";
 const ListItem = ({
   item: { coverSrc, title, price, deliveryFee, serviceTime, rating },
 }) => (
-  <div className="listItem-wrap">
+  <div className="listItem">
     <img src={coverSrc} alt="item" />
     <header>
       <h4>{title}</h4>
