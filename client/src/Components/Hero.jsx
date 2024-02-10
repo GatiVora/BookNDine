@@ -9,14 +9,21 @@ export default function Hero() {
     const currentTime = new Date().getHours();
     let text = "";
 
-    if (currentTime >= 6 && currentTime < 12) {
-      text = "Start your day with delightful breakfasts";
-    } else if (currentTime >= 12 && currentTime < 17) {
-      text = "Indulge in flavorful lunches";
-    } else if (currentTime >= 17 && currentTime < 20) {
-      text = "Experience exquisite dinners";
+    if (currentTime >= 6 && currentTime < 10) {
+      text =
+        "Rise and Dine: Start your morning with flavors that awaken the senses.";
+    } else if (currentTime >= 10 && currentTime < 12) {
+      text = "Brunch: A feast for every taste, a delight for every craving.";
+    } else if (currentTime >= 12 && currentTime < 15) {
+      text =
+        "Lunchtime Euphoria: Where taste meets satisfaction at every forkful.";
+    } else if (currentTime >= 15 && currentTime < 17) {
+      text =
+        "Evening Eats: Elevate your twilight hours with our flavorful snacks.";
+    } else if (currentTime >= 17 && currentTime < 22) {
+      text = "Make your evening extraordinary with our culinary masterpieces.";
     } else {
-      text = "Discover culinary delights";
+      text = "When hunger strikes after hours, our snacks answer the call.";
     }
 
     setDisplayText(text);
@@ -93,7 +100,7 @@ const Section = styled.section`
         letter-spacing: 0.2rem;
       }
       p {
-        text-align: center;
+        text-align: auto;
         padding: 0 30vw;
         margin-top: 0.5rem;
         font-size: 1.2rem;

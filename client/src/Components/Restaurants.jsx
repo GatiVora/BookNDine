@@ -37,11 +37,6 @@ const Restaurants = () => {
   ]);
   const navigate = useNavigate(); // Initialize useNavigate
 
-  // const handleRestaurantClick = (id) => {
-  //   // Navigate to the restaurant detail page with the clicked restaurant's ID
-  //   navigate(`/restaurant/${id}`);
-  // };
-
   const handleSelectCategory = (event, value) =>
     !value ? null : setSelectedCategory(value);
   const handleSelectRating = (event, value) =>
