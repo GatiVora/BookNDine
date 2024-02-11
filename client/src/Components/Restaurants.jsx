@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
+import { useNavigate } from "react-router-dom";
 import FilterPanel from "./FilterPanel";
 import List from "./List";
 import EmptyView from "./EmptyView";
@@ -34,6 +35,13 @@ const Restaurants = () => {
       label: "Marathi",
     },
   ]);
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  // const handleRestaurantClick = (id) => {
+  //   // Navigate to the restaurant detail page with the clicked restaurant's ID
+  //   navigate(`/restaurant/${id}`);
+  // };
+
   const handleSelectCategory = (event, value) =>
     !value ? null : setSelectedCategory(value);
   const handleSelectRating = (event, value) =>

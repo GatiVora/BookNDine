@@ -1,12 +1,314 @@
-// import React from "react";
 
-// const Restaurant_login = () => {
-//   return <div>Restaurant_login</div>;
+// import { React, useContext } from "react";
+// import {
+//   Box,
+//   Grid,
+//   styled,
+//   Button,
+//   TextField,
+//   Typography,
+//   Container,
+//   Avatar,
+//   ThemeProvider,
+//   createTheme,
+//   FormControlLabel,
+//   Stack,
+// } from "@mui/material";
+// import img from "../assets/img1.jpg";
+// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+// // import { Checkbox } from "@mui/icons-material";
+// import { Checkbox } from "@mui/material";
+
+// import { useNavigate } from "react-router-dom";
+// import { useState } from "react";
+
+// import { AuthContext } from "./AuthContext";
+
+// import api from '../api'
+// // import {ForgotPassword} from "./ForgotPassword"
+// import { useAuth } from "./ResAuth";
+
+
+// const BoxStyle = styled(Box)`
+//   margin: 5vh 12vh; /* Set your desired percentage margin here */
+//   border-radius: 2px;
+//   height: 120vh; /* Set your desired percentage height here */
+//   background: #fff;
+//   color: #2874f0;
+//   box-shadow: 0 2px 4px 1px rgb(0 0 0 / 40%);
+
+//   @media (max-width: 1000px) {
+//     height: 0vh; /* Set a different height for smaller screens */
+//   }
+// `;
+// const center = {
+//   position: "relative",
+//   top: "50%",
+//   left: "35%",
 // };
 
-// export default Restaurant_login;
+// const darktheme = createTheme({
+//   palette: {
+//     mode: "dark",
+//   },
+// });
 
-import React from "react";
+// const responsiveStyles = {
+//   "@media (max-width: 600px)": {
+//     margin: "5% 2%",
+//     height: "auto",
+//   },
+// };
+
+// const imageURL = "images/img1.jpg";
+
+// export default function Login() {
+//   const [remember, setRemember] = useState(false);
+
+//   // const { setIsLoggedIn } = useContext(AuthContext);
+
+//   const navigate = useNavigate();
+
+
+
+//   const [formData, setFormData] = useState({
+//     res_name: '',
+//     password: ''
+
+//   });
+
+
+
+//   const [formErrors, setFormErrors] = useState({
+//     res_name: "",
+//     password: "",
+//   });
+
+
+//   const auth = useAuth();
+//   const handleInputChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData({
+//       ...formData,
+//       [name]: value,
+//     });
+//   };
+
+//   const [errorMessage, setErrorMessage] = useState("");
+  
+
+//   const handleFormSubmit = async (event) => {
+//     event.preventDefault();
+
+//     if (formData.res_name !== "" && formData.password !== "") {
+//       try {
+
+//         console.log(formData);
+
+        
+//         console.log(auth);
+
+//         await auth.loginAction(formData);
+//         setErrorMessage(""); // Clear any previous error messages
+        
+//       } catch (error) {
+//         setErrorMessage(error.message);
+//       }
+
+//       return;
+//     }
+//   };
+
+
+//   const validateForm = () => {
+//     const errors = {};
+//     Object.keys(formData).forEach((key) => {
+//       if (!formData[key]) {
+//         errors[key] = `${key} is required`;
+//       }
+//     });
+//     setFormErrors(errors);
+//     return Object.keys(errors).length === 0; // Return true if there are no errors
+//   };
+
+//   return (
+//     <>
+//       <BoxStyle xs={responsiveStyles}>
+//         <Grid container>
+//           <Grid item xs={12} sm={12} lg={6}>
+//             {/* <Image src={imageURL} alt="Login Image" /> */}
+//             <Box
+//               style={{
+//                 backgroundImage: `url(${img})`,
+//                 backgroundSize: "cover",
+//                 height: "60vh",
+//                 color: "blue",
+//               }}
+//             ></Box>
+//           </Grid>
+//           <Grid item xs={12} sm={12} lg={6}>
+//             <Box
+//               style={{
+//                 backgroundSize: "cover",
+//                 height: "60vh",
+//                 color: "#000",
+//                 background: "white",
+//               }}
+//             >
+//               {/* <ThemeProvider theme={darktheme}> */}
+//               <Container>
+//                 <Box height={20} />
+//                 <Box sx={center}>
+//                   <Typography component="h1" variant="h4">
+//                     Restaurant Login
+//                   </Typography>
+//                 </Box>
+//                 <Box height={35}></Box>
+//                 <Grid container spacing={1}>
+//                   <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
+//                     <TextField
+//                       i
+//                       d="res_name"
+//                       name="res_name"
+//                       label="Restaurant Name"
+//                       autoComplete="res_name"
+//                       required
+//                       fullWidth
+//                       value={formData.res_name}
+//                       onChange={handleInputChange}
+//                       error={!!formErrors.res_name}
+//                       helperText={formErrors.res_name}
+//                     ></TextField>
+//                   </Grid>
+//                   <Box height={10}></Box>
+//                   <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
+//                     <TextField
+//                       i
+//                       d="password"
+//                       name="password"
+//                       label="Password"
+//                       type="password"
+//                       required
+//                       fullWidth
+//                       value={formData.password}
+//                       onChange={handleInputChange}
+//                       error={!!formErrors.password}
+//                       helperText={formErrors.password}
+//                     ></TextField>
+//                   </Grid>
+
+//                   {/* <Grid item xs={12} sx={{ ml: "3em", mr: "2em" }}>
+//                     <Stack direction="row" spacing={2}>
+//                       <FormControlLabel
+//                         sx={{ width: "60%" }}
+//                         onClick={() => setRemember(!remember)}
+//                         control={<Checkbox checked={remember} />}
+//                         label="Remember me"
+//                       />
+//                       <Typography
+//                         variant="body1"
+//                         component="span"
+//                         onClick={() => {
+//                           navigate("/resetpassword");
+//                         }}
+//                         style={{ marginTop: "10px", cursor: "pointer" }}
+//                       >
+//                         Forgot Password?
+//                       </Typography>
+//                     </Stack>
+//                   </Grid> */}
+
+//                   <Grid item xs={12} sx={{ ml: "3em", mr: "5em" }}>
+//                     {/* <Button
+//                       variant="contained"
+//                       type="submit"
+//                       fullWidth="true"
+//                       size="large"
+//                       sx={{
+//                         mt: "10px",
+//                         mr: "20px",
+//                         borderRadius: 28,
+//                         color: "#fff",
+//                         minwidth: "170px",
+//                         backgroundColor: "#000",
+//                       }}
+//                       onClick={handleFormSubmit}
+//                     >
+//                       Login
+//                     </Button> */}
+
+//                     <Grid item xs={12} sx={{ ml: "3em", mr: "5em" }}>
+//                       {errorMessage && (
+//                         <Typography variant="body1" color="error" sx={{ mt: 1 }}>
+//                           {errorMessage}
+//                         </Typography>
+//                       )}
+//                       <Button
+//                         variant="contained"
+//                         type="submit"
+//                         fullWidth="true"
+//                         size="large"
+//                         sx={{
+//                           mt: "10px",
+//                           mr: "20px",
+//                           borderRadius: 28,
+//                           color: "#fff",
+//                           minWidth: "170px",
+//                           backgroundColor: "#000",
+//                         }}
+//                         onClick={handleFormSubmit}
+//                       >
+//                         Login
+//                       </Button>
+
+
+//                     </Grid>
+
+
+//                   </Grid>
+
+
+                  
+//                   <Grid item xs={12} sx={{ ml: "3em", mr: "2em" }}>
+//                     <Stack direction="row" spacing={2}>
+//                       <Typography
+//                         variant="body1"
+//                         component="span"
+//                         style={{ marginTop: "10px", cursor: "pointer" }}
+//                       >
+//                         Not yet Registered?
+//                       </Typography>
+
+//                       <Typography
+//                         variant="body1"
+//                         component="span"
+//                         onClick={() => {
+//                           navigate("/signin");
+//                         }}
+//                         style={{
+//                           marginTop: "10px",
+//                           cursor: "pointer",
+//                           color: "gray",
+//                         }}
+//                       >
+//                         Register Now
+//                       </Typography>
+//                     </Stack>
+//                   </Grid>
+
+//                 </Grid>
+//               </Container>
+//               {/* </ThemeProvider> */}
+//             </Box>
+//           </Grid>
+//         </Grid>
+//       </BoxStyle>
+//     </>
+//   );
+// }
+
+
+import { React, useContext } from "react";
 import {
   Box,
   Grid,
@@ -28,12 +330,19 @@ import { Checkbox } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+
+import { AuthContext } from "./AuthContext";
+
+import api from '../api'
 // import {ForgotPassword} from "./ForgotPassword"
+
+import { useAuth2 } from "./ResAuth";
+
 
 const BoxStyle = styled(Box)`
   margin: 5vh 12vh; /* Set your desired percentage margin here */
   border-radius: 2px;
-  height: 60vh; /* Set your desired percentage height here */
+  height: 120vh; /* Set your desired percentage height here */
   background: #fff;
   color: #2874f0;
   box-shadow: 0 2px 4px 1px rgb(0 0 0 / 40%);
@@ -63,17 +372,33 @@ const responsiveStyles = {
 
 const imageURL = "images/img1.jpg";
 
-export default function Restaurant_login() {
+export default function Login() {
   const [remember, setRemember] = useState(false);
+
+  // const { setIsLoggedIn } = useContext(AuthContext);
+
   const navigate = useNavigate();
+
+  // const [formData, setFormData] = useState({
+  //   res_name: "",
+  //   password: "",
+  // });
+
   const [formData, setFormData] = useState({
-    username: "",
-    password: "",
+    res_name: '',
+    password: ''
+
   });
+
+
+
   const [formErrors, setFormErrors] = useState({
-    username: "",
+    res_name: "",
     password: "",
   });
+
+
+  const auth2 = useAuth2();
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -81,6 +406,70 @@ export default function Restaurant_login() {
       [name]: value,
     });
   };
+
+  // const fetchusers = async () =>{
+  //   const response = await api.get('/users');
+  //   setUsers(response.data)
+  // };
+
+
+  // Inside your component function
+  const [errorMessage, setErrorMessage] = useState("");
+
+
+  // const handleFormSubmit = async (event) => {
+  //   event.preventDefault();
+  //   // try {
+  //   //   await api.post('/login/', formData);
+  //   //   setErrorMessage(""); // Clear any previous error messages
+  //   //   // fetchusers();
+
+  //   //   setFormData({
+  //   //     res_name: '',
+  //   //     name: '',
+  //   //     mobile: '',
+  //   //     email: '',
+  //   //     city: '',
+  //   //     password: '',
+  //   //   });
+  //   //   setIsLoggedIn(true);
+  //   //   navigate('/');
+  //   // } catch (error) {
+  //   //   setErrorMessage("Invalid credentials");
+  //   // }
+  //   if (formData.res_name !== "" && formData.password !== "") {
+
+  //     try{
+
+  //       auth.loginAction(formData);
+  //       setErrorMessage(""); 
+
+  //     }catch(error){
+  //       setErrorMessage(error.message);
+  //     }
+
+
+  //     return;
+  //   }
+  // };
+
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    if (formData.res_name !== "" && formData.password !== "") {
+      try {
+        await auth2.loginAction(formData);
+        setErrorMessage(""); // Clear any previous error messages
+      } catch (error) {
+        setErrorMessage(error.message);
+      }
+
+      return;
+    }
+  };
+
+
   const validateForm = () => {
     const errors = {};
     Object.keys(formData).forEach((key) => {
@@ -91,6 +480,7 @@ export default function Restaurant_login() {
     setFormErrors(errors);
     return Object.keys(errors).length === 0; // Return true if there are no errors
   };
+
   return (
     <>
       <BoxStyle xs={responsiveStyles}>
@@ -118,9 +508,9 @@ export default function Restaurant_login() {
               {/* <ThemeProvider theme={darktheme}> */}
               <Container>
                 <Box height={20} />
-                <Box style={{ textAlign: "center" }}>
+                <Box sx={center}>
                   <Typography component="h1" variant="h4">
-                    Restaurant Login
+                    Login
                   </Typography>
                 </Box>
                 <Box height={35}></Box>
@@ -128,16 +518,16 @@ export default function Restaurant_login() {
                   <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
                     <TextField
                       i
-                      d="username"
-                      name="username"
-                      label="Username"
-                      autoComplete="username"
+                      d="res_name"
+                      name="res_name"
+                      label="Restaurant Name"
+                      autoComplete="res_name"
                       required
                       fullWidth
-                      value={formData.username}
+                      value={formData.res_name}
                       onChange={handleInputChange}
-                      error={!!formErrors.username}
-                      helperText={formErrors.username}
+                      error={!!formErrors.res_name}
+                      helperText={formErrors.res_name}
                     ></TextField>
                   </Grid>
                   <Box height={10}></Box>
@@ -157,7 +547,7 @@ export default function Restaurant_login() {
                     ></TextField>
                   </Grid>
 
-                  <Grid item xs={12} sx={{ ml: "3em", mr: "2em" }}>
+                  {/* <Grid item xs={12} sx={{ ml: "3em", mr: "2em" }}>
                     <Stack direction="row" spacing={2}>
                       <FormControlLabel
                         sx={{ width: "60%" }}
@@ -176,9 +566,10 @@ export default function Restaurant_login() {
                         Forgot Password?
                       </Typography>
                     </Stack>
-                  </Grid>
+                  </Grid> */}
+
                   <Grid item xs={12} sx={{ ml: "3em", mr: "5em" }}>
-                    <Button
+                    {/* <Button
                       variant="contained"
                       type="submit"
                       fullWidth="true"
@@ -191,16 +582,68 @@ export default function Restaurant_login() {
                         minwidth: "170px",
                         backgroundColor: "#000",
                       }}
-                      onClick={() => {
-                        if (validateForm()) {
-                          navigate("/home"); //Navigate to restaurant profile
-                        }
-                      }}
+                      onClick={handleFormSubmit}
                     >
                       Login
-                    </Button>
+                    </Button> */}
+
+                    <Grid item xs={12} sx={{ ml: "3em", mr: "5em" }}>
+                      {errorMessage && (
+                        <Typography variant="body1" color="error" sx={{ mt: 1 }}>
+                          {errorMessage}
+                        </Typography>
+                      )}
+                      <Button
+                        variant="contained"
+                        type="submit"
+                        fullWidth="true"
+                        size="large"
+                        sx={{
+                          mt: "10px",
+                          mr: "20px",
+                          borderRadius: 28,
+                          color: "#fff",
+                          minWidth: "170px",
+                          backgroundColor: "#000",
+                        }}
+                        onClick={handleFormSubmit}
+                      >
+                        Login
+                      </Button>
+
+
+                    </Grid>
+
+
                   </Grid>
 
+                  <Grid item xs={12} sx={{ ml: "3em", mr: "2em" }}>
+                    <Stack direction="row" spacing={2}>
+                      <Typography
+                        variant="body1"
+                        component="span"
+                        style={{ marginTop: "10px", cursor: "pointer" }}
+                      >
+                        Are you a restaurant owner?
+                      </Typography>
+
+                      <Typography
+                        variant="body1"
+                        component="span"
+                        onClick={() => {
+                          navigate("/restaurant-login");
+                        }}
+                        style={{
+                          marginTop: "10px",
+                          cursor: "pointer",
+                          color: "gray",
+                        }}
+                      >
+                        Login Here
+                      </Typography>
+                    </Stack>
+                  </Grid>
+                  
                   <Grid item xs={12} sx={{ ml: "3em", mr: "2em" }}>
                     <Stack direction="row" spacing={2}>
                       <Typography
@@ -215,7 +658,7 @@ export default function Restaurant_login() {
                         variant="body1"
                         component="span"
                         onClick={() => {
-                          navigate("/restaurant-register");
+                          navigate("/signin");
                         }}
                         style={{
                           marginTop: "10px",
@@ -227,6 +670,7 @@ export default function Restaurant_login() {
                       </Typography>
                     </Stack>
                   </Grid>
+
                 </Grid>
               </Container>
               {/* </ThemeProvider> */}
@@ -237,3 +681,4 @@ export default function Restaurant_login() {
     </>
   );
 }
+

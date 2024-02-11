@@ -219,32 +219,32 @@
 //                       </Typography>
 //                     </Stack>
 //                   </Grid>
-                  // <Grid item xs={12} sx={{ ml: "3em", mr: "2em" }}>
-                  //   <Stack direction="row" spacing={2}>
-                  //     <Typography
-                  //       variant="body1"
-                  //       component="span"
-                  //       style={{ marginTop: "10px", cursor: "pointer" }}
-                  //     >
-                  //       Are you a restaurant owner?
-                  //     </Typography>
+// <Grid item xs={12} sx={{ ml: "3em", mr: "2em" }}>
+//   <Stack direction="row" spacing={2}>
+//     <Typography
+//       variant="body1"
+//       component="span"
+//       style={{ marginTop: "10px", cursor: "pointer" }}
+//     >
+//       Are you a restaurant owner?
+//     </Typography>
 
-                  //     <Typography
-                  //       variant="body1"
-                  //       component="span"
-                  //       onClick={() => {
-                  //         navigate("/restaurant-login");
-                  //       }}
-                  //       style={{
-                  //         marginTop: "10px",
-                  //         cursor: "pointer",
-                  //         color: "gray",
-                  //       }}
-                  //     >
-                  //       Login Here
-                  //     </Typography>
-                  //   </Stack>
-                  // </Grid>
+//     <Typography
+//       variant="body1"
+//       component="span"
+//       onClick={() => {
+//         navigate("/restaurant-login");
+//       }}
+//       style={{
+//         marginTop: "10px",
+//         cursor: "pointer",
+//         color: "gray",
+//       }}
+//     >
+//       Login Here
+//     </Typography>
+//   </Stack>
+// </Grid>
 //                 </Grid>
 //               </Container>
 //               {/* </ThemeProvider> */}
@@ -256,7 +256,7 @@
 //   );
 // }
 
-import {React , useContext} from "react";
+import { React, useContext } from "react";
 import {
   Box,
   Grid,
@@ -276,7 +276,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 // import { Checkbox } from "@mui/icons-material";
 import { Checkbox } from "@mui/material";
 
-import { useNavigate  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import { AuthContext } from "./AuthContext";
@@ -332,9 +332,9 @@ export default function Login() {
   //   password: "",
   // });
 
-  const [formData,setFormData] = useState({
-    username:'',
-    password:''
+  const [formData, setFormData] = useState({
+    username: '',
+    password: ''
 
   });
 
@@ -347,7 +347,6 @@ export default function Login() {
 
 
   const auth = useAuth();
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -363,34 +362,61 @@ export default function Login() {
 
 
   // Inside your component function
-const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
 
-const handleFormSubmit = async (event) => {
-  event.preventDefault();
-  // try {
-  //   await api.post('/login/', formData);
-  //   setErrorMessage(""); // Clear any previous error messages
-  //   // fetchusers();
+  // const handleFormSubmit = async (event) => {
+  //   event.preventDefault();
+  //   // try {
+  //   //   await api.post('/login/', formData);
+  //   //   setErrorMessage(""); // Clear any previous error messages
+  //   //   // fetchusers();
 
-  //   setFormData({
-  //     username: '',
-  //     name: '',
-  //     mobile: '',
-  //     email: '',
-  //     city: '',
-  //     password: '',
-  //   });
-  //   setIsLoggedIn(true);
-  //   navigate('/');
-  // } catch (error) {
-  //   setErrorMessage("Invalid credentials");
-  // }
-  if (formData.username !== "" && formData.password !== "") {
-    auth.loginAction(formData);
-    return;
-  }
-};
+  //   //   setFormData({
+  //   //     username: '',
+  //   //     name: '',
+  //   //     mobile: '',
+  //   //     email: '',
+  //   //     city: '',
+  //   //     password: '',
+  //   //   });
+  //   //   setIsLoggedIn(true);
+  //   //   navigate('/');
+  //   // } catch (error) {
+  //   //   setErrorMessage("Invalid credentials");
+  //   // }
+  //   if (formData.username !== "" && formData.password !== "") {
+
+  //     try{
+
+  //       auth.loginAction(formData);
+  //       setErrorMessage(""); 
+
+  //     }catch(error){
+  //       setErrorMessage(error.message);
+  //     }
+
+
+  //     return;
+  //   }
+  // };
+
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    if (formData.username !== "" && formData.password !== "") {
+      try {
+        await auth.loginAction(formData);
+        setErrorMessage(""); // Clear any previous error messages
+      } catch (error) {
+        setErrorMessage(error.message);
+      }
+
+      return;
+    }
+  };
+
 
   const validateForm = () => {
     const errors = {};
@@ -469,7 +495,7 @@ const handleFormSubmit = async (event) => {
                     ></TextField>
                   </Grid>
 
-                  <Grid item xs={12} sx={{ ml: "3em", mr: "2em" }}>
+                  {/* <Grid item xs={12} sx={{ ml: "3em", mr: "2em" }}>
                     <Stack direction="row" spacing={2}>
                       <FormControlLabel
                         sx={{ width: "60%" }}
@@ -488,7 +514,57 @@ const handleFormSubmit = async (event) => {
                         Forgot Password?
                       </Typography>
                     </Stack>
+                  </Grid> */}
+
+                  <Grid item xs={12} sx={{ ml: "3em", mr: "5em" }}>
+                    {/* <Button
+                      variant="contained"
+                      type="submit"
+                      fullWidth="true"
+                      size="large"
+                      sx={{
+                        mt: "10px",
+                        mr: "20px",
+                        borderRadius: 28,
+                        color: "#fff",
+                        minwidth: "170px",
+                        backgroundColor: "#000",
+                      }}
+                      onClick={handleFormSubmit}
+                    >
+                      Login
+                    </Button> */}
+
+                    <Grid item xs={12} sx={{ ml: "3em", mr: "5em" }}>
+                      {errorMessage && (
+                        <Typography variant="body1" color="error" sx={{ mt: 1 }}>
+                          {errorMessage}
+                        </Typography>
+                      )}
+                      <Button
+                        variant="contained"
+                        type="submit"
+                        fullWidth="true"
+                        size="large"
+                        sx={{
+                          mt: "10px",
+                          mr: "20px",
+                          borderRadius: 28,
+                          color: "#fff",
+                          minWidth: "170px",
+                          backgroundColor: "#000",
+                        }}
+                        onClick={handleFormSubmit}
+                      >
+                        Login
+                      </Button>
+
+
+                    </Grid>
+
+
                   </Grid>
+
                   <Grid item xs={12} sx={{ ml: "3em", mr: "2em" }}>
                     <Stack direction="row" spacing={2}>
                       <Typography
@@ -515,53 +591,7 @@ const handleFormSubmit = async (event) => {
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item xs={12} sx={{ ml: "3em", mr: "5em" }}>
-                    {/* <Button
-                      variant="contained"
-                      type="submit"
-                      fullWidth="true"
-                      size="large"
-                      sx={{
-                        mt: "10px",
-                        mr: "20px",
-                        borderRadius: 28,
-                        color: "#fff",
-                        minwidth: "170px",
-                        backgroundColor: "#000",
-                      }}
-                      onClick={handleFormSubmit}
-                    >
-                      Login
-                    </Button> */}
-
-                    <Grid item xs={12} sx={{ ml: "3em", mr: "5em" }}>
-  {errorMessage && (
-    <Typography variant="body1" color="error" sx={{ mt: 1 }}>
-      {errorMessage}
-    </Typography>
-  )}
-  <Button
-    variant="contained"
-    type="submit"
-    fullWidth="true"
-    size="large"
-    sx={{
-      mt: "10px",
-      mr: "20px",
-      borderRadius: 28,
-      color: "#fff",
-      minWidth: "170px",
-      backgroundColor: "#000",
-    }}
-    onClick={handleFormSubmit}
-  >
-    Login
-  </Button>
-</Grid>
-
-
-                  </Grid>
-
+                  
                   <Grid item xs={12} sx={{ ml: "3em", mr: "2em" }}>
                     <Stack direction="row" spacing={2}>
                       <Typography
@@ -588,7 +618,7 @@ const handleFormSubmit = async (event) => {
                       </Typography>
                     </Stack>
                   </Grid>
-                  
+
                 </Grid>
               </Container>
               {/* </ThemeProvider> */}

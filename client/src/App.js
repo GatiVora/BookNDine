@@ -17,7 +17,9 @@ import Restaurants from "./Components/Restaurants";
 import Landing from "./Components/Landing";
 import Restaurant_login from "./Components/Restaurant_login";
 import Restaurant_register from "./Components/Restaurant_register";
+import Testimonials from "./Components/Testimonials";
 import PrivateRoute from "./Components/Private";
+import Res from "./Components/ResHome";
 
 function App() {
   return (
@@ -45,6 +47,10 @@ function App() {
           <Route path="/home" exact element={<Home />}></Route>
           </Route>
           <Route path="/restaurants" element={<Restaurants />}></Route>
+          {/* <Route path="/restaurant/:id" element={<Landing />}></Route> */}
+          <Route path="/restaurant/:id" element={<Testimonials />} />
+
+          <Route path="/reshome" exact element={<Res />}></Route>
         </Routes>
     
 

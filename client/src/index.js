@@ -7,15 +7,18 @@ import reportWebVitals from './reportWebVitals';
 import AuthProvider from './Components/Auth.jsx';
 import { BrowserRouter, Routes } from 'react-router-dom';
 // import { AuthProvider } from './Components/AuthContext.jsx';
+import AuthProvider2 from './Components/ResAuth.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-<BrowserRouter>
+    
+    <BrowserRouter>
+    <AuthProvider2>
       <AuthProvider>
         <App />
       </AuthProvider>
-
+      </AuthProvider2>
       </BrowserRouter>
   </React.StrictMode>
 );

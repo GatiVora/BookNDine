@@ -62,11 +62,12 @@
 /* List */
 .list_wrap {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  /* grid-template-rows: repeat(4, 1fr); */
   grid-gap: 2rem;
 }
 
-/* List Item */
+/* List Item
 .listItem-wrap img {
   width: 100%;
   border-radius: 15px;
@@ -95,4 +96,4 @@
 .listItem-wrap footer p:first-child span {
   color: rgba(0, 0, 0, 0.26);
   font-weight: 600;
-}
+} */

@@ -1,156 +1,208 @@
-import React from 'react'
-import styled from 'styled-components'
-import homeImage from '../assets/bg.webp';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import homeImage from "../assets/bg.webp";
+import videoUrl from "../../src/assets/landing3.mp4";
+import "../index.css";
 export default function Hero() {
+  const [displayText, setDisplayText] = useState("");
+  useEffect(() => {
+    const currentTime = new Date().getHours();
+    let text = "";
+
+    if (currentTime >= 6 && currentTime < 12) {
+      text = "Start your day with delightful breakfasts";
+    } else if (currentTime >= 12 && currentTime < 17) {
+      text = "Indulge in flavorful lunches";
+    } else if (currentTime >= 17 && currentTime < 20) {
+      text = "Experience exquisite dinners";
+    } else {
+      text = "Discover culinary delights";
+    }
+
+    setDisplayText(text);
+  }, []);
+
   return (
-    <Section id = "hero">
-      <div className="background">
-        <img src={homeImage} alt =""/>
+    <Section id="hero">
+      <div className="video-container">
+        <video className="fullWidthVideo" autoPlay loop muted>
+          <source src={videoUrl} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </div>
       <div className="content">
         <div className="title">
           <h1>Come hungry, leave happy.</h1>
-          <p>
-          Easy dining, just a few clicks away.Easy dining, just a few clicks away.Easy dining, just a few clicks away.Easy dining, just a few clicks away.Easy dining, just a few clicks away
-          </p>
+          <p>{displayText}, just a few clicks away.</p>
         </div>
         <div className="search">
           <div className="container">
             <label htmlFor="Where you want to go?"></label>
-            <input type='text' placeholder='Search your location'/>
+            <input type="text" placeholder="Search your location" />
           </div>
-          <button >Book Now</button>
+          <button>Book Now</button>
         </div>
       </div>
     </Section>
-  )
+  );
 }
 
 const Section = styled.section`
   position: relative;
-  margin-top: 2rem;
   width: 100%;
   height: 100%;
-  .background{
-    height:100%;
-    img{
-      width: 100%;
-      filter: brightness(60%);
-
+  .video-container {
+    position: relative;
+    overflow: hidden;
+    height: 100vh; /* Adjust height as needed */
+    video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      z-index: -1;
     }
   }
-  .content{
-    height:100%;
-    width:100%;
-    position:absolute;
-    top:0;
+
+  .background {
+    height: 100%;
+    img {
+      width: 100%;
+      filter: brightness(60%);
+    }
+  }
+  .content {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
     z-index: 3;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 1rem;
-    .title{
+    .title {
       color: white;
-      h1{
+      h1 {
         font-size: 3rem;
         letter-spacing: 0.2rem;
-
       }
-      p{
+      p {
         text-align: center;
         padding: 0 30vw;
         margin-top: 0.5rem;
         font-size: 1.2rem;
-
       }
     }
-    .search{
+    .search {
       display: flex;
       background-color: #ffffffce;
       padding: 0.5rem;
+      height: 3.5rem;
       border-radius: 0.5rem;
-      width:50%;
+      width: 50%;
       align-items: center;
       margin: 0 auto;
-      .container{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
+      .container {
+        flex: 1;
+        max-width: 300px;
         padding: 0 1rem;
-        width:50%;
-        label{
-          font-size: 1.1 rem;
-          color:#03045e;
+        width: 50%;
 
+        label {
+          font-size: 1.1 rem;
+          color: #03045e;
         }
-        input{
+        input {
+          width: 100%;
+          padding: 0.2rem;
           background-color: transparent;
           border: none;
           text-align: center;
           color: black;
-          &::placeholder{
-            color: black;
-
+          &::placeholder {
+            color: grey;
           }
-          &:focus{
+          &:focus {
             outline: none;
           }
-           
         }
-
       }
-      button{
-        padding:1rem;
+      button {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        height: 3rem;
         margin-left: auto;
-        cursor:pointer;
+        cursor: pointer;
         border-radius: 0.3rem;
-        border:none;
-        color:white;
-        background-color: #4361ee;
-        font-size: 1.1rem;
+        border: none;
+        color: white;
+        background-color: black;
+        font-size: 1rem;
         text-transform: uppercase;
         transition: 0.3s ease-in-out;
-        &:hover{
+        &:hover {
           background-color: #023e8a;
         }
       }
     }
-
   }
-
-  @media screen and (min-width: 280px) and (max-width: 980){
+  @media screen and (max-width: 768px) {
+    .content {
+      .title {
+        h1 {
+          font-size: 2rem;
+        }
+        p {
+          font-size: 1.2rem;
+          padding: 0 1rem; /* Adjust padding as needed */
+        }
+      }
+      .search {
+        width: 80%; /* Adjust width as needed */
+        .container {
+          padding: 0.5rem; /* Adjust padding as needed */
+        }
+        button {
+          padding: 0.8rem 1.5rem; /* Adjust padding as needed */
+          font-size: 1rem; /* Adjust font size as needed */
+        }
+      }
+    }
+  }
+  @media screen and (min-width: 280px) and (max-width: 980) {
     height: 25rem;
-    .background{
-      img{
+    .background {
+      img {
         height: 100%;
       }
-
     }
-    .content{
-      .title{
-        h1{
+    .content {
+      .title {
+        h1 {
           font-size: 1rem;
         }
-        p{
+        p {
           font-size: 0.8rem;
           padding: 1vw;
         }
-
       }
-      .search{
+      .search {
         flex-direction: column;
         padding: 0.8rem;
-        gap:0.8rem;
-        .container{
+        gap: 0.8rem;
+        .container {
           padding: 0 0.8rem;
-          input[type="date"]{
+          input[type="date"] {
             padding-left: 1rem;
-
           }
         }
-        button{
+        button {
           padding: 1rem;
           font-size: 1rem;
         }
