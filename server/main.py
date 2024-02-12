@@ -662,3 +662,45 @@ async def login(login_data:ResLoginModel, db: Session = Depends(get_db)):
     }
     
     return {"access_token": access_token, "token_type": "bearer", "user": user_info}
+
+    # Route to retrieve all restaurants
+@app.get("/restaurants/", response_model=List[ResModel])
+async def read_restaurants(db: Session = Depends(get_db), skip: int = 0, limit: int = 100):
+    restaurants = db.query(models.Restaurant).offset(skip).limit(limit).all()
+    return restaurants
+
+# Route to retrieve a specific restaurant by ID
+@app.get("/restaurants/{restaurant_id}", response_model=ResModel)
+async def read_restaurant(restaurant_id: int, db: Session = Depends(get_db)):
+    restaurant = db.query(models.Restaurant).filter(models.Restaurant.id == restaurant_id).first()
+    if not restaurant:
+        raise HTTPException(status_code=404, detail="Restaurant not found")
+    return restaurant
+
+# Route to update restaurant information
+@app.put("/restaurants/{restaurant_id}", response_model=ResModel)
+async def update_restaurant(restaurant_id: int, restaurant_data: ResBase, db: Session = Depends(get_db)):
+    # Get the existing restaurant from the database
+    restaurant = db.query(models.Restaurant).filter(models.Restaurant.id == restaurant_id).first()
+    if not restaurant:
+        raise HTTPException(status_code=404, detail="Restaurant not found")
+    
+    # Update the restaurant data
+    for key, value in restaurant_data.dict().items():
+        setattr(restaurant, key, value)
+    db.commit()
+    db.refresh(restaurant)
+    return restaurant
+
+# Route to delete a restaurant
+@app.delete("/restaurants/{restaurant_id}")
+async def delete_restaurant(restaurant_id: int, db: Session = Depends(get_db)):
+    # Get the existing restaurant from the database
+    restaurant = db.query(models.Restaurant).filter(models.Restaurant.id == restaurant_id).first()
+    if not restaurant:
+        raise HTTPException(status_code=404, detail="Restaurant not found")
+    
+    # Delete the restaurant
+    db.delete(restaurant)
+    db.commit()
+    return {"message": "Restaurant deleted successfully"}

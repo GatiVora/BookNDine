@@ -19,7 +19,10 @@ import Restaurant_login from "./Components/Restaurant_login";
 import Restaurant_register from "./Components/Restaurant_register";
 import Testimonials from "./Components/Testimonials";
 import PrivateRoute from "./Components/Private";
-import Res from "./Components/ResHome";
+// import Res from "./Components/ResHome";
+import Res from "./Components/RestaurantOwner/index";
+import Im from "./Components/RestaurantOwner/Im";
+import PrivateRoute2 from "./Components/ResPrivate";
 
 function App() {
   return (
@@ -50,7 +53,11 @@ function App() {
           {/* <Route path="/restaurant/:id" element={<Landing />}></Route> */}
           <Route path="/restaurant/:id" element={<Testimonials />} />
 
+          <Route element={<PrivateRoute2 />}>
           <Route path="/reshome" exact element={<Res />}></Route>
+          </Route>
+          {/* <Route path="/images" exact element={<Im/>}></Route> */}
+          
         </Routes>
     
 
