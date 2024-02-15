@@ -705,23 +705,7 @@ const handleFormSubmit = async (event) => {
                     {/* Add more options as needed */}
                   </Select>
                 </Grid>
-                <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
-                  <Select
-                    labelId="cusine-label"
-                    id="cusine"
-                    name="cusine"
-                    value={formData.cusine}
-                    onChange={handleInputChange}
-                    fullWidth
-                    required
-                    displayEmpty
-                  >
-                    <MenuItem value="" disabled>Select Cusine</MenuItem>
-                    <MenuItem value="Punjabi">Punjabi</MenuItem>
-                    <MenuItem value="Chineese">Chineese</MenuItem>
-                    {/* Add more options as needed */}
-                  </Select>
-                </Grid>
+                
                 <Grid item xs={12} sm={6} sx={{ ml: "3em", mr: "3em", display: "flex", alignItems: "center" }}>
   <Typography component="legend" sx={{ marginRight: "1em" }}>Rating</Typography>
   <Rating

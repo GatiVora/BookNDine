@@ -6,7 +6,7 @@ const PrivateRoute2 = () => {
 
   const user = useAuth2();
 
-  console.log(user)
+  // console.log(user)
 
   if (!user.token) return <Navigate to="/restaurant-login" />;
   return <Outlet />;

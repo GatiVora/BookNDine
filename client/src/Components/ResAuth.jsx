@@ -10,11 +10,13 @@ const AuthProvider2 = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("site") || "");
   const navigate = useNavigate();
 
+ 
+
   useEffect(() => {
     // Retrieve user and token from localStorage
     const storedUser = localStorage.getItem("user");
     const storedToken = localStorage.getItem("site");
-
+    
     if (storedToken) {
       // Set token state if it exists in localStorage
       setToken(storedToken);
@@ -25,6 +27,8 @@ const AuthProvider2 = ({ children }) => {
       setUser(JSON.parse(storedUser));
     }
   }, []);
+
+  console.log(user);
 
   const loginAction = async (data) => {
     try {
