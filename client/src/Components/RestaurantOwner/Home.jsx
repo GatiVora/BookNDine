@@ -257,6 +257,7 @@ const Home = () => {
         category: '',
         cuisine: '',
         rating: '',
+        about:'',
         image: null,  // New state to hold the image file
     });
     const [loading, setLoading] = useState(false);
@@ -379,6 +380,15 @@ const Home = () => {
                         />
                     </Grid>
                     <Grid item xs={12}>
+                        <TextField
+                            label="About Us"
+                            name="about"
+                            value={restaurantData.about}
+                            onChange={handleInputChange}
+                            fullWidth
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
                     <input
                         type="file"
                         accept="image/*"
@@ -389,6 +399,7 @@ const Home = () => {
 
 
                     </Grid>
+
 
                     <Grid item xs={12}>
                         
