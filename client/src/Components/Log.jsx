@@ -290,7 +290,7 @@ import { useAuth } from "./Auth";
 const BoxStyle = styled(Box)`
   margin: 5vh 12vh; /* Set your desired percentage margin here */
   border-radius: 2px;
-  height: 120vh; /* Set your desired percentage height here */
+  height: 60vh; /* Set your desired percentage height here */
   background: #fff;
   color: #2874f0;
   box-shadow: 0 2px 4px 1px rgb(0 0 0 / 40%);
@@ -461,7 +461,7 @@ export default function Login() {
                     Login
                   </Typography>
                 </Box>
-                <Box height={35}></Box>
+                <Box height={30}></Box>
                 <Grid container spacing={1}>
                   <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
                     <TextField
@@ -565,7 +565,7 @@ export default function Login() {
 
                   </Grid>
 
-                  <Grid item xs={12} sx={{ ml: "3em", mr: "2em" }}>
+                  {/* <Grid item xs={12} sx={{ ml: "3em", mr: "2em" }}>
                     <Stack direction="row" spacing={2}>
                       <Typography
                         variant="body1"
@@ -590,7 +590,7 @@ export default function Login() {
                         Login Here
                       </Typography>
                     </Stack>
-                  </Grid>
+                  </Grid> */}
                   
                   <Grid item xs={12} sx={{ ml: "3em", mr: "2em" }}>
                     <Stack direction="row" spacing={2}>
@@ -599,7 +599,7 @@ export default function Login() {
                         component="span"
                         style={{ marginTop: "10px", cursor: "pointer" }}
                       >
-                        Not yet Registered?
+                        Not yet registered?
                       </Typography>
 
                       <Typography

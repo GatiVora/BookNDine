@@ -18,6 +18,7 @@ import Landing from "./Components/Landing";
 import Restaurant_login from "./Components/Restaurant_login";
 import Restaurant_register from "./Components/Restaurant_register";
 import Testimonials from "./Components/Testimonials";
+import Initial from "./Components/Initial"
 import PrivateRoute from "./Components/Private";
 // import Res from "./Components/ResHome";
 import Res from "./Components/RestaurantOwner/index";
@@ -29,8 +30,9 @@ function App() {
     <>
       
         <Routes>
+          <Route path="/" exact element={<Initial/>}></Route>
         <Route element={<PrivateRoute />}>
-          <Route path="/" exact element={<Home />}></Route>
+          <Route path="/home" exact element={<Home />}></Route>
         </Route>
           <Route path="/login" exact element={<Login />}></Route>
           <Route
@@ -51,7 +53,7 @@ function App() {
           </Route>
           <Route path="/restaurants" element={<Restaurants />}></Route>
           {/* <Route path="/restaurant/:id" element={<Landing />}></Route> */}
-          <Route path="/restaurant/:id" element={<Testimonials />} />
+          <Route path="/restaurant/:id" element={<Landing />} />
 
           <Route element={<PrivateRoute2 />}>
           <Route path="/reshome" exact element={<Res />}></Route>

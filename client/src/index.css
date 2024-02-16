@@ -25,6 +25,13 @@ code {
   margin-top: 0rem;
 }
 
+.fullWidthVideo1 {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  filter: blur(2px);
+}
+
 .fullWidthVideo {
   width: 100%;
   height: 100vh;
@@ -48,4 +55,272 @@ code {
 
 .text-overlay p {
   font-size: 1.5rem;
+}
+
+.buttons-container {
+  margin-top: 20px;
+}
+
+.login-button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #2874f0; /* Example color */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-button:hover {
+  background-color: #1c5f9d; /* Example color on hover */
+}
+
+
+.landing-name {
+  position: absolute;
+  top: 10px; /* Adjust the top position as needed */
+  left: 10px; /* Adjust the left position as needed */
+  color: white; /* Color of the restaurant name */
+  background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent background */
+  padding: 5px 10px; /* Adjust padding as needed */
+  font-size: 16px; /* Adjust font size as needed */
+}
+
+
+.img {
+  object-fit: cover;
+  position: relative;
+  height: 70vh;
+  width: 100%;
+  filter: blur(1px);
+  padding-right: 2rem;
+}
+
+.image-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8rem;
+  height: 3rem;
+  filter: blur();
+  background-color: rgba(0,0,0,0.3); /* Example background color */
+  color: white;
+  border: 4px solid white;
+  border-radius: 10%;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.image-button:hover {
+  background-color: rgba(0,0,0,0.3);/* Change background color on hover */
+  color: black; /* Change text color on hover */
+  border-color: black; /* Change border color on hover */
+}
+
+.title {
+  padding-top: 0rem;
+  font-family: 'Pacifico', cursive;
+  font-size: 10vh;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  animation: slideIn 1s ease-in-out forwards;
+  text-align: center; /* Apply animation named 'slideIn' with a duration of 1 second */
+}
+
+.description {
+  padding-top: 1rem;
+  color: black; /* Change text color */
+  font-size: 1rem; /* Adjust font size */
+  font-weight: 400; /* Adjust font weight */
+  width: calc(100% - 8rem);
+  padding-bottom: 2rem;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%); /* Start the animation from the right side */
+  }
+  to {
+    transform: translateX(0%); /* Move the element to its original position */
+  }
+}
+
+.data-container {
+  padding: 1rem;
+  display: flex;
+}
+
+.content {
+  flex: 1;
+  padding: 10px;
+  padding-left: 4vh;
+  padding-right: 4vh;
+}
+
+.divider {
+  width: 2px; /* Width of the divider */
+  background-color: black; /* Color of the divider */
+  margin: 0 10px;
+}
+
+.heading {
+  font-size: 1.2rem;
+  font-weight: 400;
+  font-size: 2rem;
+  width: calc(100% - 8rem);
+}
+.box {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  width: 75vh;
+  border: 2px solid #00000035; 
+  height : auto;
+  padding-right: 2rem;
+}
+
+.address {
+  padding-left: 2rem;
+  font-weight: 600;
+  /* text-align: center; */
+}
+
+.email {
+  padding-top: 0.3rem;
+  padding-left: 2rem;
+  color: #00000095;
+}
+
+.mobile {
+  padding-top: 0.1rem;
+  padding-left: 2rem;
+  font-weight: 600;
+}
+
+.schedule {
+  padding-top: 0.3rem;
+  padding-left: 2rem;
+  font-weight: 400;
+}
+
+.social_links {
+  display: flex; /* Display the icons in a row */
+  list-style: none; /* Remove the bullet points */
+  padding-top: 0.3rem;/* Remove default padding */
+  color: #00000095;
+}
+
+.social_links li {
+  margin-right:20px; /* Add space between the icons */
+}
+
+.rating {
+  padding-top: 0.5rem;
+  padding-left: 2rem;
+}
+
+.menu {
+  margin-top: 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.menu ul {
+  margin-top: 1rem;
+  flex: 1;
+  list-style: none;
+  padding: 0;
+  display: flex; /* Use flexbox to align items in a row */
+  /* flex-wrap: wrap; Allow items to wrap to the next row */
+  gap: 20px;
+}
+
+.menu-item {
+  display: flex;
+  flex: 1;
+  flex: 0 1 calc(50% - 2vh); 
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: aliceblue;
+  transition: transform 0.2s ease-in-out;
+}
+.menu-item:hover {
+  transform: scale(1.02); /* Scale up the item on hover */
+}
+.menu-item img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-right: 20px;
+  border-radius: 5px;
+}
+
+.menu-item div {
+  flex: 1;
+}
+
+.menu-item h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.menu-item p {
+  margin: 5px 0;
+  font-size: 1rem;
+}
+
+.menu-item p.price {
+  font-weight: bold;
+}
+
+/* landing.css */
+
+.image-gallery {
+  padding-left: 30vh;
+}
+
+.image-gallery img {
+  width: 80%;
+  height: 80vh;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.image-gallery p {
+  text-align: auto;
+  margin-top: 10px;
+}
+
+.image-button {
+  background-color: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.image-button:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+/* Add more styles as needed */
+
+.book-now {
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  /* width: 100%; */
+  border: 2px solid #00000035; 
+  height : auto;
+  padding-right: 2rem;
 }
