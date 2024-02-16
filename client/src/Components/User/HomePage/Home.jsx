@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <>
 
-    <h1>Welcome! {auth.user?.username}</h1>
+    {/* <h1>Welcome! {auth.user?.username}</h1> */}
     <Scroll/>
     <Navbar/>
     <Hero/>
