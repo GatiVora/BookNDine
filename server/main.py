@@ -334,7 +334,7 @@ class ResBase(BaseModel):
     password: str
     category:str
     rating:str
-
+    about: Optional[str] = None  # Optional about field
 
 class ResLoginModel(BaseModel):
     res_name: str
@@ -536,24 +536,10 @@ async def upload_image(restaurant_id: int, file: UploadFile = File(...), db: Ses
 
     # print("Image URL after updating:", restaurant.image_url)
 
-    db_restaurant = models.Restaurant(
-        res_name=restaurant.res_name,
-        mobile=restaurant.mobile,
-        email=restaurant.email,
-        city=restaurant.city,
-        password=restaurant.password,
-        category=restaurant.category,
-        rating=restaurant.rating,
-        image_url=restaurant.image_url
-    )
-
-
-
     try:
-        
-        db.add(db_restaurant)
+        # Commit the changes to the database
         db.commit()
-        db.refresh(db_restaurant)
+        db.refresh(restaurant)  # Refresh the restaurant object after committing changes
     except Exception as e:
         print("Error committing changes:", e)
         db.rollback()  # Rollback changes if an error occurs
@@ -571,3 +557,90 @@ async def get_restaurant_image(restaurant_id: int, db: Session = Depends(get_db)
     if not image_path.is_file():
         return {"error": "Image not found on the server"}
     return FileResponse(image_path) 
+
+
+
+
+# # Route to create a table for a restaurant
+# @app.post("/tables/{restaurant_id}", response_model=Table)
+# async def create_table(restaurant_id: int, table: TableBase, db: Session = Depends(get_db)):
+#     # Check if the restaurant exists
+#     restaurant = db.query(models.Restaurant).filter(models.Restaurant.id == restaurant_id).first()
+#     if not restaurant:
+#         raise HTTPException(status_code=404, detail="Restaurant not found")
+
+#     # Create the table in the database
+#     db_table = models.Table(
+#         restaurant_id=restaurant_id,
+#         capacity=table.capacity,
+#         status=table.status,
+#         booked_by=table.booked_by
+#     )
+#     db.add(db_table)
+#     db.commit()
+#     db.refresh(db_table)
+#     return db_table
+
+# # Route to retrieve all tables for a restaurant
+# @app.get("/tables/{restaurant_id}", response_model=List[Table])
+# async def read_tables(restaurant_id: int, db: Session = Depends(get_db)):
+#     # Check if the restaurant exists
+#     restaurant = db.query(models.Restaurant).filter(models.Restaurant.id == restaurant_id).first()
+#     if not restaurant:
+#         raise HTTPException(status_code=404, detail="Restaurant not found")
+
+#     # Query the tables for the restaurant
+#     tables = db.query(models.Table).filter(models.Table.restaurant_id == restaurant_id).all()
+#     return tables
+
+# # Route to create a booking for a user
+# @app.post("/bookings/{user_id}", response_model=Booking)
+# async def create_booking(user_id: int, booking: BookingBase, db: Session = Depends(get_db)):
+#     # Check if the user exists
+#     user = db.query(models.User).filter(models.User.id == user_id).first()
+#     if not user:
+#         raise HTTPException(status_code=404, detail="User not found")
+
+#     # Check if the restaurant and table exist
+#     restaurant = db.query(models.Restaurant).filter(models.Restaurant.id == booking.restaurant_id).first()
+#     if not restaurant:
+#         raise HTTPException(status_code=404, detail="Restaurant not found")
+#     table = db.query(models.Table).filter(models.Table.id == booking.table_id).first()
+#     if not table:
+#         raise HTTPException(status_code=404, detail="Table not found")
+
+#     # Check if the table is available and has enough capacity
+#     if table.status != 'available':
+#         raise HTTPException(status_code=400, detail="Table is not available")
+#     if table.capacity < booking.capacity:
+#         raise HTTPException(status_code=400, detail="Table does not have enough capacity")
+
+#     # Create the booking in the database
+#     db_booking = models.Booking(
+#         user_id=user_id,
+#         restaurant_id=booking.restaurant_id,
+#         table_id=booking.table_id,
+#         date=booking.date,
+#         time=booking.time,
+#         confirmed=booking.confirmed
+#     )
+#     db.add(db_booking)
+#     db.commit()
+#     db.refresh(db_booking)
+#     return db_booking
+
+# # Route to retrieve all bookings for a user
+# @app.get("/bookings/{user_id}", response_model=List[Booking])
+# async def read_bookings(user_id: int, db: Session = Depends(get_db)):
+#     # Check if the user exists
+#     user = db.query(models.User).filter(models.User.id == user_id).first()
+#     if not user:
+#         raise HTTPException(status_code=404, detail="User not found")
+
+#     # Query the bookings for the user
+#     bookings = db.query(models.Booking).join(models.Restaurant).join(models.Table).filter(models.Booking.user_id == user_id).all()
+
+#     # Convert the query results into a list of dictionaries
+#     bookings_as_dict = bookings.mappings().all()
+
+#     return bookings_as_dict
