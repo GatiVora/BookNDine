@@ -4,6 +4,8 @@ import
 
 
 import { useAuth2 } from '../ResAuth';
+// import logo from "../../../assets/logo.png";
+import logo from "../../assets/logo.png";
 
 function Sidebar({openSidebarToggle, OpenSidebar}) {
 
@@ -17,11 +19,14 @@ function Sidebar({openSidebarToggle, OpenSidebar}) {
   return (
     <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive": ""}>
         <div className='sidebar-title'>
-            <div className='sidebar-brand'>
-                <BsCart3  className='icon_header'/> SHOP
+            <div className="logo">
+            <span className='icon close_icon' onClick={OpenSidebar}>
+                <img src={logo} alt="app logo" />
+                </span>
             </div>
-            <span className='icon close_icon' onClick={OpenSidebar}>X</span>
+            
         </div>
+        
 
         <ul className='sidebar-list'>
             <li className='sidebar-list-item'>

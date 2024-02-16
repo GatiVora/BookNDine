@@ -255,10 +255,11 @@ const Home = () => {
         city: '',
         password: '',
         category: '',
-        cuisine: '',
         rating: '',
         about:'',
+        cuisine:'',
         image: null,  // New state to hold the image file
+
     });
     const [loading, setLoading] = useState(false);
     const [imageUrl, setImageUrl] = useState(null); // State to hold the image URL
@@ -319,8 +320,9 @@ const Home = () => {
     return (
         <>
         {/* <h1>Welcome! {res_id}</h1> */}
-        <Container maxWidth="sm">
+        <Container maxWidth="sm" className='contain'>
             <Typography variant="h5" gutterBottom>Edit Restaurant Information</Typography>
+            <br/>
             <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
@@ -389,6 +391,15 @@ const Home = () => {
                         />
                     </Grid>
                     <Grid item xs={12}>
+                        <TextField
+                            label="Cuisine"
+                            name="cuisine"
+                            value={restaurantData.cuisine}
+                            onChange={handleInputChange}
+                            fullWidth
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
                     <input
                         type="file"
                         accept="image/*"
@@ -406,10 +417,13 @@ const Home = () => {
                         <img src={"http://127.0.0.1:8000/restaurants/"+ res_id + "/image"} alt="Restaurant" style={{ maxWidth: '100%' }} />
                     </Grid>
                 </Grid>
+                <br/>
                 <Button type="submit" variant="contained" color="primary">
                     {loading ? <CircularProgress size={24} /> : 'Update Information'}
                 </Button>
+                <br/>
             </form>
+            <br/>
         </Container>
         </>
     );

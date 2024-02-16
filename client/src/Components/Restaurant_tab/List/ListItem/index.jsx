@@ -4,23 +4,24 @@ import { Link } from "react-router-dom";
 import "./listItem.css";
 // import { Link } from "react-router-dom";
 const ListItem = ({
-  item: { id, coverSrc, title, price, deliveryFee, serviceTime, rating },
+  item: { id, res_name, rating ,city},
 }) => (
  
   <Link to={`/restaurant/${id}`} className="listItem-link">
     <div className="listItem">
-      <img src={coverSrc} alt="item" />
+      <img src={"http://127.0.0.1:8000/restaurants/"+ id + "/image"} alt="item" />
       <header>
-        <h4>{title}</h4>
+        <h4>{res_name}</h4>
+        <h6>{city}</h6>
         <span>⭐{rating}</span>
       </header>
       <footer>
         <p>
-          <b>{serviceTime}</b>
+          {/* <b>{serviceTime}</b> */}
         </p>
-        <span>Delivery Fee ${deliveryFee}</span>
+        {/* <span>Delivery Fee ${deliveryFee}</span> */}
         <p>
-          <b>${price}</b>
+          {/* <b>${price}</b> */}
         </p>
       </footer>
     </div>

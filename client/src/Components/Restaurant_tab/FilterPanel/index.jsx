@@ -1,7 +1,8 @@
 import React from "react";
 import FilterListToggle from "../FilterListToggle";
-import { categoryList, ratingList } from "../../constants";
-import "../../restaurant_style.css";
+import { categoryList, ratingList } from "../../../constants";
+// import "../../restaurant_style.css";
+import "../../../restaurant_style.css";
 import { Checkbox } from "@material-ui/core";
 import CheckboxProton from "../CheckboxProton";
 const FilterPanel = ({

@@ -61,6 +61,7 @@ class Restaurant(Base):
     rating = Column(String)
     image_url = Column(String, nullable=True)
     about = Column(String, nullable=True)
+    cuisine = Column(String,nullable=True)
 
     tables = relationship("Table", back_populates="restaurant")
     bookings = relationship("Booking", back_populates="restaurant")

@@ -10,7 +10,7 @@ import Services from './Services';
 
 
 import React, { useEffect } from 'react';
-import { useAuth } from './Auth';
+import { useAuth } from '../../Auth';
 import { useNavigate } from 'react-router-dom';
 
 export default function Home() {

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import homeImage from "../assets/bg.webp";
-import videoUrl from "../../src/assets/landing3.mp4";
-import "../index.css";
+import homeImage from "../../../assets/bg.webp";
+// import videoUrl from "../../src/assets/landing3.mp4";
+import videoUrl from "../../../assets/landing3.mp4";
+// import "../index.css";
+import "../../../index.css";
 export default function Hero() {
   const [displayText, setDisplayText] = useState("");
   useEffect(() => {

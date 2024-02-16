@@ -229,13 +229,15 @@
 import React, { useState , useContext } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
-import logo from "../assets/logo.png";
+// import logo from "../assets/logo.png";
+import logo from "../../../assets/logo.png";
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import { AuthContext } from "./AuthContext";
+// import { AuthContext } from "./AuthContext";
 
-import { useAuth } from "./Auth";
+// import { useAuth } from "../../Auth";
+import { useAuth } from "../../Auth";
 
 
 export default function Navb() {

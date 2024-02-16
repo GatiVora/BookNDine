@@ -60,7 +60,7 @@
 //   const navigate = useNavigate();
 
 //   const user = {
-//     res_name: "",
+//     username: "",
 //     name: "",
 //     mobile: "",
 //     email: "",
@@ -71,7 +71,7 @@
 //   const [formData, setFormData] = useState(user);
 
 //   const [formErrors, setFormErrors] = useState({
-//     res_name: "",
+//     username: "",
 //     name: "",
 //     mobile: "",
 //     email: "",
@@ -163,16 +163,16 @@
 //                   <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
 //                     <TextField
 //                       i
-//                       d="res_name"
-//                       name="res_name"
-//                       label="Restaurant name"
-//                       autoComplete="res_name"
+//                       d="username"
+//                       name="username"
+//                       label="Username"
+//                       autoComplete="username"
 //                       required
 //                       fullWidth
-//                       value={formData.res_name}
+//                       value={formData.username}
 //                       onChange={handleInputChange}
-//                       error={!!formErrors.res_name}
-//                       helperText={formErrors.res_name}
+//                       error={!!formErrors.username}
+//                       helperText={formErrors.username}
 //                     ></TextField>
 //                   </Grid>
 //                   <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
@@ -339,7 +339,7 @@
 // const SignIn = ()=>{
 //   const [users,setUsers] = useState([]);
 //   const [formData,setFormData] = useState({
-//     res_name:'',
+//     username:'',
 //     name:'',
 //     mobile:'',
 //     email:'',
@@ -373,7 +373,7 @@
 //     await api.post('/users/',formData)
 //     fetchusers();
 //     setFormData({
-//       res_name:'',
+//       username:'',
 //       name:'',
 //       mobile:'',
 //       email:'',
@@ -394,8 +394,8 @@
 //       <div className='container'>
 //         <form onSubmit={handleFormSubmit}>
 //           <div className='mb-3 mt-3'>
-//             <label htmlFor='Restaurant name' className='form-label'>Restaurant name</label>
-//             <input type='text' className='form-control' id='res_name' name='res_name'  onChange={handleInputChange} value={formData.res_name}/>
+//             <label htmlFor='Username' className='form-label'>Username</label>
+//             <input type='text' className='form-control' id='username' name='username'  onChange={handleInputChange} value={formData.username}/>
 //           </div>
 
 //           <div className='mb-3 mt-3'>
@@ -441,7 +441,7 @@
 
 
 import React,{useState,useEffect, forwardRef} from 'react';
-import api from '../api'
+import api from '../../../api'
 
 import {
   Box,
@@ -458,14 +458,11 @@ import {
   Stack,
 } from "@mui/material";
 import Login from "./Log";
-import img from "../assets/img1.jpg";
+import img from "../../../assets/img1.jpg";
+
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 // import { Checkbox } from "@mui/icons-material";
 import { Checkbox } from "@mui/material";
-import { Select, MenuItem, InputLabel, FormControl } from "@mui/material";
-
-import { Rating } from "@mui/material";
-
 
 import { useNavigate } from "react-router-dom";
 // import {ForgotPassword} from "./ForgotPassword"
@@ -507,52 +504,61 @@ const imageURL = "images/img1.jpg";
 export default function SignIn() {
 
   
-  const [formData, setFormData] = useState({
-    res_name: '',
-    mobile: '',
-    email: '',
-    city: '',
-    password: '',
-    category: '', // Initialize with an empty string
-    cusine: '', // Initialize with an empty string
-    rating: null,
+
+  const [users,setUsers] = useState([]);
+  const [formData,setFormData] = useState({
+    username:'',
+    name:'',
+    mobile:'',
+    email:'',
+    city:'',
+    password:''
+
   });
+
 
   const navigate = useNavigate();
 
+  const fetchusers = async () =>{
+    const response = await api.get('/users');
+    setUsers(response.data)
+  };
 
-  const handleInputChange = (event) => {
+  useEffect(()=>{
+    fetchusers();
+  },[]);
+
+  const handleInputChange =(event)=>{
     const { name, value } = event.target;
     setFormData({
       ...formData,
       [name]: value,
     });
-  };
+  } 
 
 // ... (previous code)
 
 const handleFormSubmit = async (event) => {
-  event.preventDefault();
-  await api.post('/restaurants/', formData);
-  setFormData({
-    res_name: '',
-    mobile: '',
-    email: '',
-    city: '',
-    password: '',
-    category: '',
-    cusine: '',
-    rating: null,
-  });
-  navigate('/login');
-};
-
+    event.preventDefault();
+    await api.post('/users/', formData);
+    fetchusers();
+    setFormData({
+      username: '',
+      name: '',
+      mobile: '',
+      email: '',
+      city: '',
+      password: ''
+    });
+  
+    navigate('/login');
+  };
   
   // ... (remaining code)
   
 
 //   const user = {
-//     res_name: "",
+//     username: "",
 //     name: "",
 //     mobile: "",
 //     email: "",
@@ -563,15 +569,49 @@ const handleFormSubmit = async (event) => {
 //   const [formData, setFormData] = useState(user);
 
   const [formErrors, setFormErrors] = useState({
-    res_name: "",
+    username: "",
+    name: "",
     mobile: "",
     email: "",
     city: "",
     password: "",
-    category:"",
-    rating: null,
   });
 
+//   const handleInputChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData({
+//       ...formData,
+//       [name]: value,
+//     });
+//   };
+
+
+
+//   const handleSignUp = async () => {
+//     try {
+//       const temp = JSON.stringify(formData);
+//       console.log(temp);
+
+//       const response = await fetch("http://localhost:8000/user", {
+//         method: "POST",
+//         mode: "no-cors",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: temp,
+//       });
+
+//       if (response.ok) {
+//         console.log("User registered successfully");
+//         navigate("/login");
+//       } else {
+//         const errorData = await response.json();
+//         console.error("Error registering user:", errorData);
+//       }
+//     } catch (error) {
+//       console.error("Network error:", error);
+//     }
+//   };
 
   const validateForm = () => {
     const errors = {};
@@ -621,18 +661,30 @@ const handleFormSubmit = async (event) => {
                   <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
                     <TextField
                       i
-                      d="res_name"
-                      name="res_name"
-                      label="Restaurant name"
-                      autoComplete="res_name"
+                      d="username"
+                      name="username"
+                      label="Username"
+                      autoComplete="username"
                       required
                       fullWidth
-                      onChange={handleInputChange} value={formData.res_name}
-                      error={!!formErrors.res_name}
-                      helperText={formErrors.res_name}
+                      onChange={handleInputChange} value={formData.username}
+                      error={!!formErrors.username}
+                      helperText={formErrors.username}
                     ></TextField>
                   </Grid>
-                 
+                  <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
+                    <TextField
+                      i
+                      d="name"
+                      name="name"
+                      label="Name"
+                      required
+                      fullWidth
+                      onChange={handleInputChange} value={formData.name}
+                      error={!!formErrors.name}
+                      helperText={formErrors.name}
+                    ></TextField>
+                  </Grid>
                   <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
                     <TextField
                       i
@@ -688,38 +740,22 @@ const handleFormSubmit = async (event) => {
                       helperText={formErrors.password}
                     ></TextField>
                   </Grid>
-                  <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
-                  <Select
-                    labelId="category-label"
-                    id="category"
-                    name="category"
-                    value={formData.category}
-                    onChange={handleInputChange}
-                    fullWidth
-                    required
-                    displayEmpty
-                  >
-                    <MenuItem value="" disabled>Select Category</MenuItem>
-                    <MenuItem value="Cafe">Cafe</MenuItem>
-                    <MenuItem value="Restaurant">Restaurant</MenuItem>
-                    {/* Add more options as needed */}
-                  </Select>
-                </Grid>
-                
-                <Grid item xs={12} sm={6} sx={{ ml: "3em", mr: "3em", display: "flex", alignItems: "center" }}>
-  <Typography component="legend" sx={{ marginRight: "1em" }}>Rating</Typography>
-  <Rating
-    name="rating"
-    value={formData.rating}  // Ensure formData.rating is a string
-    onChange={(event, newValue) => {
-      setFormData({
-        ...formData,
-        rating: newValue.toString()  // Convert newValue to string
-      });
-    }}
-  />
-</Grid>
-
+                  {/* <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
+                    <Typography>Date of birth :</Typography>
+                    <Box height={2}></Box>
+                    <TextField
+                      i
+                      d="dob"
+                      name="dob"
+                      type="date"
+                      required
+                      fullWidth
+                      value={formData.dob}
+                      onChange={handleInputChange}
+                      error={!!formErrors.dob}
+                      helperText={formErrors.dob}
+                    ></TextField>
+                  </Grid> */}
                   <Box size={4} />
                   <Grid item xs={12} sx={{ ml: "3em", mr: "5em" }}>
                     <Button
@@ -767,7 +803,32 @@ const handleFormSubmit = async (event) => {
                     </Stack>
                   </Grid>
 
+                  <Grid item xs={12} sx={{ ml: "3em", mr: "2em" }}>
+                    <Stack direction="row" spacing={2}>
+                      <Typography
+                        variant="body1"
+                        component="span"
+                        style={{ marginTop: "10px", cursor: "pointer" }}
+                      >
+                        Are you restaurant owner?
+                      </Typography>
 
+                      <Typography
+                        variant="body1"
+                        component="span"
+                        onClick={() => {
+                          navigate("/restaurant-register");
+                        }}
+                        style={{
+                          marginTop: "10px",
+                          cursor: "pointer",
+                          color: "gray",
+                        }}
+                      >
+                        Register here!
+                      </Typography>
+                    </Stack>
+                  </Grid>
                 </Grid>
               </Container>
               {/* </ThemeProvider> */}

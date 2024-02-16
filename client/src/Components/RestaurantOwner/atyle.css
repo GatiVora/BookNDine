@@ -1,8 +1,8 @@
 .grid-container {
   margin: 0;
   padding: 0;
-  background-color: grey;
-  color: #9e9ea4;
+  background-color: white;
+  color: black;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -53,14 +53,24 @@
 }
 /* End Header  */
 
+.logo {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  img {
+      width: 150px;
+  }
+}
+
 /* Sidebar  */
 #sidebar {
   grid-area: sidebar;
   height: 100%;
-  background-color: #263043;
+  background-color: black;
   overflow-y: auto;
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
+  color: white;
 }
 
 .sidebar-title {
