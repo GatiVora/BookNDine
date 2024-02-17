@@ -3,6 +3,8 @@ import './atyle.css'
 import Header from './Header'
 import Sidebar from './Sidebar'
 import Home from './Home'
+import Tables from './Tables'
+import Menu from './Menu'
 
 function Res() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
@@ -16,6 +18,8 @@ function Res() {
       <Header OpenSidebar={OpenSidebar}/>
       <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
       <Home />
+      <Tables/>
+      <Menu/>
     </div>
   )
 }

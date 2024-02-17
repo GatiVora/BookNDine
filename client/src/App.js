@@ -13,7 +13,7 @@ import Restaurant_register from "./Components/RestaurantOwner/Authentication/Res
 import Restaurants from "./Components/Restaurant_tab/Restaurants";
 // import Testimonials from "./Components/User/HomePage/Testimonials";
 import Res from "./Components/RestaurantOwner/index";
-import SignIn from "./Components/RestaurantOwner/Authentication/Restaurant_register";
+import SignIn from "./Components/User/Authentication/Signin";
 import Landing from "./Components/Landing";
 
 function App() {

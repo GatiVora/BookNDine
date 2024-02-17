@@ -2,7 +2,7 @@ import "./";
 export const categoryList = [
   {
     id: 1,
-    value: "cafe",
+    value: "Cafe",
     label: "Cafe",
   },
   {
@@ -22,8 +22,8 @@ export const categoryList = [
   },
   {
     id: 5,
-    value: "family-restaurant",
-    label: "Family Restaurant",
+    value: "Restaurant",
+    label: "Restaurant",
   },
   {
     id: 6,

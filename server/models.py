@@ -28,7 +28,7 @@
 #     cusine = Column(String)
 #     rating = Column(String)
 
-from sqlalchemy import Column,ForeignKey,Integer,String,Date,Time,Boolean
+from sqlalchemy import Column,ForeignKey,Integer,String,Date,Time,Boolean,DateTime
 from database import Base
 from sqlalchemy.orm import relationship
 
@@ -56,16 +56,19 @@ class Restaurant(Base):
     mobile = Column(String)
     email=Column(String)
     city = Column(String)
+    address = Column(String)
     password = Column(String)
     category = Column(String)
     rating = Column(String)
     image_url = Column(String, nullable=True)
     about = Column(String, nullable=True)
     cuisine = Column(String,nullable=True)
+    open_time_start = Column(DateTime , nullable=True)  # Start time of the open time range
+    open_time_end = Column(DateTime , nullable=True)    # End time of the open time range
 
     tables = relationship("Table", back_populates="restaurant")
     bookings = relationship("Booking", back_populates="restaurant")
-
+    menu_items = relationship("MenuItem", back_populates="restaurant")
 
 class Table(Base):
 
@@ -97,3 +100,15 @@ class Booking(Base):
     restaurant = relationship("Restaurant", back_populates="bookings")
     table = relationship("Table", back_populates="booking")
 
+
+class MenuItem(Base):
+    __tablename__ = 'menu_items'
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    description = Column(String, nullable=True)
+    price = Column(Integer, nullable=False)
+    category = Column(String, nullable=True)  # Add the category field
+    restaurant_id = Column(Integer, ForeignKey('restaurants.id'))
+
+    restaurant = relationship("Restaurant", back_populates="menu_items")

@@ -258,6 +258,7 @@ const Home = () => {
         rating: '',
         about:'',
         cuisine:'',
+        address:'',
         image: null,  // New state to hold the image file
 
     });
@@ -281,9 +282,27 @@ const Home = () => {
         }
     }, [res_id]);
 
+    // const handleInputChange = (e) => {
+    //     setRestaurantData({ ...restaurantData, [e.target.name]: e.target.value });
+    // };
+
     const handleInputChange = (e) => {
-        setRestaurantData({ ...restaurantData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+    
+        // Handle time input separately
+        if (name === 'open_time_start' || name === 'open_time_end') {
+            setRestaurantData({
+                ...restaurantData,
+                [name]: value // No need for additional formatting if Material-UI provides the correct time format
+            });
+        } else {
+            setRestaurantData({
+                ...restaurantData,
+                [name]: value
+            });
+        }
     };
+    
 
     const handleImageChange = (e) => {
         setRestaurantData({ ...restaurantData, image: e.target.files[0] });
@@ -399,6 +418,16 @@ const Home = () => {
                             fullWidth
                         />
                     </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            label="Address"
+                            name="address"
+                            value={restaurantData.address}
+                            onChange={handleInputChange}
+                            fullWidth
+                        />
+                    </Grid>
+
                     <Grid item xs={12}>
                     <input
                         type="file"

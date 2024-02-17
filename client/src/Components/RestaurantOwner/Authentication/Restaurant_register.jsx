@@ -701,7 +701,9 @@ const handleFormSubmit = async (event) => {
                   >
                     <MenuItem value="" disabled>Select Category</MenuItem>
                     <MenuItem value="Cafe">Cafe</MenuItem>
-                    <MenuItem value="Restaurant">Restaurant</MenuItem>
+                    <MenuItem value="Fine Dining">Fine Dining</MenuItem>
+                    <MenuItem value="Buffet">Buffet</MenuItem>
+                    <MenuItem value="Garden Restaurant">Garden Restaurant</MenuItem>
                     {/* Add more options as needed */}
                   </Select>
                 </Grid>
