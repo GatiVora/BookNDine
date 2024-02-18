@@ -95,7 +95,8 @@ class Booking(Base):
     date = Column(Date)
     time = Column(Time)
     confirmed = Column(Boolean, default=False)
-
+    seats_required = Column(Integer)
+    
     user = relationship("User", back_populates="bookings")
     restaurant = relationship("Restaurant", back_populates="bookings")
     table = relationship("Table", back_populates="booking")

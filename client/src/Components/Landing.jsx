@@ -228,6 +228,7 @@ import { BsLinkedin, BsFacebook } from "react-icons/bs";
 import { AiFillInstagram } from "react-icons/ai";
 import { Rating } from "@mui/material";
 import Navbar from "../Components/User/HomePage/Navbar";
+import { useAuth } from './Auth';
 
 const Landing = (props) => {
   const { id } = useParams(); // Get the ID from the URL
@@ -235,6 +236,49 @@ const Landing = (props) => {
   const [menu, setMenu] = useState([]);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
   const [loading, setLoading] = useState(true);
+
+  const { user } = useAuth();
+  const auth = useAuth();
+
+  const user_id = auth.user?.id;
+  const res_id = id;
+
+
+
+  const [bookingForm, setBookingForm] = useState({
+    date: '',
+    time: '',
+    confirmed: false,
+    seats_required: 1 // Default to 1 seat
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Make API call to book the table using bookingForm data
+      // Example:
+      // await api.post(`/bookings/${restaurant.id}`, bookingForm);
+      await api.post(`/book-table/${res_id}/${user_id}`,bookingForm);
+      console.log('Booking submitted:', bookingForm);
+      // Optionally, you can add code to handle success or error responses
+    } catch (error) {
+      console.error('Error booking table:', error);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    const inputValue = type === 'checkbox' ? checked : value;
+    
+    // If the input is a checkbox and checked, set the value to true, otherwise false
+    const checkboxValue = type === 'checkbox' ? checked : value;
+  
+    setBookingForm(prevState => ({
+      ...prevState,
+      [name]: name === 'confirmed' ? checkboxValue : inputValue
+    }));
+  };
+  
 
   const galleryImages = [
     "../../../images/resimg2.jpeg",
@@ -344,7 +388,20 @@ const Landing = (props) => {
             ))}
           </ul>
         </div>
-        <div className="book-now"></div>
+        {/* <div className="book-now"></div> */}
+        <div className="book-now">
+          <h2>Book a Table</h2>
+          <form onSubmit={handleSubmit}>
+            <input type="date" name="date" value={bookingForm.date} onChange={handleInputChange} required />
+            <input type="time" name="time" value={bookingForm.time} onChange={handleInputChange} required />
+            <input type="number" name="seats_required" placeholder="Seats Required" min="1" value={bookingForm.seats_required} onChange={handleInputChange} required />
+            <label>
+              <input type="checkbox" name="confirmed" checked={bookingForm.confirmed} onChange={handleInputChange} />
+              Confirm Booking
+            </label>
+            <button type="submit">Book Table</button>
+          </form>
+        </div>
       </div>
     </>
   );

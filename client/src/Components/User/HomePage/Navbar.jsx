@@ -238,6 +238,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 
 // import { useAuth } from "../../Auth";
 import { useAuth } from "../../Auth";
+// import { AccountCircle } from "@mui/icons-material";
 
 
 export default function Navb() {
@@ -273,6 +274,10 @@ export default function Navb() {
             </ul>
 
             <div className="navbar-login">
+                
+                        <Link to="/profile">
+                            <AccountCircle />
+                        </Link>
                 <a  className="" onClick={handleLogout}>
                     Logout
                 </a>
