@@ -587,7 +587,7 @@ async def upload_image(restaurant_id: int, file: UploadFile = File(...), db: Ses
         raise HTTPException(status_code=404, detail="Restaurant not found")
     
     # Save the image to a directory
-    upload_folder = Path("C:/Users/GATI VORA/Desktop/project/BookNDine/images")
+    upload_folder = Path("G:\Project\BookNDine\images")
     upload_folder.mkdir(parents=True, exist_ok=True)
     file_path = upload_folder / file.filename
 
