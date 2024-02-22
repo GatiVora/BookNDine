@@ -13,6 +13,12 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+    /* background-image: url('../../images/bgimg.jpg'); */
+  background-size: cover; /* Cover the entire viewport */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-position: center; /* Center the image horizontally and vertically */
 }
 
 code {
@@ -131,6 +137,14 @@ code {
   animation: slideIn 1s ease-in-out forwards;
   text-align: center; /* Apply animation named 'slideIn' with a duration of 1 second */
 }
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
 
 .description {
   padding-top: 1rem;
@@ -173,6 +187,11 @@ code {
   font-weight: 400;
   font-size: 2rem;
   width: calc(100% - 8rem);
+}
+.heading1 {
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
 }
 .box {
   margin-top: 2rem;
@@ -231,37 +250,38 @@ code {
 
 .menu ul {
   margin-top: 1rem;
-  flex: 1;
   list-style: none;
   padding: 0;
-  display: flex; /* Use flexbox to align items in a row */
-  /* flex-wrap: wrap; Allow items to wrap to the next row */
-  gap: 20px;
 }
 
+
+
+
 .menu-item {
-  display: flex;
-  flex: 1;
-  flex: 0 1 calc(50% - 2vh); 
-  align-items: center;
+  display: flex; /* Use flexbox */
+  align-items: center; /* Align items vertically */
   margin-bottom: 20px;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: aliceblue;
+  border-radius: 10px;
+  background-color: #f9f9f9;
   transition: transform 0.2s ease-in-out;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
 }
+
 .menu-item:hover {
-  transform: scale(1.02); /* Scale up the item on hover */
+  transform: translateY(-5px); /* Move the item up slightly on hover */
 }
+
 .menu-item img {
   width: 100px;
   height: 100px;
   object-fit: cover;
-  margin-right: 20px;
-  border-radius: 5px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  margin-right: 20px; /* Add space between image and text */
 }
-
 .menu-item div {
   flex: 1;
 }
@@ -269,15 +289,27 @@ code {
 .menu-item h3 {
   margin: 0;
   font-size: 1.2rem;
+  color: #333;
 }
 
 .menu-item p {
   margin: 5px 0;
   font-size: 1rem;
+  color: #666;
 }
 
 .menu-item p.price {
   font-weight: bold;
+  color: #000;
+}
+
+.menu-item.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.menu-item.row > * {
+  flex: 1 1 100%; /* Each item takes full width */
 }
 
 /* landing.css */
@@ -327,3 +359,104 @@ code {
   height : auto;
   padding-right: 2rem;
 }
+
+
+
+.reservation-form {
+  margin: 2rem auto;
+  width: 95%;
+  max-width: 600px;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.reservation-form h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.reservation-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.reservation-form label {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  padding-left: 2rem;
+}
+
+.reservation-form select,
+.reservation-form input[type="time"],
+.reservation-form input[type="date"] {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.reservation-form button[type="submit"] {
+  align-self: center;
+  padding: 1rem;
+  width: 20rem;
+  font-size: 1.2rem;
+  background-color: black; /* Change background color to black */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.reservation-form button[type="submit"]:hover {
+  background-color: white; /* Change hover background color */
+  color: black;
+  border-color: #000;
+}
+
+
+/* Advanced Styles */
+
+.reservation-form input[type="time"],
+.reservation-form input[type="date"],
+.reservation-form select {
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.reservation-form input[type="time"]:focus,
+.reservation-form input[type="date"]:focus,
+.reservation-form select:focus {
+  outline: none;
+  border-color: #2874f0;
+}
+
+.reservation-form input[type="time"]::-webkit-calendar-picker-indicator,
+.reservation-form input[type="date"]::-webkit-calendar-picker-indicator {
+  background-color: transparent;
+  border: none;
+  color: transparent;
+  cursor: pointer;
+}
+
+.reservation-form label {
+  font-weight: bold;
+}
+
+.reservation-form select {
+  appearance: none;
+  padding-right: 2rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%231D4ED8'%3E%3Cpath d='M14.28 6.31a1 1 0 0 1 1.41 1.41l-7 7a1 1 0 0 1-1.41 0l-7-7A1 1 0 1 1 2.69 4.89L10 12.18l7.31-7.31a1 1 0 0 1 1.41 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.5rem;
+}
+
+/* Add more styles as needed */

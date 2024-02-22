@@ -243,6 +243,10 @@ const Landing = (props) => {
     "../../../images/resimg3.jpeg",
   ];
 
+  const [capacity, setCapacity] = useState('2');
+  const [time, setTime] = useState('');
+  const [date, setDate] = useState('');
+
   useEffect(() => {
     const fetchRestaurant = async () => {
       try {
@@ -284,6 +288,26 @@ const Landing = (props) => {
     return () => clearInterval(interval); // Cleanup interval on component unmount
   }, []);
 
+  
+
+  const handleCapacityChange = (event) => {
+    setCapacity(event.target.value);
+  };
+
+  const handleTimeChange = (event) => {
+    setTime(event.target.value);
+  };
+
+  const handleDateChange = (event) => {
+    setDate(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Perform form submission logic here
+    console.log('Form submitted:', { capacity, time, date });
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -302,8 +326,9 @@ const Landing = (props) => {
         <div className='data-container'>
           <div className='content'>
             <div className='heading'>Welcome to {restaurant.res_name}</div>
-            <div className='description'>{restaurant.about}</div>
-            <div className="heading">Image Gallery</div>
+            <div className='description'>Description : {restaurant.about}</div>
+            <br></br><br></br><br></br><br></br><br></br>
+            <div className="heading1">Image Gallery</div>
           </div>
           <div className='content'>
             <div className='box'>
@@ -328,23 +353,44 @@ const Landing = (props) => {
           <p>{currentPhotoIndex + 1}/{galleryImages.length}</p>
         </div>
         <div className="menu">
-          <div className='heading'>Menu</div>
+          <div className='heading1'>Menu</div>
           <ul>
             {menu.map((item, index) => (
               <li key={index}>
                 <div className="menu-item">
-                  {/* <img src={item.photoUrl} alt={item.name} /> */}
+                  <img src="../../../images/resimg2.jpeg" alt={item.name} />
                   <div>
                     <h3>{item.name}</h3>
                     <p>{item.description}</p>
-                    <p>{item.price}</p>
+                    <p>₹{item.price}</p>
                   </div>
                 </div>
               </li>
             ))}
           </ul>
         </div>
-        <div className="book-now"></div>
+        <div className="reservation-form">
+          <h2>Table Reservation Form</h2>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label htmlFor="capacity">Capacity : </label>
+              <select id="capacity" value={capacity} onChange={handleCapacityChange}>
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="6">6</option>
+              </select>
+            </div>
+            <div>
+              <label htmlFor="time">Time : </label>
+              <input type="time" id="time" value={time} onChange={handleTimeChange} required />
+            </div>
+            <div>
+              <label htmlFor="date">Date : </label>
+              <input type="date" id="date" value={date} onChange={handleDateChange} required />
+            </div>
+            <button type="submit">Book Now</button>
+          </form>
+        </div>
       </div>
     </>
   );
