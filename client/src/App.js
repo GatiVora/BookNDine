@@ -15,6 +15,7 @@ import Restaurants from "./Components/Restaurant_tab/Restaurants";
 import Res from "./Components/RestaurantOwner/index";
 import SignIn from "./Components/User/Authentication/Signin";
 import Landing from "./Components/Landing";
+import Profile from "./Components/User/Profile";
 
 function App() {
   return (
@@ -22,25 +23,27 @@ function App() {
 
       <Routes>
 
-          <Route path="/" exact element={<Initial/>}></Route>
+        <Route path="/" exact element={<Initial/>}></Route>
         <Route element={<PrivateRoute />}>
           <Route path="/home" exact element={<Home />}></Route>
         </Route>
-          <Route path="/login" exact element={<Login />}></Route>
-          <Route
+        <Route path="/login" exact element={<Login />}></Route>
+        <Route
             path="/restaurant-login"
             exact
             element={<Restaurant_login />}
-          ></Route>
-          <Route
+        >
+        </Route>
+        <Route
             path="/restaurant-register"
             exact
             element={<Restaurant_register />}
-          ></Route>
+        >
+        </Route>
           {/* <Route path = "/resetpassword" exact element={<ForgotPassword/>}></Route> */}
-          <Route path="/signin" exact element={<SignIn />}></Route>
-          <Route element={<PrivateRoute />}>
-            
+        <Route path="/signin" exact element={<SignIn />}></Route>
+        <Route path="/profile" exact element={<Profile />}></Route>
+        <Route element={<PrivateRoute />}>
           <Route path="/home" exact element={<Home />}></Route>
         </Route>
 

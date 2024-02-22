@@ -276,7 +276,7 @@ import shutil
 from typing import Optional
 from fastapi.responses import FileResponse
 from datetime import date, time, datetime
-
+from sqlalchemy import update
 
 
 
@@ -382,6 +382,7 @@ class BookingBase(BaseModel):
     date: date
     time: time
     confirmed: bool = False
+    seats_required :int
 
 
 class BookingCreate(BookingBase):
@@ -675,61 +676,6 @@ async def delete_table(table_id: int, db: Session = Depends(get_db)):
     return {"message": "Table deleted successfully"}
 
 
-# Route to create a booking for a user
-@app.post("/bookings/{user_id}", response_model=Booking)
-async def create_booking(user_id: int, booking: BookingBase, db: Session = Depends(get_db)):
-    # Check if the user exists
-    user = db.query(models.User).filter(models.User.id == user_id).first()
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-
-    # Check if the restaurant and table exist
-    restaurant = db.query(models.Restaurant).filter(models.Restaurant.id == booking.restaurant_id).first()
-    if not restaurant:
-        raise HTTPException(status_code=404, detail="Restaurant not found")
-    table = db.query(models.Table).filter(models.Table.id == booking.table_id).first()
-    if not table:
-        raise HTTPException(status_code=404, detail="Table not found")
-
-    # Check if the table is available and has enough capacity
-    if table.status != 'available':
-        raise HTTPException(status_code=400, detail="Table is not available")
-    if table.capacity < booking.capacity:
-        raise HTTPException(status_code=400, detail="Table does not have enough capacity")
-
-    # Create the booking in the database
-    db_booking = models.Booking(
-        user_id=user_id,
-        restaurant_id=booking.restaurant_id,
-        table_id=booking.table_id,
-        date=booking.date,
-        time=booking.time,
-        confirmed=booking.confirmed
-    )
-    db.add(db_booking)
-    db.commit()
-    db.refresh(db_booking)
-    return db_booking
-
-# Route to retrieve all bookings for a user
-@app.get("/bookings/{user_id}", response_model=List[Booking])
-async def read_bookings(user_id: int, db: Session = Depends(get_db)):
-    # Check if the user exists
-    user = db.query(models.User).filter(models.User.id == user_id).first()
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-
-    # Query the bookings for the user
-    bookings = db.query(models.Booking).join(models.Restaurant).join(models.Table).filter(models.Booking.user_id == user_id).all()
-
-    # Convert the query results into a list of dictionaries
-    bookings_as_dict = bookings.mappings().all()
-
-    return bookings_as_dict
-
-
-
-
 
 # Route to create a menu for a restaurant
 @app.post("/menu_items/{restaurant_id}", response_model=MenuItem)
@@ -764,9 +710,6 @@ async def get_menu_items(restaurant_id: int, db: Session = Depends(get_db)):
     # Get all menu items for the restaurant
     menu_items = db.query(models.MenuItem).filter(models.MenuItem.restaurant_id == restaurant_id).all()
     return menu_items
-
-
-
 
 # Get a specific menu item by ID
 @app.get("/menu_items/{restaurant_id}/{menu_item_id}", response_model=MenuItem)
@@ -821,4 +764,104 @@ async def delete_menu_item(restaurant_id: int, menu_item_id: int, db: Session = 
     return {"message": "Menu item deleted successfully"}
 
 
-    
+ 
+
+
+
+@app.post("/book-table/{restaurant_id}/{user_id}", response_model=Booking)
+async def book_table(restaurant_id: int, user_id: int, booking: BookingBase, db: Session = Depends(get_db)):
+    # Check if the user exists
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    # Check if the restaurant exists
+    restaurant = db.query(models.Restaurant).filter(models.Restaurant.id == restaurant_id).first()
+    if not restaurant:
+        raise HTTPException(status_code=404, detail="Restaurant not found")
+
+    # Find available tables with sufficient capacity
+    suitable_tables = db.query(models.Table).filter(
+        models.Table.restaurant_id == restaurant_id,
+        models.Table.status == 'available',
+        models.Table.capacity >= booking.seats_required
+    ).order_by(models.Table.capacity).all()
+
+    if not suitable_tables:
+        raise HTTPException(status_code=404, detail="No available table found with the required capacity")
+
+    # Assume we're booking the first suitable table
+    table_to_book = suitable_tables[0]
+
+    # Mark the table as booked
+    table_to_book.status = 'booked'
+    table_to_book.booked_by = user_id
+    db.commit()
+
+    # Create the booking in the database
+    db_booking = models.Booking(
+        user_id=user_id,
+        restaurant_id=restaurant_id,
+        table_id=table_to_book.id,
+        date=booking.date,
+        time=booking.time,
+        confirmed=booking.confirmed,
+        seats_required=booking.seats_required
+    )
+    db.add(db_booking)
+    db.commit()
+    db.refresh(db_booking)
+
+    return db_booking
+
+@app.get("/bookings/{user_id}", response_model=List[Booking])
+async def get_user_bookings(user_id: int, db: Session = Depends(get_db)):
+    # Check if the user exists
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    # Retrieve all bookings associated with the user
+    user_bookings = db.query(models.Booking).filter(models.Booking.user_id == user_id).all()
+
+    return user_bookings
+
+
+# # Endpoint to get all bookings by user ID
+# @app.get("/bookings/{user_id}", response_model=list[Booking])
+# def get_bookings_by_user(user_id: int, db: Session = Depends(get_db)):
+#     # Check if the user exists
+#     user = db.query(models.User).filter(models.User.id == user_id).first()
+#     if not user:
+#         raise HTTPException(status_code=404, detail="User not found")
+
+#     # Get all bookings for the user
+#     bookings = db.query(models.Booking).filter(models.Booking.user_id == user_id).all()
+#     return bookings
+
+# # Delete a booking
+# @app.delete("/bookings/{booking_id}")
+# def delete_booking(booking_id: int, db: Session):
+#     booking = db.query(models.Booking).filter(models.Booking.id == booking_id).first()
+#     if booking:
+#         table_id = booking.table_id
+#         restaurant_id = booking.restaurant_id
+
+#         # Delete the booking
+#         db.delete(booking)
+#         db.commit()
+
+#         # Check if there are any other bookings for the same table and restaurant
+#         other_bookings = db.query(models.Booking).filter(
+#             models.Booking.table_id == table_id,
+#             models.Booking.restaurant_id == restaurant_id
+#         ).first()
+#         if not other_bookings:
+#             # If no other bookings exist, update the table status to "available"
+#             table = db.query(models.Table).filter(
+#                 models.Table.id == table_id,
+#                 models.Table.restaurant_id == restaurant_id
+#             ).first()
+#             if table:
+#                 table.status = 'available'
+#                 db.commit()
