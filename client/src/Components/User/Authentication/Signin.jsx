@@ -630,6 +630,7 @@ const handleFormSubmit = async (event) => {
         <Grid container>
           <Grid item xs={12} sm={12} lg={6}>
             {/* <Image src={imageURL} alt="Login Image" /> */}
+            <a href="/">
             <Box
               style={{
                 backgroundImage: `url(${img})`,
@@ -638,6 +639,7 @@ const handleFormSubmit = async (event) => {
                 color: "blue",
               }}
             ></Box>
+            </a>
           </Grid>
           <Grid item xs={12} sm={12} lg={6}>
             <Box

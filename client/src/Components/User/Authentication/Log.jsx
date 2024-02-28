@@ -279,6 +279,8 @@ import { Checkbox } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
+
+
 // import { AuthContext } from "./AuthContext";
 
 import api from '../../../api'
@@ -364,44 +366,6 @@ export default function Login() {
   // Inside your component function
   const [errorMessage, setErrorMessage] = useState("");
 
-
-  // const handleFormSubmit = async (event) => {
-  //   event.preventDefault();
-  //   // try {
-  //   //   await api.post('/login/', formData);
-  //   //   setErrorMessage(""); // Clear any previous error messages
-  //   //   // fetchusers();
-
-  //   //   setFormData({
-  //   //     username: '',
-  //   //     name: '',
-  //   //     mobile: '',
-  //   //     email: '',
-  //   //     city: '',
-  //   //     password: '',
-  //   //   });
-  //   //   setIsLoggedIn(true);
-  //   //   navigate('/');
-  //   // } catch (error) {
-  //   //   setErrorMessage("Invalid credentials");
-  //   // }
-  //   if (formData.username !== "" && formData.password !== "") {
-
-  //     try{
-
-  //       auth.loginAction(formData);
-  //       setErrorMessage(""); 
-
-  //     }catch(error){
-  //       setErrorMessage(error.message);
-  //     }
-
-
-  //     return;
-  //   }
-  // };
-
-
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -435,6 +399,8 @@ export default function Login() {
         <Grid container>
           <Grid item xs={12} sm={12} lg={6}>
             {/* <Image src={imageURL} alt="Login Image" /> */}
+            <a href="/">
+
             <Box
               style={{
                 backgroundImage: `url(${img})`,
@@ -443,6 +409,8 @@ export default function Login() {
                 color: "blue",
               }}
             ></Box>
+            </a>
+         
           </Grid>
           <Grid item xs={12} sm={12} lg={6}>
             <Box
@@ -495,45 +463,7 @@ export default function Login() {
                     ></TextField>
                   </Grid>
 
-                  {/* <Grid item xs={12} sx={{ ml: "3em", mr: "2em" }}>
-                    <Stack direction="row" spacing={2}>
-                      <FormControlLabel
-                        sx={{ width: "60%" }}
-                        onClick={() => setRemember(!remember)}
-                        control={<Checkbox checked={remember} />}
-                        label="Remember me"
-                      />
-                      <Typography
-                        variant="body1"
-                        component="span"
-                        onClick={() => {
-                          navigate("/resetpassword");
-                        }}
-                        style={{ marginTop: "10px", cursor: "pointer" }}
-                      >
-                        Forgot Password?
-                      </Typography>
-                    </Stack>
-                  </Grid> */}
-
                   <Grid item xs={12} sx={{ ml: "3em", mr: "5em" }}>
-                    {/* <Button
-                      variant="contained"
-                      type="submit"
-                      fullWidth="true"
-                      size="large"
-                      sx={{
-                        mt: "10px",
-                        mr: "20px",
-                        borderRadius: 28,
-                        color: "#fff",
-                        minwidth: "170px",
-                        backgroundColor: "#000",
-                      }}
-                      onClick={handleFormSubmit}
-                    >
-                      Login
-                    </Button> */}
 
                     <Grid item xs={12} sx={{ ml: "3em", mr: "5em" }}>
                       {errorMessage && (

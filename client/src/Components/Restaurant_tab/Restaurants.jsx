@@ -11,6 +11,7 @@ const Restaurants = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedRating, setSelectedRating] = useState(null);
   const [list, setList] = useState([]);
+  const [list2, setList2] = useState([]);
   const [inputSearch, setInputSearch] = useState("");
   const [resultFound, setResultFound] = useState(false);
   const [cuisines, setCuisines] = useState([
@@ -41,6 +42,7 @@ const Restaurants = () => {
     api.get("/restaurants/")
     .then(response => {
       setList(response.data);
+      setList2(response.data);
       setResultFound(true);
     })
     .catch(error => {
@@ -67,7 +69,7 @@ const Restaurants = () => {
     let updatedList = list;
 
     if (selectedRating) {
-      updatedList = updatedList.filter(
+      updatedList = list.filter(
         (item) => parseInt(item.rating) === parseInt(selectedRating)
       );
     }
@@ -85,13 +87,14 @@ const Restaurants = () => {
       );
     }
     if (inputSearch) {
-      updatedList = updatedList.filter(
+      updatedList = list.filter(
         (item) =>
           item.res_name.toLowerCase().search(inputSearch.toLowerCase().trim()) !==
           -1
       );
+      console.log(updatedList);
     }
-    setList(updatedList);
+    setList2(updatedList);
 
     !updatedList.length ? setResultFound(false) : setResultFound(true);
   };
@@ -120,7 +123,7 @@ const Restaurants = () => {
         </div>
         
         <div className="home_list-wrap">
-          {resultFound ? <List list={list} /> : <EmptyView />}
+          {resultFound ? <List list={list2} /> : <EmptyView />}
         </div>
       </div>
     </div>
