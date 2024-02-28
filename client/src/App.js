@@ -17,6 +17,8 @@ import SignIn from "./Components/User/Authentication/Signin";
 import Landing from "./Components/Landing";
 import Profile from "./Components/User/Profile";
 
+// import PopcornPreloader from "./Components/Preloader/Popcorn";
+
 function App() {
   return (
     <>
@@ -53,12 +55,13 @@ function App() {
 
         <Route element={<PrivateRoute2 />}>
           <Route path="/reshome" exact element={<Res />}></Route>
-          </Route>
-          {/* <Route path="/images" exact element={<Im/>}></Route> */}
-          
-        </Routes>
-    
 
+          </Route>
+        
+          
+
+        </Routes>
+        
       {/* <Scroll/>
     <Navbar/>
     <Hero/>
