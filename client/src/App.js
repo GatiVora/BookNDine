@@ -16,6 +16,7 @@ import Res from "./Components/RestaurantOwner/index";
 import SignIn from "./Components/User/Authentication/Signin";
 import Landing from "./Components/Landing";
 import Profile from "./Components/User/Profile";
+import LocationDetector from "./Components/Demo";
 
 // import PopcornPreloader from "./Components/Preloader/Popcorn";
 
@@ -50,13 +51,18 @@ function App() {
         </Route>
 
         <Route path="/restaurants" element={<Restaurants />}></Route>
+        <Route path="/restaurants/:city" element={<Restaurants />}></Route>
         {/* <Route path="/restaurant/:id" element={<Landing />}></Route> */}
         <Route path="/restaurant/:id" element={<Landing />} />
 
+        <Route path="/demo" element={<LocationDetector />} />
+        
+
         <Route element={<PrivateRoute2 />}>
           <Route path="/reshome" exact element={<Res />}></Route>
+          
 
-          </Route>
+        </Route>
         
           
 

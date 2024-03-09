@@ -5,8 +5,15 @@ import homeImage from "../../../assets/bg.webp";
 import videoUrl from "../../../assets/landing3.mp4";
 // import "../index.css";
 import "../../../index.css";
+
+import api from "../../../api";
+
+
 export default function Hero() {
   const [displayText, setDisplayText] = useState("");
+
+  const [cityName, setCityName] = useState(""); // State to store the city name
+
   useEffect(() => {
     const currentTime = new Date().getHours();
     let text = "";
@@ -31,6 +38,23 @@ export default function Hero() {
     setDisplayText(text);
   }, []);
 
+
+  const handleBookNowClick = () => {
+    // Make sure the cityName is not empty before making the API call
+    if (cityName.trim() !== "") {
+      api.get(`/restaurants/${cityName}`)
+        .then(response => {
+          // Handle the response data as needed
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.error("Error fetching restaurants:", error);
+        });
+    } else {
+      console.error("City name is empty");
+    }
+  };
+
   return (
     <Section id="hero">
       <div className="video-container">
@@ -46,10 +70,16 @@ export default function Hero() {
         </div>
         <div className="search">
           <div className="container">
-            <label htmlFor="Where you want to go?"></label>
-            <input type="text" placeholder="Search your location" />
+            
+            <input
+              type="text"
+              id="cityInput"
+              placeholder="Search your location"
+              value={cityName}
+              onChange={(e) => setCityName(e.target.value)}
+            />
           </div>
-          <button>Book Now</button>
+          <a href={`/restaurants/${cityName}`}><button>Book Now</button></a>
         </div>
       </div>
     </Section>

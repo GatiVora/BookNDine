@@ -6,6 +6,8 @@ import List from "./List";
 import EmptyView from "./EmptyView";
 import Navbar from "../User/HomePage/Navbar";
 import api from "../../api"
+import { useParams } from "react-router-dom"; // Import useParams hook
+
 
 const Restaurants = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -37,9 +39,11 @@ const Restaurants = () => {
     },
   ]);
   const navigate = useNavigate(); // Initialize useNavigate
+  const { city } = useParams(); // Extract city from URL parameters
 
   useEffect(() => {
-    api.get("/restaurants/")
+   
+    api.get(`/restaurants/city/${city}`)
     .then(response => {
       setList(response.data);
       setList2(response.data);

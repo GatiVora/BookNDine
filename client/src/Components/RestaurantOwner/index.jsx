@@ -5,6 +5,7 @@ import Sidebar from './Sidebar'
 import Home from './Home'
 import Tables from './Tables'
 import Menu from './Menu'
+import Booking from './Bookings'
 
 function Res() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
@@ -20,6 +21,7 @@ function Res() {
       <Home />
       <Tables/>
       <Menu/>
+      <Booking/>
     </div>
   )
 }
