@@ -74,16 +74,21 @@ code {
   margin: 10px;
   padding: 10px 20px;
   font-size: 1.2rem;
-  border: none;
+  border: 2px solid #fff;
+  border-width: 0.3rem;
   border-radius: 5px;
-  background-color: #2874f0; /* Example color */
+  background-color: transparent; /* Example color */
   color: white;
   cursor: pointer;
   transition: background-color 0.3s;
+  backdrop-filter: blur(1px);
+  text-shadow: rgba(0, 0, 0, 0.8);
 }
 
 .login-button:hover {
-  background-color: #1c5f9d; /* Example color on hover */
+  background-color: transparent; /* Example color on hover */
+  
+  transform: translateY(-5px);
 }
 
 
@@ -460,3 +465,111 @@ code {
 }
 
 /* Add more styles as needed */
+
+
+.typewriter p {
+  text-align: center;
+  font-size: 1.7rem;
+  box-shadow: rgba(0, 0, 0, 0.8);
+  overflow: hidden; /* Ensures the text is initially hidden */
+  margin: 0 auto; /* Centers the text */
+  letter-spacing: .15em; /* Spacing between characters */
+}
+
+.dt {
+  display: flex;
+}
+
+.booking-form {
+  width: 40rem;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group1 {
+  flex: 1;
+  margin-right: 20px; /* Add margin-right to create space between inputs */
+}
+
+.form-group1:last-child {
+  margin-right: 0; /* Remove margin-right from the last input to avoid extra space */
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="date"],
+input[type="time"],
+input[type="number"],
+input[type="checkbox"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+input[type="checkbox"] {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.btn-container {
+  text-align: center; /* Center align its children */
+}
+
+.btn {
+  background-color: #000;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block; /* Ensures button takes up only necessary space */
+}
+
+
+.btn:hover {
+  background-color: #fff;
+  color: #000;
+  border-color: #000;
+}
+
+
+.si {
+  display: flex;
+}
+
+.form-group {
+  padding-top: 2rem;
+  flex: 1;
+  margin-right: 20px;
+}
+
+.seat_img {
+  padding-top: 3rem;
+  flex: 3;
+}
+
+.seat_img img {
+  width: 100%;
+  height: auto;
+}
+
+.label1{
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}

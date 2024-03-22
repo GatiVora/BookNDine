@@ -1,0 +1,39 @@
+.booking-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .booking-form input,
+  .booking-form select,
+  .booking-form textarea,
+  .booking-form button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+  }
+  
+  .booking-form label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .booking-form input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  .booking-form button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .booking-form button[type="submit"]:hover {
+    background-color: #0069d9;
+  }

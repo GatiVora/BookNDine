@@ -41,19 +41,47 @@ const Restaurants = () => {
   const navigate = useNavigate(); // Initialize useNavigate
   const { city } = useParams(); // Extract city from URL parameters
 
-  useEffect(() => {
+  // useEffect(() => {
    
-    api.get(`/restaurants/city/${city}`)
-    .then(response => {
-      setList(response.data);
-      setList2(response.data);
-      setResultFound(true);
-    })
-    .catch(error => {
-      console.error("Error fetching restaurants:", error);
-      setResultFound(false);
-    });
-  }, []);
+  //   api.get(`/restaurants/city/${city}`)
+  //   .then(response => {
+  //     setList(response.data);
+  //     setList2(response.data);
+  //     setResultFound(true);
+  //   })
+  //   .catch(error => {
+  //     console.error("Error fetching restaurants:", error);
+  //     setResultFound(false);
+  //   });
+  // }, []);
+
+  useEffect(() => {
+    if (city) {
+      api.get(`/restaurants/city/${city}`)
+        .then(response => {
+          setList(response.data);
+          setList2(response.data);
+          setResultFound(true);
+        })
+        .catch(error => {
+          console.error("Error fetching restaurants:", error);
+          setResultFound(false);
+        });
+    } else {
+      // Call the API without filtering by city
+      api.get(`/restaurants`)
+        .then(response => {
+          setList(response.data);
+          setList2(response.data);
+          setResultFound(true);
+        })
+        .catch(error => {
+          console.error("Error fetching restaurants:", error);
+          setResultFound(false);
+        });
+    }
+  }, [city]);
+  
 
   const handleSelectCategory = (event, value) =>
     !value ? null : setSelectedCategory(value);

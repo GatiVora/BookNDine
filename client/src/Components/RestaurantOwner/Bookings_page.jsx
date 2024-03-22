@@ -7,7 +7,7 @@ import Tables from './Tables'
 import Menu from './Menu'
 import Booking from './Bookings'
 
-function Res() {
+function Bookings() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
 
   const OpenSidebar = () => {
@@ -18,12 +18,12 @@ function Res() {
     <div className='grid-container'>
       <Header OpenSidebar={OpenSidebar}/>
       <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
-      <Home />
-      {/* <Tables/>
-      <Menu/>
-      <Booking/> */}
+      {/* <Home /> */}
+      {/* <Tables/> */}
+      {/* <Menu/> */}
+      <Booking/>
     </div>
   )
 }
     
-export default Res
+export default Bookings;

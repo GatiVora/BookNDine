@@ -244,6 +244,7 @@ import { useAuth } from "../../Auth";
 export default function Navb() {
 
     const auth = useAuth();
+  
 
     const handleLogout = () => {
         auth.logOut(); // Call the logout function
@@ -273,8 +274,12 @@ export default function Navb() {
                 </li>
             </ul>
 
+            <div></div>
+
             <div className="navbar-login">
                 
+                    
+                    
                         <Link to="/profile">
                             <AccountCircle />
                         </Link>
