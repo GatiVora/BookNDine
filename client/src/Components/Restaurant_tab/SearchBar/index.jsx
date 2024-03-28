@@ -8,9 +8,10 @@ const SearchBar = ({ value, changeInput }) => (
     <SearchIcon className="searchBar-icon"></SearchIcon>
     <input
       type="text"
-      placeholder="Search Restaurants.."
+      placeholder=" Search Restaurants.."
       value={value}
       onChange={changeInput}
+  
     />
   </div>
 );

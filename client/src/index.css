@@ -47,10 +47,12 @@ code {
 .text-overlay {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 40%;
+  font-weight: bold;
+
   transform: translate(-50%, -50%);
   text-align: center;
-  color: white;
+  color: black;
   
   font-family: "Pacifico", cursive; /* Assuming you've imported the Pacifico font */
 }
@@ -74,11 +76,11 @@ code {
   margin: 10px;
   padding: 10px 20px;
   font-size: 1.2rem;
-  border: 2px solid #fff;
+  border: 2px solid #000;
   border-width: 0.3rem;
   border-radius: 5px;
   background-color: transparent; /* Example color */
-  color: white;
+  color: black;
   cursor: pointer;
   transition: background-color 0.3s;
   backdrop-filter: blur(1px);
@@ -111,6 +113,7 @@ code {
   /* filter: blur(1px); */
   padding-right: 2rem;
 }
+
 
 .image-button {
   position: absolute;
@@ -360,9 +363,10 @@ code {
   margin-top: 2rem;
   padding-top: 1rem;
   /* width: 100%; */
-  border: 2px solid #00000035; 
+  /* border: 2px solid #00000035;  */
   height : auto;
   padding-right: 2rem;
+  padding-bottom: 30px;
 }
 
 
@@ -486,6 +490,7 @@ code {
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  padding-bottom: 50px;
 }
 
 .form-group {

@@ -6,6 +6,10 @@
   font-family: 'Montserrat', sans-serif;
 }
 
+.back{
+  background-image: url('/public/images/bg.jpg');
+}
+
 .icon {
   vertical-align: middle;
   line-height: 1px;

@@ -51,6 +51,8 @@
 .label {
   margin-bottom: 0.8rem;
   font-weight: 600;
+  font-size: large;
+  font-variant: small-caps;
 }
 .input-group {
   margin-bottom: 2rem;

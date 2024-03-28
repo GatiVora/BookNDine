@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link
 import { BsGrid1X2Fill } from 'react-icons/bs';
-import { useAuth2 } from '../ResAuth';
+import { useAuth } from '../Auth';
 import logo from "../../assets/logo.png";
 
 function Sidebar({ openSidebarToggle, OpenSidebar }) {
-    const auth = useAuth2();
+    const auth = useAuth();
 
     const handleLogout = () => {
         auth.logOut(); // Call the logout function
@@ -23,25 +23,16 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
 
             <ul className='sidebar-list'>
                 <li className='sidebar-list-item'>
-                    <Link to="/reshome"> {/* Use Link instead of <a> */}
-                        <BsGrid1X2Fill className='icon' /> Dashboard
+                    <Link to="/profile"> {/* Use Link instead of <a> */}
+                        <BsGrid1X2Fill className='icon' /> My Profile
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to="/tables"> {/* Use Link instead of <a> */}
-                        <BsGrid1X2Fill className='icon' /> Tables
+                    <Link to="/mybookings"> {/* Use Link instead of <a> */}
+                        <BsGrid1X2Fill className='icon' /> My Bookings
                     </Link>
                 </li>
-                <li className='sidebar-list-item'>
-                    <Link to="/menu"> {/* Use Link instead of <a> */}
-                        <BsGrid1X2Fill className='icon' /> Menu
-                    </Link>
-                </li>
-                <li className='sidebar-list-item'>
-                    <Link to="/bookings"> {/* Use Link instead of <a> */}
-                        <BsGrid1X2Fill className='icon' /> Booking
-                    </Link>
-                </li>
+
                 <li className='sidebar-list-item'>
                     <a className="" onClick={handleLogout}> {/* Logout action */}
                         Logout

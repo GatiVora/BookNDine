@@ -3,6 +3,7 @@ import api from "../../api";
 import { useAuth } from "../Auth";
 import Navb from './HomePage/Navbar';
 import './profile.css';
+import Dashboard from './Dashboard';
 
 export default function Profile() {
 
@@ -33,12 +34,16 @@ export default function Profile() {
 
   return (
     <>
+  <div className='bgg'>
 
+ 
     <Navb />
     <h1 className="welcome-message">Welcome {auth.user?.username} ! </h1>
 
     <div className="profile-container">
       
+    <Dashboard/>
+      <br/>
       <h2>Your Bookings</h2>
       <ul className="booking-list">
         {bookings.map(booking => (
@@ -50,6 +55,9 @@ export default function Profile() {
           </li>
         ))}
       </ul>
+    </div>
+ 
+
     </div>
     </>
   );

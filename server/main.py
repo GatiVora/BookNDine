@@ -925,3 +925,26 @@ async def get_restaurant_bookings(restaurant_id: int, db: Session = Depends(get_
     restaurant_bookings = db.query(models.Booking).filter(models.Booking.restaurant_id == restaurant_id).all()
 
     return restaurant_bookings
+
+
+@app.get("/users/{user_id}", response_model=UserModel)
+async def read_user(user_id: int, db: Session = Depends(get_db)):
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
+
+@app.put("/users/{user_id}", response_model=UserModel)
+async def update_user(user_id: int, user_data: UserBase, db: Session = Depends(get_db)):
+    # Get the existing user from the database
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Update the user data, excluding the password field
+    for key, value in user_data.dict().items():
+        if key != "password":  # Exclude the password field
+            setattr(user, key, value)
+    db.commit()
+    db.refresh(user)
+    return user

@@ -23,7 +23,7 @@ function Tab() {
       {/* <Menu/> */}
       {/* <Booking/> */}
     </div>
-  )
+  );
 }
     
 export default Tab

@@ -35,6 +35,7 @@ export default function Home() {
     <Navbar/>
     <Hero/>
     <Services/>
+    <h1>&nbsp;&nbsp;&nbsp;Top Restaurants:</h1>
     <Recommend/>
     <Testimonials/>
     <Footer/>

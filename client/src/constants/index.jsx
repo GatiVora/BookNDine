@@ -7,13 +7,13 @@ export const categoryList = [
   },
   {
     id: 2,
-    value: "open-restaurant",
-    label: "Open Restaurant",
+    value: "Fine Dining",
+    label: "Fine Dining",
   },
   {
     id: 3,
-    value: "garden-restaurant",
-    label: "Garden Restaurant",
+    value: "Open Restaurant",
+    label: "Open Restaurant",
   },
   {
     id: 4,
@@ -22,8 +22,8 @@ export const categoryList = [
   },
   {
     id: 5,
-    value: "Restaurant",
-    label: "Restaurant",
+    value: "Terrace Cafe",
+    label: "Terrace Cafe",
   },
   {
     id: 6,

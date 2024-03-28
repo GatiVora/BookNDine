@@ -16,6 +16,9 @@ import Res from "./Components/RestaurantOwner/index";
 import SignIn from "./Components/User/Authentication/Signin";
 import Landing from "./Components/Landing";
 import Profile from "./Components/User/Profile";
+
+import Profile_Index from "./Components/User/Profile_Index";
+
 import LocationDetector from "./Components/Demo";
 import Tables from '../src/Components/RestaurantOwner/Tables'
 import Menu from "./Components/RestaurantOwner/Menu";
@@ -24,7 +27,6 @@ import TableR from "./Components/RestaurantOwner/TableR"
 import Tab from './Components/RestaurantOwner/Table_page';
 import Bookings from "./Components/RestaurantOwner/Bookings_page";
 import Menuu from "./Components/RestaurantOwner/Menu_page";
-import Location from "./Components/Location";
 
 // import PopcornPreloader from "./Components/Preloader/Popcorn";
 
@@ -53,7 +55,14 @@ function App() {
         </Route>
         {/* <Route path = "/resetpassword" exact element={<ForgotPassword/>}></Route> */}
         <Route path="/signin" exact element={<SignIn />}></Route>
+
+
         <Route path="/profile" exact element={<Profile />}></Route>
+
+        {/* <Route path="/profile" exact element={<Profile_Index />}></Route> */}
+
+
+
         <Route element={<PrivateRoute />}>
           <Route path="/home" exact element={<Home />}></Route>
         </Route>
@@ -72,11 +81,11 @@ function App() {
 
         </Route>
 
-        <Route path="/tab" exact element={<Tab />}></Route>
+        <Route path="/tables" exact element={<Tab/>}></Route>
         <Route path="/menu" exact element={<Menuu />}></Route>
         <Route path="/bookings" exact element={<Bookings />}></Route>
 
-        <Route path="/location" exact element={<Location />}></Route>
+        
         {/* <Route path='/dashboard' component={Home} />
         <Route path='/tables' component={TableR} />
         <Route path='/menu' component={Menu} />

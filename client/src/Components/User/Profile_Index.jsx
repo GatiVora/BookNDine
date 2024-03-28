@@ -1,13 +1,11 @@
 import { useState } from 'react'
 import './atyle.css'
-import Header from './Header'
-import Sidebar from './Sidebar'
-import Home from './Home'
-import Tables from './Tables'
-import Menu from './Menu'
-import Booking from './Bookings'
+import Header_Profile from './Header'
+import Sidebar from './User_Sidebar'
+import Dashboard from './Dashboard'
+import Profile from './Profile'
 
-function Res() {
+function Profile_Index() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
 
   const OpenSidebar = () => {
@@ -15,18 +13,17 @@ function Res() {
   }
 
   return (
-    <div className="back">
-    <div className='grid-container' >
-      
-      <Header OpenSidebar={OpenSidebar}/>
+    <div className='grid-container'>
+      {/* <Header_Profile OpenSidebar={OpenSidebar}/> */}
       <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
-      <Home />
+      <Dashboard />
       {/* <Tables/>
       <Menu/>
       <Booking/> */}
-      </div>
+      {/* <Profile/> */}
+      
     </div>
   )
 }
     
-export default Res
+export default Profile_Index;

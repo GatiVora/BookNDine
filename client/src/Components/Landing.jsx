@@ -8,6 +8,8 @@ import { Rating } from "@mui/material";
 import Navbar from "../Components/User/HomePage/Navbar";
 import { useAuth } from './Auth';
 
+// import im1 from "../../../images/";
+
 const Landing = (props) => {
   const { id } = useParams(); // Get the ID from the URL
   const [restaurant, setRestaurant] = useState(null);
@@ -108,6 +110,10 @@ const Landing = (props) => {
     return () => clearInterval(interval); // Cleanup interval on component unmount
   }, []);
 
+  const scrollToBookForm = () => {
+    document.getElementById('book-now').scrollIntoView({ behavior: 'smooth' });
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -119,10 +125,12 @@ const Landing = (props) => {
   return (
     <>
       <Navbar />
+      <img src="../../../images/resimg3.jpg"/>
       <div>
         <p className='title'>{restaurant.res_name}</p>
-        <img src="../../../images/resimg2.jpeg" className='img' alt="Restaurant" />
-        <button className="image-button">Book Now</button>
+        {/* <img src="../../../images/resimg2.jpeg" className='img' alt="Restaurant" /> */}
+        <img src={"http://127.0.0.1:8000/restaurants/"+ id + "/image"} alt="item" className='resimgg' style={{ width: '1500px', height: '750px',  paddingLeft:'25px', paddingRight:'25px'}}  />
+        <button className="image-button" onClick={scrollToBookForm}>Book Now</button>
         <div className='data-container'>
           <div className='content'>
             <div className='heading'>Welcome to {restaurant.res_name}</div>
@@ -131,14 +139,14 @@ const Landing = (props) => {
           </div>
           <div className='content'>
             <div className='box'>
-              <div className='address'>{restaurant.address} , {restaurant.city}</div>
+              <div className='address'>{restaurant.address}, {restaurant.city}</div>
               <div className="mobile">Contact No. : {restaurant.mobile}</div>
               <div className='email'>Email : {restaurant.email}</div>
               <div className="schedule">Mon-Sat : 8am-8pm / Sunday - Closed</div>
               <div className="ratings"></div>
               <ul className="social_links">
-                <li><BsFacebook /></li> /
-                <li><BsLinkedin /></li> /
+                <li><BsFacebook /></li> 
+                <li><BsLinkedin /></li>  
                 <li><AiFillInstagram /></li>
               </ul>
               <div className="rating">
@@ -147,27 +155,53 @@ const Landing = (props) => {
             </div>
           </div>
         </div>
-        <div className="image-gallery">
-          <img src={galleryImages[currentPhotoIndex]} alt={`Photo ${currentPhotoIndex}`} />
-          <p>{currentPhotoIndex + 1}/{galleryImages.length}</p>
-        </div>
+        <div className="image-gallery" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', justifyContent: 'center' }}>
+  {galleryImages.map((image, index) => (
+    <div key={index} style={{ width: '200px', height: '200px', border: '2px solid #fff', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', overflow: 'hidden', borderRadius: '8px' }}>
+      <img src={image} alt={`Photo ${index}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+    </div>
+  ))}
+  <p>{currentPhotoIndex + 1}/{galleryImages.length}</p>
+</div>
+
         <div className="menu">
-          <div className='heading'>Menu</div>
-          <ul>
-            {menu.map((item, index) => (
-              <li key={index}>
-                <div className="menu-item">
-                  {/* <img src={item.photoUrl} alt={item.name} /> */}
-                  <div>
-                    <h3>{item.name}</h3>
-                    <p>{item.description}</p> 
-                    <p>${item.price}</p>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
+  <div className='heading'>Menu</div>
+  {/* Loop through unique categories */}
+  {Array.from(new Set(menu.map(item => item.category))).map((category, index) => (
+    <div key={index}>
+      <h2>{category}</h2>
+      <ul>
+        {/* Filter menu items by category */}
+        {menu.filter(item => item.category === category).map((menuItem, itemIndex) => (
+          <li key={itemIndex}>
+            <div className="menu-item">
+              {/* Render image based on category */}
+              {menuItem.category === "x" && <img src={galleryImages[0]} alt={menuItem.name} />}
+              {menuItem.category === "2" && <img src={galleryImages[1]} alt={menuItem.name} />}
+
+          {menuItem.name === "Palak Paneer" && <img src={galleryImages[0]} alt={menuItem.name} />}
+          {menuItem.name === "Paneer Tikka Masala" && <img src={galleryImages[1]} alt={menuItem.name} />}
+          {menuItem.name === "Dal Tadka" && <img src={galleryImages[1]} alt={menuItem.name} />}
+          {menuItem.name === "Classic Tomato Soup" && <img src={galleryImages[1]} alt={menuItem.name} />}
+          {menuItem.name === "Hot and Sour Soup" && <img src={galleryImages[1]} alt={menuItem.name} />}
+          {menuItem.name === "Butter Roti" && <img src={galleryImages[1]} alt={menuItem.name} />}
+          {menuItem.name === "Garlic Naan" && <img src={galleryImages[1]} alt={menuItem.name} />}
+
+              {/* Add more conditions as needed */}
+              <div>
+                <h3>{menuItem.name}</h3>
+                <p>{menuItem.description}</p> 
+                <p>${menuItem.price}</p>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+</div>
+
+
         {/* <div className="book-now"></div> */}
         {/* <div className="book-now">
           <h2>Book a Table</h2>
@@ -187,9 +221,9 @@ const Landing = (props) => {
         */}
 
 
-<div className="book-now">
-          <h2 className='heading'><center>Book a Table</center></h2>
-          <form onSubmit={handleSubmit} className="booking-form">
+<div className="book-now" id="book-now" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+  <h2 className="heading" style={{ textAlign: 'center' }}>Book a Table</h2>
+          <form onSubmit={handleSubmit} className="booking-form" >
             <div className='dt'>
               <div className="form-group1">
                 <label htmlFor="date">Date:</label>
@@ -221,10 +255,11 @@ const Landing = (props) => {
                 <img src="../../../images/resimg2.jpeg"></img>
               </div> */}
             </div>
-            <div className="form-group">
-              <input type="checkbox" id="confirmed" name="confirmed" checked={bookingForm.confirmed} onChange={handleInputChange} />
-              <label htmlFor="confirmed">Confirm Booking</label>
-            </div>
+<div className="form-group" style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+  <label htmlFor="confirmed" style={{  whiteSpace: 'nowrap' }}>Confirm Booking</label>
+  <input type="checkbox" id="confirmed" name="confirmed" style={{ marginBottom: '0' }} />
+</div>
+
             <div className="btn-container">
               <button type="submit" className="btn">Book Table</button>
             </div>

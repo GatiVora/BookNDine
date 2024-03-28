@@ -31,7 +31,7 @@
 
 import React, { useState, useEffect } from "react";
 import "../index.css";
-import videoUrl from "../../src/assets/initial.mp4";
+import videoUrl from "../../src/assets/bookndine.mp4";
 import { Link } from "react-router-dom";
 
 const Initial = () => {

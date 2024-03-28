@@ -17,7 +17,7 @@ const FilterPanel = ({
     <div>
       <div className="input-group">
         {/* Category */}
-        <p className="label">Category</p>
+        <p className="label">&nbsp;&nbsp;Category</p>
         <FilterListToggle
           options={categoryList}
           value={selectedCategory}
@@ -26,7 +26,7 @@ const FilterPanel = ({
       </div>
       {/* Ratings */}
       <div className="input-group">
-        <p className="label">Star Rating</p>
+        <p className="label">&nbsp;&nbsp;Star Rating</p>
         <FilterListToggle
           options={ratingList}
           value={selectedRating}
@@ -35,7 +35,7 @@ const FilterPanel = ({
       </div>
       {/* Cuisine */}
       <div className="input-group">
-        <p className="label">Cuisine</p>
+        <p className="label">&nbsp;&nbsp;Cuisine</p>
         {cuisines.map((cuisine) => (
           <CheckboxProton
             key={cuisine.id}

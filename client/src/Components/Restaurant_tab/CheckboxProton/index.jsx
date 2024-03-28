@@ -1,4 +1,3 @@
-// import { Checkbox, FormControlLabel } from "@material-ui/core";
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -14,8 +13,8 @@ const useStyles = makeStyles({
   wrap: {
     width: "100%",
     display: "flex",
-    flexDirection: "row-reverse",
-    justifyContent: "center",
+    flexDirection: "row", // Change flexDirection to "row"
+    justifyContent: "flex-start", // Align items to the start
     alignItems: "center",
     marginLeft: "0",
   },
