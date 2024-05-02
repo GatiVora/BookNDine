@@ -432,6 +432,7 @@ models.Base.metadata.create_all(bind=engine)
 
 
 
+
 # Route to create a new user
 @app.post("/users/", response_model=UserModel)
 async def create_user(user: UserBase, db: Session = Depends(get_db)):
@@ -899,7 +900,7 @@ async def book_table(
 
     return db_booking
 
-@app.get("/bookings/{user_id}", response_model=List[Booking])
+@app.get("/bookings/user/{user_id}", response_model=List[Booking])
 async def get_user_bookings(user_id: int, db: Session = Depends(get_db)):
     # Check if the user exists
     user = db.query(models.User).filter(models.User.id == user_id).first()

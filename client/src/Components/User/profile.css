@@ -31,3 +31,65 @@
     font-weight: bold;
     color: #333; /* Change color as needed */
   }
+
+  .bgg {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+  
+  .welcome-message {
+    margin-top: 20px;
+    font-size: 24px;
+  }
+  
+  .profile-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .dashboard-container {
+    width: 40%; /* Adjust the width as needed */
+    margin-right: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .bookings-container {
+    width: 70%; /* Adjust the width as needed */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .booking-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .booking-item {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+  }
+  
+  .booking-item p {
+    margin: 5px 0;
+  }
+  
+  .loading {
+    font-size: 20px;
+    margin-top: 20px;
+  }
+  

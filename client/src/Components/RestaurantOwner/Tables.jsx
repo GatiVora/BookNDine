@@ -154,6 +154,8 @@ const Home = () => {
             .catch(error => console.error('Error deleting table:', error));
     };
 
+    console.log(tables);
+
     return (
         <Container maxWidth="md">
             <Typography variant="h4" gutterBottom>Restaurant Tables</Typography>

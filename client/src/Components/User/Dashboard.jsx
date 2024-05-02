@@ -46,7 +46,7 @@ const Dashboard = () => {
     return (
         <>
         <Container maxWidth="sm" style={{ padding: 0 }} >
-            <Typography variant="h5" gutterBottom>Edit User Information</Typography>
+            <h2>Edit User Information</h2>
             <br/>
             <form onSubmit={handleSubmit}>
                 <Grid container spacing={2}>

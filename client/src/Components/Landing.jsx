@@ -8,6 +8,13 @@ import { Rating } from "@mui/material";
 import Navbar from "../Components/User/HomePage/Navbar";
 import { useAuth } from './Auth';
 
+import bg from "../assets/menu/im1.jpg";
+import bg2 from "../assets/menu/im2.jpg";
+import bg3 from "../assets/menu/img3.jpeg";
+import bg4 from "../assets/menu/im4.jpg";
+import bg5 from "../assets/menu/im5.jfif";
+import bg6 from "../assets/menu/im6.webp";
+import bg7 from "../assets/menu/im7.jpg";
 // import im1 from "../../../images/";
 
 const Landing = (props) => {
@@ -38,9 +45,17 @@ const Landing = (props) => {
       // Make API call to book the table using bookingForm data
       // Example:
       // await api.post(`/bookings/${restaurant.id}`, bookingForm);
-      await api.post(`/book-table/${res_id}/${user_id}`,bookingForm);
+      await api.post(`/book-table/${res_id}/${user_id}`, bookingForm);
       console.log('Booking submitted:', bookingForm);
       alert('Table booked successfully!');
+
+      setBookingForm({
+        date: '',
+        time: '',
+        seats_required: '', // Default value
+        confirmed: false,
+      });
+
       // Optionally, you can add code to handle success or error responses
     } catch (error) {
       console.error('Error booking table:', error);
@@ -51,16 +66,16 @@ const Landing = (props) => {
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     const inputValue = type === 'checkbox' ? checked : value;
-    
+
     // If the input is a checkbox and checked, set the value to true, otherwise false
     const checkboxValue = type === 'checkbox' ? checked : value;
-  
+
     setBookingForm(prevState => ({
       ...prevState,
       [name]: name === 'confirmed' ? checkboxValue : inputValue
     }));
   };
-  
+
 
   const galleryImages = [
     "../../../images/resimg2.jpeg",
@@ -96,10 +111,10 @@ const Landing = (props) => {
         console.error('Error fetching menu:', error);
       }
     };
-  
+
     fetchMenu();
   }, [id]); // Fetch data whenever restaurantId or restaurant_id changes
-  
+
 
   useEffect(() => {
     // Change photo index every 5 seconds
@@ -121,15 +136,17 @@ const Landing = (props) => {
   if (!restaurant) {
     return <div>Restaurant not found</div>;
   }
+  const today = new Date().toISOString().split('T')[0];
 
   return (
     <>
+    
       <Navbar />
-      <img src="../../../images/resimg3.jpg"/>
+      {/* <img src="../../../images/resimg3.jpg" /> */}
       <div>
         <p className='title'>{restaurant.res_name}</p>
         {/* <img src="../../../images/resimg2.jpeg" className='img' alt="Restaurant" /> */}
-        <img src={"http://127.0.0.1:8000/restaurants/"+ id + "/image"} alt="item" className='resimgg' style={{ width: '1500px', height: '750px',  paddingLeft:'25px', paddingRight:'25px'}}  />
+        <img src={"http://127.0.0.1:8000/restaurants/" + id + "/image"} alt="item" className='resimgg' style={{ width: '1500px', height: '750px', paddingLeft: '25px', paddingRight: '25px' }} />
         <button className="image-button" onClick={scrollToBookForm}>Book Now</button>
         <div className='data-container'>
           <div className='content'>
@@ -145,8 +162,8 @@ const Landing = (props) => {
               <div className="schedule">Mon-Sat : 8am-8pm / Sunday - Closed</div>
               <div className="ratings"></div>
               <ul className="social_links">
-                <li><BsFacebook /></li> 
-                <li><BsLinkedin /></li>  
+                <li><BsFacebook /></li>
+                <li><BsLinkedin /></li>
                 <li><AiFillInstagram /></li>
               </ul>
               <div className="rating">
@@ -156,50 +173,50 @@ const Landing = (props) => {
           </div>
         </div>
         <div className="image-gallery" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', justifyContent: 'center' }}>
-  {galleryImages.map((image, index) => (
-    <div key={index} style={{ width: '200px', height: '200px', border: '2px solid #fff', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', overflow: 'hidden', borderRadius: '8px' }}>
-      <img src={image} alt={`Photo ${index}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-    </div>
-  ))}
-  <p>{currentPhotoIndex + 1}/{galleryImages.length}</p>
-</div>
+          {galleryImages.map((image, index) => (
+            <div key={index} style={{ width: '200px', height: '200px', border: '2px solid #fff', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', overflow: 'hidden', borderRadius: '8px' }}>
+              <img src={image} alt={`Photo ${index}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+          ))}
+          <p>{currentPhotoIndex + 1}/{galleryImages.length}</p>
+        </div>
 
         <div className="menu">
-  <div className='heading'>Menu</div>
-  {/* Loop through unique categories */}
-  {Array.from(new Set(menu.map(item => item.category))).map((category, index) => (
-    <div key={index}>
-      <h2>{category}</h2>
-      <ul>
-        {/* Filter menu items by category */}
-        {menu.filter(item => item.category === category).map((menuItem, itemIndex) => (
-          <li key={itemIndex}>
-            <div className="menu-item">
-              {/* Render image based on category */}
-              {menuItem.category === "x" && <img src={galleryImages[0]} alt={menuItem.name} />}
-              {menuItem.category === "2" && <img src={galleryImages[1]} alt={menuItem.name} />}
+          <div className='heading'>Menu</div>
+          {/* Loop through unique categories */}
+          {Array.from(new Set(menu.map(item => item.category))).map((category, index) => (
+            <div key={index}>
+              <h2>{category}</h2>
+              <ul>
+                {/* Filter menu items by category */}
+                {menu.filter(item => item.category === category).map((menuItem, itemIndex) => (
+                  <li key={itemIndex}>
+                    <div className="menu-item">
+                      {/* Render image based on category */}
+                      {menuItem.category === "x" && <img src={galleryImages[0]} alt={menuItem.name} />}
+                      {menuItem.category === "2" && <img src={galleryImages[1]} alt={menuItem.name} />}
 
-          {menuItem.name === "Palak Paneer" && <img src={galleryImages[0]} alt={menuItem.name} />}
-          {menuItem.name === "Paneer Tikka Masala" && <img src={galleryImages[1]} alt={menuItem.name} />}
-          {menuItem.name === "Dal Tadka" && <img src={galleryImages[1]} alt={menuItem.name} />}
-          {menuItem.name === "Classic Tomato Soup" && <img src={galleryImages[1]} alt={menuItem.name} />}
-          {menuItem.name === "Hot and Sour Soup" && <img src={galleryImages[1]} alt={menuItem.name} />}
-          {menuItem.name === "Butter Roti" && <img src={galleryImages[1]} alt={menuItem.name} />}
-          {menuItem.name === "Garlic Naan" && <img src={galleryImages[1]} alt={menuItem.name} />}
+                      {menuItem.name === "Palak Paneer" && <img src={bg} alt={menuItem.name} />}
+                      {menuItem.name === "Paneer Tikka Masala" && <img src={bg2} alt={menuItem.name} />}
+                      {menuItem.name === "Dal Tadka" && <img src={bg3} alt={menuItem.name} />}
+                      {menuItem.name === "Classic Tomato Soup" && <img src={bg4} alt={menuItem.name} />}
+                      {menuItem.name === "Hot and Sour Soup" && <img src={bg5} alt={menuItem.name} />}
+                      {menuItem.name === "Butter Roti" && <img src={bg6} alt={menuItem.name} />}
+                      {menuItem.name === "Garlic Naan" && <img src={bg7} alt={menuItem.name} />}
 
-              {/* Add more conditions as needed */}
-              <div>
-                <h3>{menuItem.name}</h3>
-                <p>{menuItem.description}</p> 
-                <p>${menuItem.price}</p>
-              </div>
+                      {/* Add more conditions as needed */}
+                      <div>
+                        <h3>{menuItem.name}</h3>
+                        <p>{menuItem.description}</p>
+                        <p>₹{menuItem.price}</p>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </li>
-        ))}
-      </ul>
-    </div>
-  ))}
-</div>
+          ))}
+        </div>
 
 
         {/* <div className="book-now"></div> */}
@@ -221,8 +238,8 @@ const Landing = (props) => {
         */}
 
 
-<div className="book-now" id="book-now" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-  <h2 className="heading" style={{ textAlign: 'center' }}>Book a Table</h2>
+        {/* <div className="book-now" id="book-now" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <h2 className="heading" style={{ textAlign: 'center' }}>Book a Table</h2>
           <form onSubmit={handleSubmit} className="booking-form" >
             <div className='dt'>
               <div className="form-group1">
@@ -250,28 +267,66 @@ const Landing = (props) => {
                   <option value="6">6</option>
                 </select>
               </div>
-{/* 
-              <div className='seat_img'>
-                <img src="../../../images/resimg2.jpeg"></img>
-              </div> */}
+
             </div>
-<div className="form-group" style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-  <label htmlFor="confirmed" style={{  whiteSpace: 'nowrap' }}>Confirm Booking</label>
-  <input type="checkbox" id="confirmed" name="confirmed" style={{ marginBottom: '0' }} />
-</div>
+            <div className="form-group" style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+              <label htmlFor="confirmed" style={{ whiteSpace: 'nowrap' }}>Confirm Booking</label>
+              <input type="checkbox" id="confirmed" name="confirmed" style={{ marginBottom: '0' }} />
+            </div>
 
             <div className="btn-container">
               <button type="submit" className="btn">Book Table</button>
             </div>
-        
+
 
           </form>
 
-        </div>
+        </div> */}
+
+<div className="book-now" id="book-now" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <h2 className="heading" style={{ textAlign: 'center' }}>Book a Table</h2>
+        <form onSubmit={handleSubmit} className="booking-form">
+          <div className='dt'>
+            <div className="form-group1">
+              <label htmlFor="date">Date:</label>
+              {/* Set the min attribute to today's date */}
+              <input type="date" id="date" name="date" value={bookingForm.date} onChange={handleInputChange} required min={today} />
+            </div>
+            <div className="form-group1">
+              <label htmlFor="time">Time:</label>
+              <input type="time" id="time" name="time" value={bookingForm.time} onChange={handleInputChange} required />
+            </div>
+          </div>
+          <div className='si'>
+            <div className="form-group">
+              <label htmlFor="seats_required">Seats Required:</label>
+              <select
+                id="seats_required"
+                name="seats_required"
+                value={bookingForm.seats_required}
+                onChange={handleInputChange}
+                className='label1'
+                required
+              >
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="6">6</option>
+              </select>
+            </div>
+          </div>
+          <div className="form-group" style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+            <label htmlFor="confirmed" style={{ whiteSpace: 'nowrap' }}>Confirm Booking</label>
+            <input type="checkbox" id="confirmed" name="confirmed" style={{ marginBottom: '0' }} />
+          </div>
+          <div className="btn-container">
+            <button type="submit" className="btn">Book Table</button>
+          </div>
+        </form>
+      </div>
 
       </div>
-      <br/>
-      <br/>
+      <br />
+      <br />
     </>
   );
 }

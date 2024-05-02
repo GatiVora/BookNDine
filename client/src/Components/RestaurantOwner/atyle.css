@@ -1,3 +1,4 @@
+
 .grid-container {
   margin: 0;
   padding: 0;
@@ -5,7 +6,7 @@
   color: black;
   font-family: 'Montserrat', sans-serif;
 }
-
+z
 .back{
   background-image: url('/public/images/bg.jpg');
 }
@@ -41,7 +42,7 @@
   height: 100vh;
 }
 
-/* Header  */
+
 .header {
   grid-area: header;
   height: 60px;
@@ -55,7 +56,7 @@
 .menu-icon {
   display: none;
 }
-/* End Header  */
+
 
 .logo {
   display: flex;
@@ -66,7 +67,6 @@
   }
 }
 
-/* Sidebar  */
 #sidebar {
   grid-area: sidebar;
   height: 100%;
@@ -74,7 +74,7 @@
   overflow-y: auto;
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
-  color: white;
+  /* color: white; */
 }
 
 .sidebar-title {
@@ -118,18 +118,11 @@
 .sidebar-responsive {
   display: inline !important;
   position: absolute;
-  /*
-    we want the z-index of the sidebar higher so that
-    the charts are not showing over the sidebar 
-    on small screens
-  */
+
   z-index: 12 !important;
 }
 
-/* End Sidebar  */
 
-
-/* Main  */  
 .main-container {
   grid-area: main;
   overflow-y: auto;
@@ -191,10 +184,6 @@
   height: 300px;
 }
 
-/* End Main  */
-
-
-/* Medium <= 992px */
   
 @media screen and (max-width: 992px) {
   .grid-container {
@@ -217,7 +206,7 @@
     display: inline;
   }
 }
-/* Small <= 768px */
+
   
 @media screen and (max-width: 768px) {
   .main-cards {
@@ -232,7 +221,7 @@
   }
 }
 
-/* Extra Small <= 576px */
+
 
 @media screen and (max-width: 576px) {
   .hedaer-left {

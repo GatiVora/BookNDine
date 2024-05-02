@@ -64,8 +64,27 @@ import api from "../../../api";
 const Recommend = () => {
   const [list, setList] = useState([]);
 
+  const [city, setCity] = useState("");
+
   useEffect(() => {
-    api.get("/restaurants/")
+    const fetchCity = async () => {
+      try {
+        const response = await fetch('https://ipapi.co/json');
+        const data = await response.json();
+        setCity(data.city);
+      } catch (error) {
+        console.error('Error fetching city:', error);
+      }
+    };
+
+    fetchCity();
+  }, []);
+
+  console.log(city);
+  const cityy = "Nadiad";
+
+  useEffect(() => {
+    api.get(`/restaurants/city/${cityy}`)
       .then(response => {
         // Extract only the first 4 restaurants
         const firstFourRestaurants = response.data.slice(0, 4);
@@ -74,7 +93,7 @@ const Recommend = () => {
       .catch(error => {
         console.error("Error fetching restaurants:", error);
       });
-  }, []);
+  }, [city]);
 
   return (
     <div className="home_list-wrap">

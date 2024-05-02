@@ -13,6 +13,7 @@
   display: inline-block;
   width: calc(25% - 20px);
   margin-right: 20px;
+  margin-bottom: 20px;
   vertical-align: top;
   box-sizing: border-box;
   background-color: aliceblue;

@@ -522,17 +522,79 @@ export default function SignIn() {
 
 
   const handleInputChange = (event) => {
+
+
+
+
+
     const { name, value } = event.target;
     setFormData({
       ...formData,
       [name]: value,
     });
+
+    if (formErrors[name] && value.trim() !== "") {
+    setFormErrors({
+      ...formErrors,
+      [name]: "", // Clear the error message
+    });
+  }
+
+         // Validation for mobile number
+         if (name === 'mobile' && value.trim() !== '') {
+          if (!/^\d{10}$/.test(value)) {
+            setFormErrors({ ...formErrors, mobile: 'Invalid mobile number' });
+          } else {
+            setFormErrors({ ...formErrors, mobile: '' });
+          }
+        }
+    
+        // Validation for email
+        if (name === 'email' && value.trim() !== '') {
+          if (!/\S+@\S+\.\S+/.test(value)) {
+            setFormErrors({ ...formErrors, email: 'Invalid email address' });
+          } else {
+            setFormErrors({ ...formErrors, email: '' });
+          }
+        }
+    
+        if (name === 'password' && value.trim() !== '') {
+          if (value.length < 6) {
+            setFormErrors({ ...formErrors, password: 'Password must be at least 6 characters long' });
+          } else {
+            setFormErrors({ ...formErrors, password: '' });
+          }
+        }
+
   };
 
 // ... (previous code)
 
 const handleFormSubmit = async (event) => {
   event.preventDefault();
+  if (formData.res_name.trim() === "") {
+    setFormErrors({ ...formErrors, res_name: "Name is required" });
+    return;
+  }
+  if (formData.mobile.trim() === "") {
+    setFormErrors({ ...formErrors, mobile: "Mobile number is required" });
+    return;
+  }
+
+  if (formData.email.trim() === "") {
+    setFormErrors({ ...formErrors, email: "Email is required" });
+    return;
+  }
+
+  if (formData.city.trim() === "") {
+    setFormErrors({ ...formErrors, city: "City is required" });
+    return;
+  }
+
+  if (formData.password.trim() === "") {
+    setFormErrors({ ...formErrors, password: "Password is required" });
+    return;
+  }
   await api.post('/restaurants/', formData);
   setFormData({
     res_name: '',
@@ -572,6 +634,8 @@ const handleFormSubmit = async (event) => {
     rating: null,
   });
 
+  
+  const [errorMessage, setErrorMessage] = useState("");
 
   const validateForm = () => {
     const errors = {};
@@ -627,7 +691,10 @@ const handleFormSubmit = async (event) => {
                       autoComplete="res_name"
                       required
                       fullWidth
-                      onChange={handleInputChange} value={formData.res_name}
+                      onChange={(e) => {
+                        handleInputChange(e);
+                        setErrorMessage(""); // Clear error message on change
+                      }} value={formData.res_name}
                       error={!!formErrors.res_name}
                       helperText={formErrors.res_name}
                     ></TextField>
@@ -641,7 +708,10 @@ const handleFormSubmit = async (event) => {
                       label="Mobile number"
                       required
                       fullWidth
-                      onChange={handleInputChange} value={formData.mobile}
+                      onChange={(e) => {
+                        handleInputChange(e);
+                        setErrorMessage(""); // Clear error message on change
+                      }} value={formData.mobile}
                       error={!!formErrors.mobile}
                       helperText={formErrors.mobile}
                     ></TextField>
@@ -655,7 +725,10 @@ const handleFormSubmit = async (event) => {
                       label="Email id"
                       required
                       fullWidth
-                      onChange={handleInputChange} value={formData.email}
+                      onChange={(e) => {
+                        handleInputChange(e);
+                        setErrorMessage(""); // Clear error message on change
+                      }} value={formData.email}
                       error={!!formErrors.email}
                       helperText={formErrors.email}
                     ></TextField>
@@ -669,7 +742,10 @@ const handleFormSubmit = async (event) => {
                       label="City"
                       required
                       fullWidth
-                      onChange={handleInputChange} value={formData.city}
+                      onChange={(e) => {
+                        handleInputChange(e);
+                        setErrorMessage(""); // Clear error message on change
+                      }} value={formData.city}
                       error={!!formErrors.city}
                       helperText={formErrors.city}
                     ></TextField>
@@ -683,7 +759,10 @@ const handleFormSubmit = async (event) => {
                       type="password"
                       required
                       fullWidth
-                      onChange={handleInputChange} value={formData.password}
+                      onChange={(e) => {
+                        handleInputChange(e);
+                        setErrorMessage(""); // Clear error message on change
+                      }} value={formData.password}
                       error={!!formErrors.password}
                       helperText={formErrors.password}
                     ></TextField>

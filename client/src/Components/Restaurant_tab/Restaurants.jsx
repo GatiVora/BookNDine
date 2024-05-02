@@ -110,14 +110,15 @@ const Restaurants = () => {
         (item) => item.category === selectedCategory
       );
     }
-    const cuisineChecked = cuisines
-      .filter((item) => item.checked)
-      .map((item) => item.label.toLowerCase());
-    if (cuisineChecked.length) {
-      updatedList = updatedList.filter((item) =>
-        cuisineChecked.includes(item.cuisine)
-      );
-    }
+  // Filter by selected cuisines
+  const cuisineChecked = cuisines
+    .filter((item) => item.checked)
+    .map((item) => item.label.toLowerCase());
+  if (cuisineChecked.length) {
+    updatedList = updatedList.filter((item) =>
+      item.cuisine && cuisineChecked.includes(item.cuisine.toLowerCase())
+    );
+  }
     if (inputSearch) {
       updatedList = list.filter(
         (item) =>

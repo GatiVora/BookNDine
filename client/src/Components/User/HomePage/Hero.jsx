@@ -20,20 +20,21 @@ export default function Hero() {
 
     if (currentTime >= 6 && currentTime < 10) {
       text =
-        "Rise and Dine: Start your morning with flavors that awaken the senses.";
+        "Rise and Dine: Start your morning with flavors that awaken the senses";
     } else if (currentTime >= 10 && currentTime < 12) {
-      text = "Brunch: A feast for every taste, a delight for every craving.";
+      text = "Brunch: A feast for every taste, a delight for every craving";
     } else if (currentTime >= 12 && currentTime < 15) {
       text =
-        "Lunchtime Euphoria: Where taste meets satisfaction at every forkful.";
+        "Lunchtime Euphoria: Where taste meets satisfaction at every forkful";
     } else if (currentTime >= 15 && currentTime < 17) {
       text =
-        "Evening Eats: Elevate your twilight hours with our flavorful snacks.";
+        "Evening Eats: Elevate your twilight hours with our flavorful snacks";
     } else if (currentTime >= 17 && currentTime < 22) {
-      text = "Make your evening extraordinary with our culinary masterpieces.";
+      text = "Make your evening extraordinary with our culinary masterpieces";
     } else {
-      text = "When hunger strikes after hours, our snacks answer the call.";
+      text = "When hunger strikes after hours, our snacks answer the call";
     }
+
 
     setDisplayText(text);
   }, []);
