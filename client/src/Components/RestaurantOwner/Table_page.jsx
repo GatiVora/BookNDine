@@ -6,7 +6,7 @@ import Home from './Home'
 import Tables from './Tables'
 import Menu from './Menu'
 import Booking from './Bookings'
-
+import backgroundImage from '../../assets/bg1.jpg';
 function Tab() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
 
@@ -15,12 +15,20 @@ function Tab() {
   }
 
   return (
-    <div className='grid-container'>
+    <div className='grid-container'     style={{
+      backgroundImage: `url(${backgroundImage})`,
+      backgroundAttachment: 'fixed', // Ensure the background image is fixed
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      minHeight: '100vh',
+      overflowY: 'auto',
+    }}>
       <Header OpenSidebar={OpenSidebar}/>
       <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
       {/* <Home /> */}
       <Tables/>
       {/* <Menu/> */}
+
       {/* <Booking/> */}
     </div>
   );

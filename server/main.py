@@ -279,6 +279,10 @@ from datetime import date, time, datetime
 from sqlalchemy import update
 from sqlalchemy import func
 
+from fastapi import FastAPI, HTTPException
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 
 app = FastAPI()
@@ -431,7 +435,32 @@ db_dependency = Annotated[Session, Depends(get_db)]
 models.Base.metadata.create_all(bind=engine)
 
 
+def send_email(subject, message, to_email):
+    gmail_user = 
+    gmail_password = 
 
+    try:
+        # Connect to Gmail's SMTP server
+        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+        server.ehlo()
+        server.login(gmail_user, gmail_password)
+
+        # Create a MIME message
+        msg = MIMEMultipart()
+        msg['From'] = gmail_user
+        msg['To'] = to_email
+        msg['Subject'] = subject
+
+        # Attach the message to the email
+        msg.attach(MIMEText(message, 'plain'))
+
+        # Send the email
+        server.sendmail(gmail_user, to_email, msg.as_string())
+        server.close()
+
+        return {'message': 'Email sent successfully'}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f'Error: {str(e)}')
 
 # Route to create a new user
 @app.post("/users/", response_model=UserModel)
@@ -897,6 +926,7 @@ async def book_table(
     db.add(db_booking)
     db.commit()
     db.refresh(db_booking)
+    send_email("Booking Confirmation", f"Your booking at {restaurant.res_name} has been confirmed!", user.email)
 
     return db_booking
 
