@@ -1,265 +1,3 @@
-# from fastapi import FastAPI, HTTPException, Depends
-# from typing import Annotated, List
-# from sqlalchemy.orm import Session
-# from pydantic import BaseModel
-# from database import SessionLocal, engine
-# import models
-# from fastapi.middleware.cors import CORSMiddleware
-# import jwt
-# from datetime import datetime, timedelta
-# import bcrypt  # Import bcrypt
-
-# app = FastAPI()
-
-# # Set CORS policies
-# origins = [
-#     'http://localhost:3000',
-# ]
-
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=origins,
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
-
-# # Secret key for JWT token
-# SECRET_KEY = "your-secret-key"
-# ALGORITHM = "HS256"
-# ACCESS_TOKEN_EXPIRE_MINUTES = 30
-
-# # Define Pydantic models for user, login, and token
-# class UserBase(BaseModel):
-#     username: str
-#     name: str
-#     mobile: str
-#     email: str
-#     city: str
-#     password: str
-
-# class LoginModel(BaseModel):
-#     username: str
-#     password: str
-
-
-
-# class Token(BaseModel):
-#     access_token: str
-#     token_type: str
-
-# class UserModel(UserBase):
-#     id: int
-
-#     class Config:
-#         orm_mode = True
-
-
-
-
-# class ResBase(BaseModel):
-#     res_name: str
-#     mobile: str
-#     email: str
-#     city: str
-#     password: str
-#     category:str
-#     cusine:str
-#     rating:str
-
-
-# class ResLoginModel(BaseModel):
-#     res_name: str
-#     password: str
-
-
-# class ResModel(ResBase):
-#     id: int
-
-#     class Config:
-#         orm_mode = True
-
-
-
-# # Dependency to get database session
-# def get_db():
-#     db = SessionLocal()
-#     try:
-#         yield db
-#     finally:
-#         db.close()
-
-# db_dependency = Annotated[Session, Depends(get_db)]
-
-# models.Base.metadata.create_all(bind=engine)
-
-
-
-# # Route to create a new user
-# @app.post("/users/", response_model=UserModel)
-# async def create_user(user: UserBase, db: Session = Depends(get_db)):
-#     hashed_password = bcrypt.hashpw(user.password.encode('utf-8'), bcrypt.gensalt())
-#     db_user = models.User(
-#         username=user.username,
-#         name=user.name,
-#         mobile=user.mobile,
-#         email=user.email,
-#         city=user.city,
-#         password=hashed_password.decode('utf-8')  # Decode to store in the database
-#     )
-#     db.add(db_user)
-#     db.commit()
-#     db.refresh(db_user)
-#     return db_user
-
-# # Route to retrieve all users
-# @app.get("/users/", response_model=List[UserModel])
-# async def read_users(db: Session = Depends(get_db), skip: int = 0, limit: int = 100):
-#     users = db.query(models.User).offset(skip).limit(limit).all()
-#     return users
-
-
-# @app.post("/login/", response_model=dict)
-# async def login(login_data:LoginModel, db: Session = Depends(get_db)):
-#     user = db.query(models.User).filter(models.User.username == login_data.username).first()
-#     if not user or not bcrypt.checkpw(login_data.password.encode('utf-8'), user.password.encode('utf-8')):
-#         raise HTTPException(status_code=401, detail="Invalid credentials")
-    
-#     # Generate JWT token
-#     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-#     access_token = create_access_token(
-#         data={"sub": user.username},
-#         expires_delta=access_token_expires
-#     )
-    
-#     # Return user information as a dictionary
-#     user_info = {
-#         "id": user.id,
-#         "username": user.username,
-#         "name": user.name,
-#         "mobile": user.mobile,
-#         "email": user.email,
-#         "city": user.city
-#     }
-    
-#     return {"access_token": access_token, "token_type": "bearer", "user": user_info}
-
-
-# # Function to create access token
-# def create_access_token(data: dict, expires_delta: timedelta):
-#     to_encode = data.copy()
-#     expire = datetime.utcnow() + expires_delta
-#     to_encode.update({"exp": expire})
-#     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-#     return encoded_jwt
-
-
-# @app.post("/restaurants/", response_model=ResModel)
-# async def create_restaurant(restaurant: ResBase, db: Session = Depends(get_db)):
-#     # Hash the password
-#     hashed_password = bcrypt.hashpw(restaurant.password.encode('utf-8'), bcrypt.gensalt())
-
-#     # Create the restaurant in the database
-#     db_restaurant = models.Restaurant(
-#         res_name=restaurant.res_name,
-#         mobile=restaurant.mobile,
-#         email=restaurant.email,
-#         city=restaurant.city,
-#         password=hashed_password.decode('utf-8'),
-#         category=restaurant.category,
-#         cusine=restaurant.cusine,
-#         rating=restaurant.rating
-#     )
-#     db.add(db_restaurant)
-#     db.commit()
-#     db.refresh(db_restaurant)
-#     return db_restaurant
-
-# @app.post("/reslogin/", response_model=dict)
-# async def login(login_data:ResLoginModel, db: Session = Depends(get_db)):
-#     # print(login_data)
-#     user = db.query(models.Restaurant).filter(models.Restaurant.res_name == login_data.res_name).first()
-#     if not user or not bcrypt.checkpw(login_data.password.encode('utf-8'), user.password.encode('utf-8')):
-#         raise HTTPException(status_code=401, detail="Invalid credentials")
-    
-#     # Generate JWT token
-#     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-#     access_token = create_access_token(
-#         data={"sub": user.res_name},
-#         expires_delta=access_token_expires
-#     )
-    
-#     # Return user information as a dictionary
-#     user_info = {
-#         "id": user.id,
-#         "res_name": user.res_name,
-#         "mobile": user.mobile,
-#         "email": user.email,
-#         "city": user.city,
-#         "category":user.category,
-#         "cusine":user.cusine,
-#         "rating":user.rating
-#     }
-    
-#     return {"access_token": access_token, "token_type": "bearer", "user": user_info}
-
-#     # Route to retrieve all restaurants
-# @app.get("/restaurants/", response_model=List[ResModel])
-# async def read_restaurants(db: Session = Depends(get_db), skip: int = 0, limit: int = 100):
-#     restaurants = db.query(models.Restaurant).offset(skip).limit(limit).all()
-#     return restaurants
-
-# # Route to retrieve a specific restaurant by ID
-# @app.get("/restaurants/{restaurant_id}", response_model=ResModel)
-# async def read_restaurant(restaurant_id: int, db: Session = Depends(get_db)):
-#     restaurant = db.query(models.Restaurant).filter(models.Restaurant.id == restaurant_id).first()
-#     if not restaurant:
-#         raise HTTPException(status_code=404, detail="Restaurant not found")
-#     return restaurant
-
-# # Route to update restaurant information
-# @app.put("/restaurants/{restaurant_id}", response_model=ResModel)
-# async def update_restaurant(restaurant_id: int, restaurant_data: ResBase, db: Session = Depends(get_db)):
-#     # Get the existing restaurant from the database
-#     restaurant = db.query(models.Restaurant).filter(models.Restaurant.id == restaurant_id).first()
-#     if not restaurant:
-#         raise HTTPException(status_code=404, detail="Restaurant not found")
-    
-#     # Update the restaurant data
-#     for key, value in restaurant_data.dict().items():
-#         setattr(restaurant, key, value)
-#     db.commit()
-#     db.refresh(restaurant)
-#     return restaurant
-
-# # Route to delete a restaurant
-# @app.delete("/restaurants/{restaurant_id}")
-# async def delete_restaurant(restaurant_id: int, db: Session = Depends(get_db)):
-#     # Get the existing restaurant from the database
-#     restaurant = db.query(models.Restaurant).filter(models.Restaurant.id == restaurant_id).first()
-#     if not restaurant:
-#         raise HTTPException(status_code=404, detail="Restaurant not found")
-    
-#     # Delete the restaurant
-#     db.delete(restaurant)
-#     db.commit()
-#     return {"message": "Restaurant deleted successfully"}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 from fastapi import FastAPI, HTTPException, Depends
 from typing import Annotated, List
 from sqlalchemy.orm import Session
@@ -269,7 +7,7 @@ import models
 from fastapi.middleware.cors import CORSMiddleware
 import jwt
 from datetime import datetime, timedelta
-import bcrypt  # Import bcrypt
+import bcrypt  
 from fastapi import File, UploadFile
 from pathlib import Path
 import shutil
@@ -436,8 +174,8 @@ models.Base.metadata.create_all(bind=engine)
 
 
 def send_email(subject, message, to_email):
-    gmail_user = 
-    gmail_password = 
+    gmail_user = 'gativora134@gmail.com'
+    gmail_password = 'owrc gaxr wijb nccg'
 
     try:
         # Connect to Gmail's SMTP server
@@ -568,7 +306,7 @@ async def login(login_data:ResLoginModel, db: Session = Depends(get_db)):
     
     return {"access_token": access_token, "token_type": "bearer", "user": user_info}
 
-    # Route to retrieve all restaurants
+# Route to retrieve all restaurants
 @app.get("/restaurants/", response_model=List[ResModel])
 async def read_restaurants(db: Session = Depends(get_db), skip: int = 0, limit: int = 100):
     restaurants = db.query(models.Restaurant).offset(skip).limit(limit).all()
@@ -794,68 +532,6 @@ async def delete_menu_item(restaurant_id: int, menu_item_id: int, db: Session = 
     return {"message": "Menu item deleted successfully"}
 
 
- 
-
-
-
-# @app.post("/book-table/{restaurant_id}/{user_id}", response_model=Booking)
-# async def book_table(restaurant_id: int, user_id: int, booking: BookingBase, db: Session = Depends(get_db)):
-#     # Check if the user exists
-#     user = db.query(models.User).filter(models.User.id == user_id).first()
-#     if not user:
-#         raise HTTPException(status_code=404, detail="User not found")
-
-#     # Check if the restaurant exists
-#     restaurant = db.query(models.Restaurant).filter(models.Restaurant.id == restaurant_id).first()
-#     if not restaurant:
-#         raise HTTPException(status_code=404, detail="Restaurant not found")
-
-#     # Find available tables with sufficient capacity
-#     suitable_tables = db.query(models.Table).filter(
-#         models.Table.restaurant_id == restaurant_id,
-#         models.Table.status == 'available',
-#         models.Table.capacity >= booking.seats_required
-#     ).order_by(models.Table.capacity).all()
-
-#     if not suitable_tables:
-#         raise HTTPException(status_code=404, detail="No available table found with the required capacity")
-
-#     # Assume we're booking the first suitable table
-#     table_to_book = suitable_tables[0]
-
-#     # Mark the table as booked
-#     table_to_book.status = 'booked'
-#     table_to_book.booked_by = user_id
-#     db.commit()
-
-#     # Create the booking in the database
-#     db_booking = models.Booking(
-#         user_id=user_id,
-#         restaurant_id=restaurant_id,
-#         table_id=table_to_book.id,
-#         date=booking.date,
-#         time=booking.time,
-#         confirmed=booking.confirmed,
-#         seats_required=booking.seats_required
-#     )
-#     db.add(db_booking)
-#     db.commit()
-#     db.refresh(db_booking)
-
-#     return db_booking
-
-# @app.get("/bookings/{user_id}", response_model=List[Booking])
-# async def get_user_bookings(user_id: int, db: Session = Depends(get_db)):
-#     # Check if the user exists
-#     user = db.query(models.User).filter(models.User.id == user_id).first()
-#     if not user:
-#         raise HTTPException(status_code=404, detail="User not found")
-
-#     # Retrieve all bookings associated with the user
-#     user_bookings = db.query(models.Booking).filter(models.Booking.user_id == user_id).all()
-
-#     return user_bookings
-
 
 
 @app.get("/restaurants/city/{city}", response_model=List[ResModel])
@@ -979,3 +655,26 @@ async def update_user(user_id: int, user_data: UserBase, db: Session = Depends(g
     db.commit()
     db.refresh(user)
     return user
+
+@app.delete("/cancel-booking/{booking_id}", response_model=Booking)
+async def cancel_booking(
+    booking_id: int,
+    db: Session = Depends(get_db)
+):
+    # Check if the booking exists
+    booking = db.query(models.Booking).filter(models.Booking.id == booking_id).first()
+    if not booking:
+        raise HTTPException(status_code=404, detail="Booking not found")
+
+    # Retrieve the associated table
+    table = db.query(models.Table).filter(models.Table.id == booking.table_id).first()
+
+    # Mark the table as available
+    table.status = 'available'
+    table.booked_by = None
+
+    # Delete the booking from the database
+    db.delete(booking)
+    db.commit()
+
+    return booking

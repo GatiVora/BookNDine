@@ -6,7 +6,7 @@ import Home from './Home'
 import Tables from './Tables'
 import Menu from './Menu'
 import Booking from './Bookings'
-import backgroundImage from '../../assets/bg1.jpg';
+import backgroundImage from '../../assets/b5.jpg';
 
 function Bookings() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false)

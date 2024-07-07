@@ -66,12 +66,13 @@ export default function Hero() {
       </div>
       <div className="content">
         <div className="title">
-          <h1>Come hungry, leave happy.</h1>
-          <p>{displayText}, just a few clicks away.</p>
+          <h1>Table for tasty times? Reserve now!</h1>
+          <div className="pstyle">{displayText}, just a few clicks away.</div>
         </div>
+
         <div className="search">
           <div className="container">
-            
+
             <input
               type="text"
               id="cityInput"

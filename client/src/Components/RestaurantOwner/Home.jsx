@@ -243,7 +243,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Grid, Typography, Container, CircularProgress } from '@mui/material';
+import { TextField, Button, Grid, Typography, Container, CircularProgress,MenuItem, FormControl, InputLabel, Select } from '@mui/material';
 import api from '../../api';
 import { useAuth2 } from '../ResAuth';
 
@@ -410,14 +410,23 @@ const Home = () => {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField
-                            label="Cuisine"
-                            name="cuisine"
-                            value={restaurantData.cuisine}
-                            onChange={handleInputChange}
-                            fullWidth
-                        />
-                    </Grid>
+            <FormControl fullWidth>
+                <InputLabel id="category-label">Cusine</InputLabel>
+                <Select
+                    labelId="category-label"
+                    id="category"
+                    name="category"
+                    value={restaurantData.category}
+                    onChange={handleInputChange}
+                >
+                    <MenuItem value="category1">Gujarati</MenuItem>
+                    <MenuItem value="category2"> Punjabi</MenuItem>
+                    <MenuItem value="category3"> Italian</MenuItem>
+                    <MenuItem value="category4"> Maharashtrian</MenuItem>
+                    {/* Add more MenuItem components for additional categories */}
+                </Select>
+            </FormControl>
+        </Grid>
                     <Grid item xs={12}>
                         <TextField
                             label="Address"

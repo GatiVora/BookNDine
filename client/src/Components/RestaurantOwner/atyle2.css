@@ -1,0 +1,13 @@
+/* styles.css */
+.custom-button {
+    background-color: rgb(255, 0, 153);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 16px;
+}
+
+.custom-button:hover {
+    background-color: darkblue;
+}

@@ -30,12 +30,12 @@ const Restaurants = () => {
     {
       id: 3,
       checked: false,
-      label: "American",
+      label: "Italian",
     },
     {
       id: 4,
       checked: false,
-      label: "Marathi",
+      label: "Maharashtiran",
     },
   ]);
   const navigate = useNavigate(); // Initialize useNavigate

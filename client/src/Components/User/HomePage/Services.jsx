@@ -22,9 +22,9 @@ export default function Services() {
     },
     {
       icon: service3,
-      title: "Flexible Payment",
+      title: "Book now pay later",
       subTitle:
-        "Enjoy the flexible payment through our app and get rewards on every payment",
+        "Enjoy the flexible payment",
     },
     {
       icon: service4,

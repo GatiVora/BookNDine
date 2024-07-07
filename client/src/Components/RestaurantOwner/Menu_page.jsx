@@ -6,7 +6,7 @@ import Home from './Home'
 import Tables from './Tables'
 import Menu from './Menu'
 import Booking from './Bookings'
-import backgroundImage from '../../assets/bg1.jpg';
+import backgroundImage from '../../assets/b5.jpg';
 
 function Menuu() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
@@ -23,6 +23,7 @@ function Menuu() {
       backgroundPosition: 'center',
       minHeight: '100vh',
       overflowY: 'auto',
+      backgroundColor:'#E6E8EA'
     }}>
       <Header OpenSidebar={OpenSidebar}/>
       <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>

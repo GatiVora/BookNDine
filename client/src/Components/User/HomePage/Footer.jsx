@@ -14,12 +14,6 @@ export default function Footer() {
         <li>
           <a href="/restaurants">Restaurants</a>
         </li>
-        <li>
-          <a href="/about">About</a>
-        </li>
-        <li>
-          <a href="/blog">Blog</a>
-        </li>
       </ul>
       <ul className="social_links">
         <li>

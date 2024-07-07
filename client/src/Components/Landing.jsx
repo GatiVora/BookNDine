@@ -7,7 +7,6 @@ import { AiFillInstagram } from "react-icons/ai";
 import { Rating } from "@mui/material";
 import Navbar from "../Components/User/HomePage/Navbar";
 import { useAuth } from './Auth';
-
 import bg from "../assets/menu/im1.jpg";
 import bg2 from "../assets/menu/im2.jpg";
 import bg3 from "../assets/menu/img3.jpeg";
@@ -15,6 +14,9 @@ import bg4 from "../assets/menu/im4.jpg";
 import bg5 from "../assets/menu/im5.jfif";
 import bg6 from "../assets/menu/im6.webp";
 import bg7 from "../assets/menu/im7.jpg";
+import t2 from "../assets/menu/t2.jpeg";
+import t4 from "../assets/menu/t4.jpeg";
+import t6 from "../assets/menu/t6.jpeg";
 // import im1 from "../../../images/";
 
 const Landing = (props) => {
@@ -23,7 +25,7 @@ const Landing = (props) => {
   const [menu, setMenu] = useState([]);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
   const [loading, setLoading] = useState(true);
-
+  const [imageSrc, setImageSrc] = useState(t2);
   const { user } = useAuth();
   const auth = useAuth();
 
@@ -74,6 +76,24 @@ const Landing = (props) => {
       ...prevState,
       [name]: name === 'confirmed' ? checkboxValue : inputValue
     }));
+    let imageSrc;
+    switch (value) {
+      case "2":
+        imageSrc = t2; // Set image source for 2 seats
+        break;
+      case "4":
+        imageSrc = t4; // Set image source for 4 seats
+        break;
+      case "6":
+        imageSrc = t6; // Set image source for 6 seats
+        break;
+      default:
+        imageSrc = t2; // Default image source
+    }
+
+    // Update the state with the new image source
+    setImageSrc(imageSrc);
+
   };
 
 
@@ -140,11 +160,11 @@ const Landing = (props) => {
 
   return (
     <>
-    
+
       <Navbar />
       {/* <img src="../../../images/resimg3.jpg" /> */}
       <div>
-        <p className='title'>{restaurant.res_name}</p>
+        <p className='title2'>{restaurant.res_name}</p>
         {/* <img src="../../../images/resimg2.jpeg" className='img' alt="Restaurant" /> */}
         <img src={"http://127.0.0.1:8000/restaurants/" + id + "/image"} alt="item" className='resimgg' style={{ width: '1500px', height: '750px', paddingLeft: '25px', paddingRight: '25px' }} />
         <button className="image-button" onClick={scrollToBookForm}>Book Now</button>
@@ -152,7 +172,7 @@ const Landing = (props) => {
           <div className='content'>
             <div className='heading'>Welcome to {restaurant.res_name}</div>
             <div className='description'>{restaurant.about}</div>
-            <div className="heading">Image Gallery</div>
+            {/* <div className="heading">Image Gallery</div> */}
           </div>
           <div className='content'>
             <div className='box'>
@@ -172,14 +192,14 @@ const Landing = (props) => {
             </div>
           </div>
         </div>
-        <div className="image-gallery" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', justifyContent: 'center' }}>
+        {/* <div className="image-gallery" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', justifyContent: 'center' }}>
           {galleryImages.map((image, index) => (
             <div key={index} style={{ width: '200px', height: '200px', border: '2px solid #fff', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', overflow: 'hidden', borderRadius: '8px' }}>
               <img src={image} alt={`Photo ${index}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           ))}
           <p>{currentPhotoIndex + 1}/{galleryImages.length}</p>
-        </div>
+        </div> */}
 
         <div className="menu">
           <div className='heading'>Menu</div>
@@ -219,32 +239,14 @@ const Landing = (props) => {
         </div>
 
 
-        {/* <div className="book-now"></div> */}
-        {/* <div className="book-now">
-          <h2>Book a Table</h2>
-          <form onSubmit={handleSubmit}>
-            <input type="date" name="date" value={bookingForm.date} onChange={handleInputChange} required />
-            <input type="time" name="time" value={bookingForm.time} onChange={handleInputChange} required />
-            <input type="number" name="seats_required" placeholder="Seats Required" min="1" value={bookingForm.seats_required} onChange={handleInputChange} required />
-            <label>
-              <input type="checkbox" name="confirmed" checked={bookingForm.confirmed} onChange={handleInputChange} />
-              Confirm Booking
-            </label>
-            <button type="submit">Book Table</button>
-          </form>
-        </div>
-        
-        
-        */}
-
-
-        {/* <div className="book-now" id="book-now" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <h2 className="heading" style={{ textAlign: 'center' }}>Book a Table</h2>
-          <form onSubmit={handleSubmit} className="booking-form" >
+        <div className="book-now" id="book-now" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <h2 className="heading" style={{ textAlign: 'center' , fontWeight:'bold'}}>Book Table</h2>
+          <form onSubmit={handleSubmit} className="booking-form">
             <div className='dt'>
               <div className="form-group1">
                 <label htmlFor="date">Date:</label>
-                <input type="date" id="date" name="date" value={bookingForm.date} onChange={handleInputChange} required />
+                {/* Set the min attribute to today's date */}
+                <input type="date" id="date" name="date" value={bookingForm.date} onChange={handleInputChange} required min={today} />
               </div>
               <div className="form-group1">
                 <label htmlFor="time">Time:</label>
@@ -267,62 +269,20 @@ const Landing = (props) => {
                   <option value="6">6</option>
                 </select>
               </div>
+            </div>
+            <div className="image-container">
+            <img src={imageSrc} alt={`${bookingForm.seats_required} Seats`} />
 
             </div>
             <div className="form-group" style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
               <label htmlFor="confirmed" style={{ whiteSpace: 'nowrap' }}>Confirm Booking</label>
               <input type="checkbox" id="confirmed" name="confirmed" style={{ marginBottom: '0' }} />
             </div>
-
             <div className="btn-container">
               <button type="submit" className="btn">Book Table</button>
             </div>
-
-
           </form>
-
-        </div> */}
-
-<div className="book-now" id="book-now" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <h2 className="heading" style={{ textAlign: 'center' }}>Book a Table</h2>
-        <form onSubmit={handleSubmit} className="booking-form">
-          <div className='dt'>
-            <div className="form-group1">
-              <label htmlFor="date">Date:</label>
-              {/* Set the min attribute to today's date */}
-              <input type="date" id="date" name="date" value={bookingForm.date} onChange={handleInputChange} required min={today} />
-            </div>
-            <div className="form-group1">
-              <label htmlFor="time">Time:</label>
-              <input type="time" id="time" name="time" value={bookingForm.time} onChange={handleInputChange} required />
-            </div>
-          </div>
-          <div className='si'>
-            <div className="form-group">
-              <label htmlFor="seats_required">Seats Required:</label>
-              <select
-                id="seats_required"
-                name="seats_required"
-                value={bookingForm.seats_required}
-                onChange={handleInputChange}
-                className='label1'
-                required
-              >
-                <option value="2">2</option>
-                <option value="4">4</option>
-                <option value="6">6</option>
-              </select>
-            </div>
-          </div>
-          <div className="form-group" style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-            <label htmlFor="confirmed" style={{ whiteSpace: 'nowrap' }}>Confirm Booking</label>
-            <input type="checkbox" id="confirmed" name="confirmed" style={{ marginBottom: '0' }} />
-          </div>
-          <div className="btn-container">
-            <button type="submit" className="btn">Book Table</button>
-          </div>
-        </form>
-      </div>
+        </div>
 
       </div>
       <br />

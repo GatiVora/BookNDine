@@ -140,11 +140,12 @@ code {
 .title {
   padding-top: 0rem;
   font-family: 'Pacifico', cursive;
-  font-size: 10vh;
+  /* font-size: 10vh; */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
   animation: slideIn 1s ease-in-out forwards;
   text-align: center; /* Apply animation named 'slideIn' with a duration of 1 second */
 }
+
 @keyframes slideIn {
   from {
     transform: translateX(100%);
@@ -153,6 +154,19 @@ code {
     transform: translateX(0%);
   }
 }
+.pstyle {
+  font-size: 3vh;
+  display: inline; /* Optionally, ensure the div behaves like an inline element */
+}
+
+.title2 {
+  font-family: "Reddit Sans", sans-serif;
+  font-size: 10vh;
+  font-weight: 600;
+  text-align: center;
+  color: #000000;
+}
+
 
 .description {
   padding-top: 1rem;
@@ -367,6 +381,7 @@ code {
   height : auto;
   padding-right: 2rem;
   padding-bottom: 30px;
+  
 }
 
 
@@ -491,6 +506,7 @@ code {
   border: 1px solid #ccc;
   border-radius: 5px;
   padding-bottom: 50px;
+  background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
 }
 
 .form-group {
@@ -577,4 +593,14 @@ input[type="checkbox"] {
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
+}
+
+.image-container {
+  width: 100%;
+  text-align: center;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
 }

@@ -31,12 +31,12 @@ export default function Navb() {
         <li className={location.pathname === "/restaurants" ? "active" : ""}>
           <Link to="/restaurants">Restaurants</Link>
         </li>
-        <li className={location.pathname === "/about" ? "active" : ""}>
+        {/* <li className={location.pathname === "/about" ? "active" : ""}>
           <Link to="/about">About</Link>
         </li>
         <li className={location.pathname === "/blog" ? "active" : ""}>
           <Link to="/blog">Blog</Link>
-        </li>
+        </li> */}
       </ul>
 
       <div></div>

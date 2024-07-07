@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Grid, Typography, Container, CircularProgress, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
+import { TextField, Button, Grid, Typography, Container, CircularProgress, MenuItem, Select, FormControl, InputLabel,    Card, 
+    CardContent, 
+    CardActions,
+  
+ } from '@mui/material';
 import api from '../../api';
 import { useAuth2 } from '../ResAuth';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 const Menu = () => {
     const [menuItems, setMenuItems] = useState([]);
@@ -68,18 +74,7 @@ const Menu = () => {
                 <CircularProgress />
             ) : (
                 <>
-                    <Grid container spacing={2}>
-                        {menuItems.map(item => (
-                            <Grid item xs={12} key={item.id}>
-                                <Typography variant="subtitle1">Item ID: {item.id}</Typography>
-                                <Typography variant="body1">Name: {item.name}</Typography>
-                                <Typography variant="body1">Description: {item.description}</Typography>
-                                <Typography variant="body1">Price: {item.price}</Typography>
-                                <Typography variant="body1">Category: {item.category}</Typography>
-                                <Button variant="outlined" color="secondary" onClick={() => handleDeleteMenuItem(item.id)}>Delete</Button>
-                            </Grid>
-                        ))}
-                    </Grid>
+                    
                     <Typography variant="h6" gutterBottom>Add New Menu Item</Typography>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
@@ -110,13 +105,20 @@ const Menu = () => {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField
-                                label="Category"
-                                name="category"
-                                value={newMenuItem.category}
-                                onChange={handleNewMenuItemChange}
-                                fullWidth
-                            />
+                            <FormControl fullWidth>
+                                <InputLabel>Category</InputLabel>
+                                <Select
+                                    value={newMenuItem.category}
+                                    onChange={handleNewMenuItemChange}
+                                    name="category"
+                                >
+                                    <MenuItem value="Appetizers">Appetizers</MenuItem>
+                                    <MenuItem value="Main Course">Main Course</MenuItem>
+                                    <MenuItem value="Desserts">Desserts</MenuItem>
+                                    <MenuItem value="Beverages">Soups</MenuItem>
+                                    {/* Add more categories as needed */}
+                                </Select>
+                            </FormControl>
                         </Grid>
                     </Grid>
                     <br/>
@@ -128,6 +130,34 @@ const Menu = () => {
                     >
                         {creatingMenuItem ? <CircularProgress size={24} /> : 'Create Menu Item'}
                     </Button>
+                    <br/>
+                    <br/>
+                    <Grid container spacing={2}>
+                        {menuItems.map(item => (
+                            <Grid item xs={12} sm={6} md={10} key={item.id}>
+                            <Card variant="outlined">
+                                <CardContent>
+                                    <Typography variant="subtitle1">Item ID: {item.id}</Typography>
+                                    <Typography variant="body1">Name: {item.name}</Typography>
+                                    <Typography variant="body1">Description: {item.description}</Typography>
+                                    <Typography variant="body1">Price: {item.price}</Typography>
+                                    <Typography variant="body1">Category: {item.category}</Typography>
+                                </CardContent>
+                                <CardActions>
+                                    <Button
+                                        size="small"
+                                        style={{ color: 'white', backgroundColor: 'grey' }}
+                                        onClick={() => handleDeleteMenuItem(item.id)}
+                                        startIcon={<DeleteIcon />}
+                                    >
+                                        Delete
+                                    </Button>
+                                </CardActions>
+                            </Card>
+                        </Grid>
+                        
+                        ))}
+                    </Grid>
                 </>
             )}
         </Container>
